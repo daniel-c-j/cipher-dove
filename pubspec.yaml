@@ -82,16 +82,13 @@ dependencies:
   # Prevent user to close the app when tapping back button.
   double_back_to_close_app: ^2.1.0
 
-  # To render svg
-  flutter_svg: ^2.0.17
-
   # App theme font customization.
   google_fonts: ^6.2.1
 
   # Decorations
   cupertino_icons: ^1.0.8
   icons_plus: ^5.0.0
-  blurrycontainer: ^2.1.0
+  toggle_switch: ^2.3.0
 #
 # ======================================================================================================
 #

@@ -31,9 +31,7 @@ class NetworkErrorHandlerService {
       // Checks for status code.
       final code = response.statusCode;
       for (AppException failure in NET_RESPONSE_ERROR) {
-        if (failure.code == code) {
-          return failure;
-        }
+        if (failure.code == code) return failure;
       }
 
       // Status code not found, then return formatted raw message. Should be logged.

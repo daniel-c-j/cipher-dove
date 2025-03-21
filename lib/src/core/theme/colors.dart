@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import '../../util/context_shortcut.dart';
 
 // Light theme
-const Color PRIMARY_COLOR_L0 = Color(0xFF157bdf); // Denim
-const Color PRIMARY_COLOR_L1 = Color(0xFF3d91e3); // Picton Blue
-const Color PRIMARY_COLOR_L2 = Color(0xFF46aaff); // Dodger Blue
+const Color PRIMARY_COLOR_L0 = Color.fromARGB(255, 90, 215, 10);
+const Color PRIMARY_COLOR_L1 = Color.fromARGB(255, 110, 235, 30);
+const Color PRIMARY_COLOR_L2 = Color.fromARGB(255, 135, 240, 70);
 const Color SURFACE_COLOR_L0 = Color(0xFFFFFFFF); // White
 const Color SURFACE_COLOR_L1 = Color(0xFF333333); // Dark grey
 const Color SURFACE_DIM_COLOR_L = Color.fromARGB(255, 240, 240, 240); // Mercury
 const Color TEXT_COLOR_L = Color(0xFF333333); // Dark grey
 
 // Dark theme
-const Color PRIMARY_COLOR_D0 = Color(0xFF1a5fa3); // Fun Blue
-const Color PRIMARY_COLOR_D1 = Color(0xFF235385); // Bay of Many
-const Color PRIMARY_COLOR_D2 = Color(0xFF15467a); // Chathams Blue
+const Color PRIMARY_COLOR_D0 = Color.fromARGB(255, 90, 195, 20);
+const Color PRIMARY_COLOR_D1 = Color.fromARGB(255, 80, 165, 35);
+const Color PRIMARY_COLOR_D2 = Color.fromARGB(255, 70, 125, 40);
 const Color SURFACE_COLOR_D0 = Color(0xFF3f3f3f); // Mine Shaft
 const Color SURFACE_COLOR_D1 = Color(0xFFFFFFFF); // White
 const Color SURFACE_DIM_COLOR_D = Color(0xFF5b5b5b); // Scorpion

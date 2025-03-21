@@ -11,6 +11,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import '../../app.dart';
 import '../../constants/_constants.dart';
 import '../../exceptions/error_logger.dart';
+import '../../util/context_shortcut.dart';
 import '../_core.dart';
 
 /// Helper class to initialize services and configure the error handlers.

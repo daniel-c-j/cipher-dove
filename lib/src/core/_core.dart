@@ -9,7 +9,6 @@ export 'network/http_override.dart';
 export 'theme/brightness_mode_notifier.dart';
 export 'theme/colors.dart';
 export 'theme/font_sizes.dart';
-export '../util/context_shortcut.dart';
 export 'theme/theme_data_provider.dart';
 export 'translate/translate_service.dart';
 export 'translate/data/languages.dart';
