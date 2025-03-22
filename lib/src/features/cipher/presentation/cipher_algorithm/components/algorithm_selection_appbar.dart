@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../constants/_constants.dart';
+import '../../../../../core/_core.dart';
 import '../../../../../util/context_shortcut.dart';
 
 class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -12,7 +13,8 @@ class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeW
     return AppBar(
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
-      backgroundColor: kColor(context).surfaceDim,
+      // forceMaterialTransparency: true,
+      backgroundColor: kColor(context).surface,
       actions: [
         Flexible(
           child: Row(
@@ -23,22 +25,13 @@ class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeW
                 },
                 icon: const Icon(Icons.arrow_back),
               ),
-              Flexible(
-                child: TextFormField(
-                  style: kTextStyle(context).bodySmall,
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(gapPadding: 0),
-                    hintText: "Search here",
-                    hintStyle: kTextStyle(context).bodySmall,
-                    contentPadding: const EdgeInsets.only(top: 8, bottom: 8, right: 12, left: 12),
-                    isDense: true,
-                    suffixIcon: Icon(
-                      Icons.public,
-                      size: 20,
+              GAP_W4,
+              Text(
+                "Algorithm Selection",
+                style: kTextStyle(context).titleMedium?.copyWith(
+                      color: PRIMARY_COLOR_L0,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
               ),
               GAP_W12,
             ],

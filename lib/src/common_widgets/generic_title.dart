@@ -11,11 +11,13 @@ class GenericTitle extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.titleColor,
     this.iconColor,
+    this.iconSize = 16,
   });
 
   final String title;
   final Color? titleColor;
   final Color? iconColor;
+  final double iconSize;
   final IconData? icon;
   final MainAxisAlignment mainAxisAlignment;
 
@@ -24,7 +26,7 @@ class GenericTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: mainAxisAlignment,
       children: [
-        if (icon != null) Icon(icon, size: 16, color: iconColor),
+        if (icon != null) Icon(icon, size: iconSize, color: iconColor),
         GAP_W8,
         Text(
           title,

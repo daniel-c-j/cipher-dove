@@ -1,4 +1,12 @@
 import 'package:cipher_dove/src/features/cipher/domain/cipher_algorithm.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_algorithm/components/algorithm_tag.dart';
+import 'package:flutter/material.dart';
+
+const List<AlgorithmTag> kAlgorithmTags = [
+  AlgorithmTag(tag: "Symmetric Encryption", icon: Icons.arrow_forward_outlined),
+  AlgorithmTag(tag: "Asymmetric Encryption", icon: Icons.swap_horiz_rounded),
+  AlgorithmTag(tag: "Hash", icon: Icons.tag_rounded),
+];
 
 const List<AlgorithmDetail> kAlgorithms = [
   AlgorithmDetail(
