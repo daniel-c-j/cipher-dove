@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../util/context_shortcut.dart';
 
 class HomeTextfield extends StatelessWidget {
-  const HomeTextfield({super.key, this.hintText, required this.maxLines});
+  const HomeTextfield({super.key, this.hintText, required this.maxLines, required this.readOnly});
 
   final String? hintText;
+  final bool readOnly;
   final int maxLines;
 
   @override
@@ -13,6 +14,8 @@ class HomeTextfield extends StatelessWidget {
     return TextFormField(
       style: kTextStyle(context).bodySmall,
       maxLines: maxLines,
+      keyboardType: (maxLines > 1) ? TextInputType.multiline : null,
+      readOnly: readOnly,
       decoration: InputDecoration(
         border: const OutlineInputBorder(gapPadding: 0),
         hintText: hintText,

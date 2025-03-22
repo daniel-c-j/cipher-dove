@@ -1,7 +1,9 @@
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_action/cipher_action_switch.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_algorithm/algorithm_selected.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/process_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/home_appbar.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/home_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../common_widgets/generic_title.dart';
 import '../../../constants/_constants.dart';
@@ -21,29 +23,22 @@ class HomeScreen extends StatelessWidget {
             GAP_H8,
             const GenericTitle(icon: Icons.input_outlined, title: "Input"),
             GAP_H8,
-            const HomeTextfield(hintText: "Type here...", maxLines: 5),
-            GAP_H24,
-            ToggleSwitch(
-              initialLabelIndex: 0,
-              cornerRadius: 20.0,
-              activeFgColor: Colors.white,
-              inactiveBgColor: Colors.grey,
-              inactiveFgColor: Colors.white,
-              totalSwitches: 2,
-              activeBgColors: [
-                [Colors.black45, Colors.black26],
-                [Colors.yellow, Colors.orange]
+            const HomeTextfield(hintText: "Type here...", maxLines: 5, readOnly: false),
+            GAP_H32,
+            const CipherActionSwitch(),
+            GAP_H8,
+            const Row(
+              children: [
+                AlgorithmSelected(),
+                Spacer(),
+                ProcessButton(),
               ],
-              animate: true,
-              curve: Curves.bounceInOut,
-              onToggle: (index) {
-                print('switched to: $index');
-              },
             ),
-            GAP_H24,
+            GAP_H32,
             const GenericTitle(icon: Icons.output_outlined, title: "Output"),
             GAP_H8,
-            const HomeTextfield(hintText: "Result here", maxLines: 5),
+            const HomeTextfield(hintText: "Result here", maxLines: 5, readOnly: true),
+            GAP_H8,
           ],
         ),
       ),

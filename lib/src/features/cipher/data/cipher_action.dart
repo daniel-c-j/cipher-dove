@@ -1,0 +1,4 @@
+enum CipherAction {
+  encrypt,
+  decrypt,
+}

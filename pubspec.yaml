@@ -1,5 +1,5 @@
 name: cipher_dove
-description: "An open-source, offline, no-ads, encryption and decryption tool."
+description: "An open-source, offline, zero-ads, encryption and decryption tool."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.1.0+1
 
@@ -89,6 +89,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   icons_plus: ^5.0.0
   toggle_switch: ^2.3.0
+  cryptography_plus: ^2.7.1
 #
 # ======================================================================================================
 #

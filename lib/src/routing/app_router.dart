@@ -1,3 +1,4 @@
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_algorithm/algorithm_selection_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ part 'app_router.g.dart';
 
 enum AppRoute {
   home,
+  algorithmSelection,
   about,
 }
 
@@ -30,13 +32,20 @@ GoRouter goRouter(Ref ref) {
         path: '/',
         name: AppRoute.home.name,
         builder: (context, state) {
-          // Placeholder
           return const HudOverlay(child: HomeScreen());
         },
         routes: [],
       ),
       GoRoute(
-        path: '/about',
+        path: '/${AppRoute.algorithmSelection}',
+        name: AppRoute.algorithmSelection.name,
+        builder: (context, state) {
+          return const HudOverlay(child: AlgorithmSelectionScreen());
+        },
+        routes: [],
+      ),
+      GoRoute(
+        path: '/${AppRoute.about}',
         name: AppRoute.about.name,
         pageBuilder: (context, state) {
           return MaterialPage(
