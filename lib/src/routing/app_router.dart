@@ -37,7 +37,7 @@ GoRouter goRouter(Ref ref) {
         routes: [],
       ),
       GoRoute(
-        path: '/${AppRoute.algorithmSelection}',
+        path: '/${AppRoute.algorithmSelection.name}',
         name: AppRoute.algorithmSelection.name,
         builder: (context, state) {
           return const HudOverlay(child: AlgorithmSelectionScreen());
@@ -45,7 +45,7 @@ GoRouter goRouter(Ref ref) {
         routes: [],
       ),
       GoRoute(
-        path: '/${AppRoute.about}',
+        path: '/${AppRoute.about.name}',
         name: AppRoute.about.name,
         pageBuilder: (context, state) {
           return MaterialPage(

@@ -13,8 +13,6 @@ class ProcessButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
       onTap: () {},
-      // isOutlined: true,
-      // borderWidth: 1,
       buttonColor: PRIMARY_COLOR_D0,
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

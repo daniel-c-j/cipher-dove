@@ -16,6 +16,7 @@ class HomeTextfield extends StatelessWidget {
       maxLines: maxLines,
       keyboardType: (maxLines > 1) ? TextInputType.multiline : null,
       readOnly: readOnly,
+      autofocus: false,
       decoration: InputDecoration(
         border: const OutlineInputBorder(gapPadding: 0),
         hintText: hintText,
