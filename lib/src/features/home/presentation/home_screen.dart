@@ -1,5 +1,5 @@
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_action/cipher_action_switch.dart';
-import 'package:cipher_dove/src/features/cipher/presentation/cipher_algorithm/algorithm_selected.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_algorithm/components/algorithm_selected.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/process_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/clear_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/home_appbar.dart';

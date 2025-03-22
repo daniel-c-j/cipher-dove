@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cipher_dove/src/features/cipher/data/cipher_action.dart';
-import 'package:cipher_dove/src/features/cipher/data/cipher_algorithm.dart';
+import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
+import 'package:cipher_dove/src/features/cipher/domain/cipher_algorithm.dart';
 
 class CipherMode {
   const CipherMode({required this.action, required this.algorithm});

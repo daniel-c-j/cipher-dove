@@ -1,7 +1,7 @@
-import 'package:cipher_dove/src/features/cipher/data/cipher_action.dart';
+import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../data/cipher_algorithm.dart';
+import '../domain/cipher_algorithm.dart';
 import '../domain/cipher_mode.dart';
 
 part 'cipher_mode_state.g.dart';

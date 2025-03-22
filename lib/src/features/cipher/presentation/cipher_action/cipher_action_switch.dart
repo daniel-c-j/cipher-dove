@@ -1,4 +1,4 @@
-import 'package:cipher_dove/src/features/cipher/data/cipher_action.dart';
+import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +19,7 @@ class CipherActionSwitch extends ConsumerWidget {
 
     return ToggleSwitch(
       initialLabelIndex: cipherAction.index,
-      activeBorders: [Border.all(color: PRIMARY_COLOR_L0)],
+      activeBorders: [Border.all(color: PRIMARY_COLOR_L0), Border.all(color: PRIMARY_COLOR_L0)],
       inactiveBgColor: kColor(context).surfaceDim,
       minHeight: 30,
       totalSwitches: 2,
