@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../common_widgets/custom_button.dart';
-import '../../../../../constants/_constants.dart';
-import '../../../../../util/context_shortcut.dart';
-import '../../cipher_mode_state.dart';
+import '../../../../common_widgets/custom_button.dart';
+import '../../../../constants/_constants.dart';
+import '../../../../util/context_shortcut.dart';
+import '../cipher_mode_state.dart';
 
 class AlgorithmSelected extends ConsumerWidget {
   const AlgorithmSelected({super.key});

@@ -2,9 +2,9 @@ import 'package:cipher_dove/src/core/_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common_widgets/custom_button.dart';
-import '../../../constants/_constants.dart';
-import '../../../util/context_shortcut.dart';
+import '../../../../common_widgets/custom_button.dart';
+import '../../../../constants/_constants.dart';
+import '../../../../util/context_shortcut.dart';
 
 class ProcessButton extends ConsumerWidget {
   const ProcessButton({super.key});

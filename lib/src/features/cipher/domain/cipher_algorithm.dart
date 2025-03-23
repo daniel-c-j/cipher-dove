@@ -1,52 +1,109 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class AlgorithmDetail {
-  const AlgorithmDetail(
-      {required this.name, required this.detail, required this.algorithm, required this.type});
+import 'package:flutter/material.dart';
 
-  final String name;
-  final String detail;
-  final CipherAlgorithm algorithm;
-  final CipherAlgorithmType type;
+enum CipherAlgorithmType {
+  symmetric(
+    tag: "Symmetric Encryption",
+    icon: Icons.arrow_forward_outlined,
+  ),
+  asymmetric(
+    tag: "Asymmetric Encryption",
+    icon: Icons.swap_horiz_rounded,
+  ),
+  hash(
+    tag: "Hash",
+    icon: Icons.tag_rounded,
+  );
 
-  @override
-  bool operator ==(covariant AlgorithmDetail other) {
-    if (identical(this, other)) return true;
+  const CipherAlgorithmType({required this.tag, required this.icon});
 
-    return other.name == name && other.algorithm == algorithm && other.type == type;
-  }
-
-  @override
-  int get hashCode => name.hashCode ^ algorithm.hashCode ^ type.hashCode;
+  final String tag;
+  final IconData icon;
 }
 
 enum CipherAlgorithm {
   // * symmetric
-  des,
-  tripleDes,
-  blowfish,
-  twofish,
-  aes,
-  chacha20,
-  serpent,
+  blowfish(
+    name: "Blowfish",
+    detail: "A symmetric-key block cipher designed to be fast and secure.",
+    type: CipherAlgorithmType.symmetric,
+  ),
+  aes(
+    name: "AES",
+    detail: "Advanced Encryption Standard, a symmetric encryption algorithm.",
+    type: CipherAlgorithmType.symmetric,
+  ),
+  chacha20(
+    name: "ChaCha20",
+    detail: "A stream cipher designed for high performance and security.",
+    type: CipherAlgorithmType.symmetric,
+  ),
 
   // * asymmetric
-  rsa,
-  dsa,
-  ecc,
+  rsa(
+    name: "RSA",
+    detail: "Rivest-Shamir-Adleman, an asymmetric encryption algorithm.",
+    type: CipherAlgorithmType.asymmetric,
+  ),
+  dsa(
+    name: "DSA",
+    detail: "Digital Signature Algorithm, used for digital signatures.",
+    type: CipherAlgorithmType.asymmetric,
+  ),
+  ecc(
+    name: "ECC",
+    detail: "Elliptic Curve Cryptography, an asymmetric encryption algorithm.",
+    type: CipherAlgorithmType.asymmetric,
+  ),
 
   // * hash
-  md5,
-  sha1,
-  sha2,
-  sha3,
-  ripeMd160,
-  whirlPool,
-  blake2,
-  argon2,
-}
+  md5(
+    name: "MD5",
+    detail: "A widely used hash function producing a 128-bit hash value.",
+    type: CipherAlgorithmType.hash,
+  ),
+  sha1(
+    name: "SHA-1",
+    detail: "A cryptographic hash function that produces a 160-bit hash value.",
+    type: CipherAlgorithmType.hash,
+  ),
+  sha2(
+    name: "SHA-2",
+    detail: "A family of cryptographic hash functions, including SHA-256 and SHA-512.",
+    type: CipherAlgorithmType.hash,
+  ),
+  sha3(
+    name: "SHA-3",
+    detail: "The latest member of the Secure Hash Algorithm family.",
+    type: CipherAlgorithmType.hash,
+  ),
+  ripeMd160(
+    name: "RIPEMD-160",
+    detail: "A cryptographic hash function designed for high security.",
+    type: CipherAlgorithmType.hash,
+  ),
+  whirlPool(
+    name: "Whirlpool",
+    detail: "A cryptographic hash function that produces a 512-bit hash value.",
+    type: CipherAlgorithmType.hash,
+  ),
+  blake2(
+    name: "BLAKE2",
+    detail: "A cryptographic hash function faster than MD5, SHA-1, and SHA-2.",
+    type: CipherAlgorithmType.hash,
+  ),
+  argon2(
+    name: "Argon2",
+    detail: "A password-hashing function that won the Password Hashing Competition.",
+    type: CipherAlgorithmType.hash,
+  );
 
-enum CipherAlgorithmType {
-  symmetric,
-  asymmetric,
-  hash,
+  const CipherAlgorithm({required this.name, required this.detail, required this.type});
+
+  final String name;
+  final String detail;
+  final CipherAlgorithmType type;
+
+  static List<CipherAlgorithm> get(CipherAlgorithmType type) {
+    return CipherAlgorithm.values.where((CipherAlgorithm alg) => alg.type == type).toList();
+  }
 }

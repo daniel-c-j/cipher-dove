@@ -1,4 +1,4 @@
-import 'package:cipher_dove/src/features/cipher/presentation/cipher_algorithm/algorithm_selection_screen.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/algorithm_selection_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +14,13 @@ part 'app_router.g.dart';
 enum AppRoute {
   home,
   algorithmSelection,
-  about,
+  about;
+
+  const AppRoute();
+}
+
+extension AppRouteExtension on AppRoute {
+  String get path => "/$name";
 }
 
 @Riverpod(keepAlive: true)
@@ -37,7 +43,7 @@ GoRouter goRouter(Ref ref) {
         routes: [],
       ),
       GoRoute(
-        path: '/${AppRoute.algorithmSelection.name}',
+        path: AppRoute.algorithmSelection.path,
         name: AppRoute.algorithmSelection.name,
         builder: (context, state) {
           return const HudOverlay(child: AlgorithmSelectionScreen());
@@ -45,7 +51,7 @@ GoRouter goRouter(Ref ref) {
         routes: [],
       ),
       GoRoute(
-        path: '/${AppRoute.about.name}',
+        path: AppRoute.about.path,
         name: AppRoute.about.name,
         pageBuilder: (context, state) {
           return MaterialPage(

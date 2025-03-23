@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Algorithm methods.
+
+## [0.3.0] - 2025-03-22
+
+### Added
+
 - Algorithm Selection screen design.
 
 ## [0.2.0] - 2025-03-22

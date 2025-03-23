@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../constants/_constants.dart';
-import '../../../../../core/_core.dart';
-import '../../../../../util/context_shortcut.dart';
+import '../../../../constants/_constants.dart';
+import '../../../../core/_core.dart';
+import '../../../../util/context_shortcut.dart';
 
 class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AlgorithmSelectionAppBar({super.key});
@@ -13,7 +13,6 @@ class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeW
     return AppBar(
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
-      // forceMaterialTransparency: true,
       backgroundColor: kColor(context).surface,
       actions: [
         Flexible(

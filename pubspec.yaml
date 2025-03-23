@@ -1,7 +1,7 @@
 name: cipher_dove
 description: "An open-source, offline, zero-ads, basic encryption and decryption tool."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 0.2.0+1
+version: 0.3.0+1
 
 #
 # ======================================================================================================
@@ -53,6 +53,7 @@ dependencies:
   cryptography_flutter_plus: ^2.3.2
   encrypt: ^5.0.3
   crypto: ^3.0.6
+  dart_pg: ^2.0.0
 
   # Time utility.
   intl: ^0.20.2
