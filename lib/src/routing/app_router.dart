@@ -49,6 +49,12 @@ GoRouter goRouter(Ref ref) {
           return const HudOverlay(child: AlgorithmSelectionScreen());
         },
         routes: [],
+        onExit: (context, state) {
+          // Prevent keyboard suddenly opens when going back to home screen after
+          // once focused on one of the textfields.
+          FocusScope.of(context).unfocus();
+          return true;
+        },
       ),
       GoRoute(
         path: AppRoute.about.path,
