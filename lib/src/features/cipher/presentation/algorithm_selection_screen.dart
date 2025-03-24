@@ -1,13 +1,11 @@
 import 'package:cipher_dove/src/features/cipher/domain/cipher_algorithm.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_list_tile.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selection_appbar.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../constants/_constants.dart';
-import '../../../core/_core.dart';
 import '../../../util/context_shortcut.dart';
 import 'components/algorithm_tag.dart';
 
@@ -48,33 +46,9 @@ class AlgorithmSelectionScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final currentAlgorithm = content[index];
 
-                            return Column(
-                              children: [
-                                GAP_H2,
-                                ListTile(
-                                  title: Text(
-                                    currentAlgorithm.name,
-                                    style: kTextStyle(context).titleSmall?.copyWith(
-                                          color: PRIMARY_COLOR_L0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  selected: cipherMode.algorithm == currentAlgorithm,
-                                  selectedTileColor: (cipherMode.algorithm == currentAlgorithm)
-                                      ? PRIMARY_COLOR_D0.withAlpha(50)
-                                      : null,
-                                  subtitle: Text(currentAlgorithm.detail),
-                                  leading: Icon(currentAlgType.icon),
-                                  tileColor: kColor(context).surfaceDim,
-                                  dense: true,
-                                  onTap: () {
-                                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                                      ref.read(cipherModeStateProvider.notifier).mode =
-                                          cipherMode.copyWith(algorithm: currentAlgorithm);
-                                    });
-                                  },
-                                ),
-                              ],
+                            return AlgorithmListTile(
+                              currentAlgorithm: currentAlgorithm,
+                              currentAlgType: currentAlgType,
                             );
                           },
                         ),

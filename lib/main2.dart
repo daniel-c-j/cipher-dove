@@ -1,59 +1,61 @@
-import 'dart:typed_data';
+import 'dart:convert';
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:crypto/crypto.dart';
 import 'package:cryptography_plus/cryptography_plus.dart';
-import 'package:dart_pg/dart_pg.dart';
-import 'package:encrypt/encrypt.dart';
 
 void main() async {
   const input = "Hello Im Emu Otori";
   const sKey = "SuperSecretKeThatShouldBe32Bytes";
 
-  // final crypt = Cryptography.defaultInstance;
-  // final aes = crypt.aesCbc(macAlgorithm: MacAlgorithm.empty);
+  // print(sha2.convert(utf8.encode(input)).toString());
+
+  final crypt = Cryptography.defaultInstance;
+
+  // final aes = await crypt.rsaPss(Sha1(), nonceLengthInBytes: 12);
 
   // final encrypted = await aes.encrypt(
   //   input.codeUnits,
-  //   secretKey: SecretKey(key.codeUnits),
-  //   nonce: input.codeUnits.sublist(0, 16),
+  //   secretKey: SecretKey(sKey.codeUnits),
+  //   nonce: input.codeUnits.sublist(0, 12),
   // );
   // final formatEnc = String.fromCharCodes(encrypted.cipherText);
 
   // print(formatEnc);
 
   // final decrypted = await aes.decrypt(
-  //   SecretBox(formatEnc.codeUnits, nonce: input.codeUnits.sublist(0, 16), mac: Mac.empty),
-  //   secretKey: SecretKey(key.codeUnits),
+  //   SecretBox(formatEnc.codeUnits, nonce: input.codeUnits.sublist(0, 12), mac: Mac.empty),
+  //   secretKey: SecretKey(sKey.codeUnits),
   // );
   // final formatDec = String.fromCharCodes(decrypted);
-
   // print(formatDec);
-  final hello = OpenPGP.encryptCleartext(
-    input,
-    symmetric: SymmetricAlgorithm.blowfish,
-    passwords: [sKey],
-  );
 
-  final hell = String.fromCharCodes(hello.encryptedPacket.encrypted);
-  print(hell);
+  final key = encrypt.Key.fromUtf8('your-32-char-key-here'); // Ensure it's 32 bytes for Twofish
 
-  final menno = SymEncryptedDataPacket(Uint8List.fromList(hell.codeUnits),
-          packets: PacketList([LiteralDataPacket.fromBytes(Uint8List.fromList(hell.codeUnits))]))
-      .decrypt(
-        Uint8List.fromList(sKey.codeUnits),
-        SymmetricAlgorithm.blowfish,
-      )
-      .packets?[0]
-      .data;
+  final iv = encrypt.IV.fromLength(16); // Initialization vector
 
-  // final menno = OpenPGP.decryptMessage(
-  // EncryptedMessage(PacketList.decode(Uint8List.fromList(hell.codeUnits))),
-  // passwords: [sKey],
-  // )
-  // .literalData
-  // ;
-  // final menno =
-  //     hello.encryptedPacket.decrypt(Uint8List.fromList(sKey.codeUnits), SymmetricAlgorithm.blowfish);
+  // Create an encrypter instance
 
-  final menn = String.fromCharCodes(menno!);
-  print("");
-  print(menn);
+  // final encrypter = encrypt.Encrypter(encrypt.RSA(key));
+
+  // Encrypt the plain text
+
+  final plainText = 'Hello, Twofish!';
+
+  // final encrypted = encrypter.encrypt(plainText, iv: iv);
+
+  // // Decrypt the encrypted text
+
+  // final decrypted = encrypter.decrypt(encrypted, iv: iv);
+
+  // print('Encrypted: ${encrypted.base64}');
+
+  // print('Decrypted: $decrypted');
 }
+
+// Future<String> _calculateSHA256(String t) async {
+//   final sha256 = Blake2b();
+
+//   final digest = await sha256.hash(utf8.encode(t));
+
+//   return digest.bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+// }

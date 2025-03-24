@@ -51,9 +51,9 @@ dependencies:
   # Cryptographies
   cryptography_plus: ^2.7.0
   cryptography_flutter_plus: ^2.3.2
-  encrypt: ^5.0.3
   crypto: ^3.0.6
-  dart_pg: ^2.0.0
+  blowfish: ^1.0.2
+  sha3: ^0.2.0
 
   # Time utility.
   intl: ^0.20.2

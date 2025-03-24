@@ -1,6 +1,5 @@
 import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -8,6 +7,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../common_widgets/generic_title.dart';
 import '../../../../core/_core.dart';
 import '../../../../util/context_shortcut.dart';
+import '../../domain/cipher_algorithm.dart';
 
 class CipherActionSwitch extends ConsumerWidget {
   const CipherActionSwitch({super.key});
@@ -16,15 +16,16 @@ class CipherActionSwitch extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cipherMode = ref.watch(cipherModeStateProvider);
     final cipherAction = cipherMode.action;
+    final isHash = cipherMode.algorithm.type == CipherAlgorithmType.hash;
 
     return ToggleSwitch(
       initialLabelIndex: cipherAction.index,
-      activeBorders: [Border.all(color: PRIMARY_COLOR_L0), Border.all(color: PRIMARY_COLOR_L0)],
       inactiveBgColor: kColor(context).surfaceDim,
       minHeight: 30,
       totalSwitches: 2,
       animationDuration: 500,
       animate: true,
+      activeBorders: [Border.all(color: PRIMARY_COLOR_L0), Border.all(color: PRIMARY_COLOR_L0)],
       customWidths: [kScreenWidth(context) * 0.5, kScreenWidth(context) * 0.5],
       customWidgets: [
         Transform.scale(
@@ -49,10 +50,23 @@ class CipherActionSwitch extends ConsumerWidget {
         ),
       ],
       onToggle: (index) {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          ref.read(cipherModeStateProvider.notifier).mode =
-              cipherMode.copyWith(action: CipherAction.values[index ?? 0]);
-        });
+        final cipherModeChange = ref.read(cipherModeStateProvider.notifier);
+        if (isHash) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Hash is a One-way Encryption, so it cannot be decrypted."),
+              dismissDirection: DismissDirection.horizontal,
+            ),
+          );
+
+          // Force to encryption mode.
+          cipherModeChange.mode = cipherMode.copyWith(action: CipherAction.values[0]);
+          return;
+        }
+
+        cipherModeChange.mode = cipherMode.copyWith(action: CipherAction.values[index ?? 0]);
+        return;
       },
     );
   }

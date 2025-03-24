@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:cipher_dove/src/exceptions/network/network_error_handler_service.dart';
+import 'package:cipher_dove/src/exceptions/network_specific/network_error_handler_service.dart';
 import 'package:cipher_dove/src/exceptions/app_exception.dart';
 
 import '../../../../mocks.dart';

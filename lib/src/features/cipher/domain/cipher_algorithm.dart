@@ -38,21 +38,25 @@ enum CipherAlgorithm {
     type: CipherAlgorithmType.symmetric,
   ),
 
+  // TODO add asymmetric encryption.
   // * asymmetric
   rsa(
     name: "RSA",
     detail: "Rivest-Shamir-Adleman, an asymmetric encryption algorithm.",
     type: CipherAlgorithmType.asymmetric,
+    supported: false,
   ),
   dsa(
     name: "DSA",
     detail: "Digital Signature Algorithm, used for digital signatures.",
     type: CipherAlgorithmType.asymmetric,
+    supported: false,
   ),
   ecc(
     name: "ECC",
     detail: "Elliptic Curve Cryptography, an asymmetric encryption algorithm.",
     type: CipherAlgorithmType.asymmetric,
+    supported: false,
   ),
 
   // * hash
@@ -76,16 +80,6 @@ enum CipherAlgorithm {
     detail: "The latest member of the Secure Hash Algorithm family.",
     type: CipherAlgorithmType.hash,
   ),
-  ripeMd160(
-    name: "RIPEMD-160",
-    detail: "A cryptographic hash function designed for high security.",
-    type: CipherAlgorithmType.hash,
-  ),
-  whirlPool(
-    name: "Whirlpool",
-    detail: "A cryptographic hash function that produces a 512-bit hash value.",
-    type: CipherAlgorithmType.hash,
-  ),
   blake2(
     name: "BLAKE2",
     detail: "A cryptographic hash function faster than MD5, SHA-1, and SHA-2.",
@@ -95,13 +89,20 @@ enum CipherAlgorithm {
     name: "Argon2",
     detail: "A password-hashing function that won the Password Hashing Competition.",
     type: CipherAlgorithmType.hash,
+    supported: false, // Not yet.
   );
 
-  const CipherAlgorithm({required this.name, required this.detail, required this.type});
+  const CipherAlgorithm({
+    required this.name,
+    required this.detail,
+    required this.type,
+    this.supported = true,
+  });
 
   final String name;
   final String detail;
   final CipherAlgorithmType type;
+  final bool supported;
 
   static List<CipherAlgorithm> get(CipherAlgorithmType type) {
     return CipherAlgorithm.values.where((CipherAlgorithm alg) => alg.type == type).toList();

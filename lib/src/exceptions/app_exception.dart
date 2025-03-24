@@ -46,6 +46,8 @@ class CustomException extends AppException {
   final String _msg;
 }
 
+/// Might you wonder why this is not network response exception, the reason is because this
+/// kind of exception happen client-side.
 class NoConnectionException extends AppException {
   const NoConnectionException() : super(-3, 'no_internet_connection');
 }
