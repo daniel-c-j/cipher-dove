@@ -17,7 +17,7 @@ class AlgorithmListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cipherMode = ref.watch(cipherModeStateProvider);
-
+// TODO default set algorithm
     return Column(
       children: [
         GAP_H2,

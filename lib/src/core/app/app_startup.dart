@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,8 +22,8 @@ class AppStartup {
     // * Initalize app.
     await _initializeApp();
 
-    // * Initialize service to start the listener here.
-    // Example: ref.read(someServiceProvider);
+    // * Initialize services/providers.
+    await _initializeProviders(container);
 
     // * Register error handlers.
     final errorLogger = container.read(errorLoggerProvider);
@@ -61,6 +62,11 @@ class AppStartup {
     GoogleFonts.config.allowRuntimeFetching = false;
   }
 
+  /// Provider and/or service listener initializations.
+  Future<void> _initializeProviders(ProviderContainer container) async {
+    await container.read(cipherModeStateProvider.notifier).init();
+  }
+
   /// Register Flutter error handlers.
   void _registerErrorHandlers(ErrorLogger errorLogger) {
     // * Show some error UI if any uncaught exception happens
@@ -85,14 +91,14 @@ class AppStartup {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.red,
-            title: Text('An error occurred'),
+            title: const Text('An error occurred'),
           ),
           body: SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Oops! Something went wrong.',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -103,7 +109,7 @@ class AppStartup {
                     onPressed: () {
                       NavigationService.currentContext.pop();
                     },
-                    child: Text('Go Back'),
+                    child: const Text('Go Back'),
                   ),
                 ],
               ),

@@ -26,7 +26,7 @@ class AlgorithmSelected extends ConsumerWidget {
         isOutlined: true,
         borderWidth: 1,
         borderColor: PRIMARY_COLOR_L0,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           clipBehavior: Clip.hardEdge,
@@ -45,9 +45,10 @@ class AlgorithmSelected extends ConsumerWidget {
               ),
               GAP_W8,
               Text(
-                cipherAlgorithm.name.toUpperCase(),
+                cipherAlgorithm.name,
                 overflow: TextOverflow.fade,
-                style: kTextStyle(context).bodyLarge?.copyWith(
+                style: kTextStyle(context).bodyMedium?.copyWith(
+                      color: (brightness == Brightness.light) ? PRIMARY_COLOR_D1 : PRIMARY_COLOR_L1,
                       fontWeight: FontWeight.bold,
                     ),
               ),

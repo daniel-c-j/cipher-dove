@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cipher_mode_state.dart';
+part of 'home_screen_input.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cipherModeStateHash() => r'aa76dd30f413e5e9ef9de5410c3cee0f3bed604d';
+String _$obscureSecretStateHash() =>
+    r'19f9656ca5ef21791e79a736ba7962e63d90ef7c';
 
-/// See also [CipherModeState].
-@ProviderFor(CipherModeState)
-final cipherModeStateProvider =
-    NotifierProvider<CipherModeState, CipherMode>.internal(
-  CipherModeState.new,
-  name: r'cipherModeStateProvider',
+/// See also [ObscureSecretState].
+@ProviderFor(ObscureSecretState)
+final obscureSecretStateProvider =
+    AutoDisposeNotifierProvider<ObscureSecretState, bool>.internal(
+  ObscureSecretState.new,
+  name: r'obscureSecretStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$cipherModeStateHash,
+      : _$obscureSecretStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CipherModeState = Notifier<CipherMode>;
+typedef _$ObscureSecretState = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

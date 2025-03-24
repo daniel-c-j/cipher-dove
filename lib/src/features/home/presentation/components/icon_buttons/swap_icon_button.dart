@@ -2,8 +2,8 @@ import 'package:cipher_dove/src/features/home/presentation/input_output_form_sta
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common_widgets/custom_button.dart';
-import '../../../../util/context_shortcut.dart';
+import '../../../../../common_widgets/custom_button.dart';
+import '../../../../../util/context_shortcut.dart';
 
 /// Used to only just change the value of input text controller with output
 /// text controller's value.
@@ -19,6 +19,8 @@ class SwapIconButton extends ConsumerWidget {
       borderRadius: BorderRadius.circular(60),
       onTap: () {
         final output = ref.watch(outputTextFormStateProvider);
+        if (output.text.isEmpty) return;
+
         ref.read(inputTextFormStateProvider).text = output.text;
         ref.read(outputTextFormStateProvider).clear();
       },

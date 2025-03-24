@@ -7,7 +7,7 @@ part of 'local_cipher_repo.dart';
 // **************************************************************************
 
 String _$localCipherRepositoryHash() =>
-    r'c75e4ced1b5566b5841605aeafe2661abff07329';
+    r'20b045a2d1c604eae80300479b6d310d0a0ee00a';
 
 /// See also [localCipherRepository].
 @ProviderFor(localCipherRepository)

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Minor details.
+
+### Added
+
+- Secret text field obscure text option option.
+
 ## [0.4.0] - 2025-03-24
 
 ### Added

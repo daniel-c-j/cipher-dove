@@ -5,9 +5,9 @@ import '../_core.dart';
 
 /// Extension methods specific for the "fakes/simulation" in project configuration
 extension AppStartupContainer on AppStartup {
-  /// Creates the top-level [ProviderContainer] by overriding providers with fake
-  /// repositories only. This is useful for testing purposes and for running the
-  /// app with a "fake/simulation" backend.
+  /// Creates the top-level [ProviderContainer] by overriding necessary providers.
+  /// This is useful for testing purposes and for running the app with a
+  /// "fake/simulation" backend.
   ///
   /// Note: all repositories needed by the app can be accessed via providers.
   /// Some of these providers throw an [UnimplementedError] by default.

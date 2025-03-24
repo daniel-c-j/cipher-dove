@@ -1,5 +1,5 @@
 import 'package:cipher_dove/src/constants/_constants.dart';
-import 'package:cipher_dove/src/features/home/presentation/components/theme_icon_button.dart';
+import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/theme_icon_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/_core.dart';

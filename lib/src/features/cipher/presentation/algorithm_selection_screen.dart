@@ -35,7 +35,7 @@ class AlgorithmSelectionScreen extends StatelessWidget {
                     return ExpansionTile(
                       title: AlgorithmTag(type: CipherAlgorithmType.values[idx]),
                       subtitle: (content.firstWhereOrNull((alg) => alg == cipherMode.algorithm) != null)
-                          ? Text('Selected')
+                          ? Text('(Selected)')
                           : null,
                       dense: true,
                       children: [
