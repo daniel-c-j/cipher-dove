@@ -20,8 +20,8 @@ class CipherOutputController extends _$CipherOutputController {
     String secretKey, {
     required CipherMode mode,
   }) async {
-    ref.invalidate(localCipherRepositoryProvider);
     final repo = ref.read(localCipherRepositoryProvider);
+
     String output = "";
 
     state = const AsyncLoading();

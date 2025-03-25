@@ -191,7 +191,7 @@ class LocalCipherRepository {
 //
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 LocalCipherRepository localCipherRepository(Ref ref) {
   final sharedPref = ref.watch(sharedPrefProvider);
   final crypt = Cryptography.defaultInstance;

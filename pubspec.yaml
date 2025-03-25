@@ -1,7 +1,7 @@
 name: cipher_dove
 description: "An open-source, offline, zero-ads, basic encryption and decryption tool."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 0.4.0+1
+version: 0.5.0+1
 
 #
 # ======================================================================================================

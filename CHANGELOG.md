@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- None.
+
+## [0.5.0] - 2025-03-25
+
+### Changed
+
 - Minor details.
 - Minor app structure.
 - Algorithms.
