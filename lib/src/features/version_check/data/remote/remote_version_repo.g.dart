@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'version_repo.dart';
+part of 'remote_version_repo.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -13,9 +13,7 @@ String _$versionCheckRepoHash() => r'8f3facde2d74448dbebe03f3ff21316d0981baf0';
 final versionCheckRepoProvider = AutoDisposeProvider<VersionCheckRepo>.internal(
   versionCheckRepo,
   name: r'versionCheckRepoProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$versionCheckRepoHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$versionCheckRepoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

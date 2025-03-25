@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:cipher_dove/src/constants/app_info.dart';
 import 'package:cipher_dove/src/constants/network_constants.dart';
 import 'package:cipher_dove/src/core/network/api_service.dart';
-import 'package:cipher_dove/src/features/version_check/data/version_repo.dart';
+import 'package:cipher_dove/src/features/version_check/data/remote/remote_version_repo.dart';
 import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
 import 'package:version/version.dart';
 
@@ -16,7 +16,7 @@ void main() {
   RemoteVersionCheckRepo makeVersionCheckRepo(ApiService apiService) => RemoteVersionCheckRepo(apiService);
 
   // Changing value for testing.
-  NetConsts.URL_CHECK_LATEST_VERSION = "";
+  NetConsts.URL_CHECK_VERSION = "";
   AppInfo.CURRENT_VERSION = "0.9.0";
 
   VersionCheck mockVersionCheck() => VersionCheck(
@@ -42,8 +42,7 @@ void main() {
     test("getVersionCheck returns a Future.", () async {
       // * Arrange
       final apiService = MockApiService();
-      when(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION))
-          .thenAnswer((_) async => mockResponse());
+      when(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).thenAnswer((_) async => mockResponse());
 
       // * Act
       final versionCheckRepo = makeVersionCheckRepo(apiService);
@@ -55,13 +54,13 @@ void main() {
       await getVersionCheck;
       expect(versionCheckRepo.versionCheck, mockVersionCheck());
 
-      verify(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION)).called(1);
+      verify(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).called(1);
     });
 
     test("getVersionCheck throws Exception when operation invalid.", () async {
       // * Arrange
       final apiService = MockApiService();
-      when(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION)).thenThrow(DioException);
+      when(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).thenThrow(DioException);
 
       // * Act
       final versionCheckRepo = makeVersionCheckRepo(apiService);
@@ -69,14 +68,13 @@ void main() {
 
       // * Assert
       expect(versionCheck, throwsA(DioException));
-      verify(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION)).called(1);
+      verify(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).called(1);
     });
 
     test('fetchLatestVersion returns a Future of Response when api call is valid.', () async {
       // * Arrange
       final apiService = MockApiService();
-      when(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION))
-          .thenAnswer((_) async => mockResponse());
+      when(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).thenAnswer((_) async => mockResponse());
 
       // * Act
       final versionCheckRepo = makeVersionCheckRepo(apiService);
@@ -90,13 +88,13 @@ void main() {
       expect(response.toString(), mockResponse().toString());
 
       // Verify the method called only once.
-      verify(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION)).called(1);
+      verify(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).called(1);
     });
 
     test('fetchLatestVersion throws Exception when api call is invalid.', () async {
       // * Arrange
       final apiService = MockApiService();
-      when(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION)).thenThrow(DioException);
+      when(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).thenThrow(DioException);
 
       // * Act
       final versionCheckRepo = makeVersionCheckRepo(apiService);
@@ -106,7 +104,7 @@ void main() {
       expect(fetchLatestVer, throwsA(DioException));
 
       // Verify the method called only once.
-      verify(() => apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION)).called(1);
+      verify(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).called(1);
     });
 
     test("parseVersionFromResponse returns VersionCheck when response is valid.", () {

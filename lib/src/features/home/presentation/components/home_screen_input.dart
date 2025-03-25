@@ -43,7 +43,7 @@ class HomeScreenInput extends ConsumerWidget {
             GAP_H8,
             HomeTextfield(
               hintText: "Type here...",
-              maxLines: 5,
+              maxLines: 6,
               readOnly: false,
               controller: input,
             ),

@@ -10,10 +10,14 @@ class NetConsts {
   static const int API_TIMEOUT = 60000;
 
   /// Used for [VersionCheck].
-  static late final String URL_CHECK_LATEST_VERSION;
+  static late final String URL_CHECK_VERSION;
+  static late final String URL_UPDATE_VERSION;
 
   /// Lazy Initialization exists for the ease of testing to manipulate certain properties of [NetConsts].
   static void init() {
-    URL_CHECK_LATEST_VERSION = "https://myurlhere.com/version.txt"; // TODO change.
+    // TODO change.
+    URL_CHECK_VERSION =
+        "https://raw.githubusercontent.com/Daniel-C-J/cipher_dove/refs/heads/master/VERSION.json";
+    URL_UPDATE_VERSION = "https://github.com/Daniel-C-J/cipher_dove/releases";
   }
 }

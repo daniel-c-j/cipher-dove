@@ -33,7 +33,7 @@ enum CipherAlgorithm {
     type: CipherAlgorithmType.symmetric,
   ),
 
-  // TODO add asymmetric encryption.
+  // TODO add asymmetric encryption. (supported: true)
   // * asymmetric
   rsa(
     name: "RSA",

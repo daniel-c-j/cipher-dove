@@ -1,5 +1,5 @@
 name: cipher_dove
-description: "An open-source, offline, zero-ads, basic encryption and decryption tool."
+description: "An open-source, offline, ad-free, basic encryption and decryption tool."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.5.0+1
 
@@ -29,6 +29,9 @@ dependencies:
 
   # Unique id generator.
   uuid: ^4.4.2
+
+  # Handles dependency licenses.
+  # flutter_oss_licenses: ^3.0.4
 
   # Handy app's flavor utility.
   # flutter_flavorizr: ^2.2.3
@@ -128,7 +131,7 @@ flutter:
   assets:
     - assets/google_fonts/
     - assets/translations/
+    - assets/images/contact/
     - assets/images/splash/
-    - assets/images/logos/
     - assets/images/icon/
     - assets/images/bg/

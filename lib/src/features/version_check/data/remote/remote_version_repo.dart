@@ -7,14 +7,10 @@ import 'package:cipher_dove/src/constants/network_constants.dart';
 import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
 import 'package:version/version.dart';
 
-import '../../../core/_core.dart';
+import '../../../../core/_core.dart';
+import '../version_repo_.dart';
 
-part 'version_repo.g.dart';
-
-abstract class VersionCheckRepo {
-  late final VersionCheck versionCheck;
-  Future<void> getVersionCheck();
-}
+part 'remote_version_repo.g.dart';
 
 class RemoteVersionCheckRepo implements VersionCheckRepo {
   RemoteVersionCheckRepo(this._apiService);
@@ -24,8 +20,7 @@ class RemoteVersionCheckRepo implements VersionCheckRepo {
   @override
   late final VersionCheck versionCheck;
 
-  // TODO WARNING.
-  // ! fetched data expectedly to be having this format:
+  // ! Fetched data is expected to be in this particular format:
   // ! {"requiredV": "1.2.0", "latestV": "1.2.5"}
   // ! See VERSION.json for example.
   @override
@@ -35,7 +30,7 @@ class RemoteVersionCheckRepo implements VersionCheckRepo {
   }
 
   Future<Response> fetchLatestVersion() {
-    return _apiService.get(url: NetConsts.URL_CHECK_LATEST_VERSION);
+    return _apiService.get(url: NetConsts.URL_CHECK_VERSION);
   }
 
   VersionCheck _parseVersionFromResponse(Response resp) {

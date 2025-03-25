@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- About screen.
+- Contact.
+- Licenses.
+- Support github.
+
 ### Changed
 
-- None.
+- Not found screen.
 
 ## [0.5.0] - 2025-03-25
 

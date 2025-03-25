@@ -9,6 +9,6 @@ class Default {
   /// Lazy Initialization exists for the ease of testing to manipulate certain properties of [Default].
   static void init() {
     AUTO_UPDATE_CHECK_CONF = true;
-    CIPHER_ALGORITHM_INDEX = 1;
+    CIPHER_ALGORITHM_INDEX = 0;
   }
 }

@@ -11,9 +11,7 @@ part 'cipher_output_controller.g.dart';
 @Riverpod(keepAlive: true)
 class CipherOutputController extends _$CipherOutputController {
   @override
-  FutureOr<void> build() {
-    // return "";
-  }
+  FutureOr<void> build() {}
 
   Future<String> process(
     String input,
@@ -21,7 +19,6 @@ class CipherOutputController extends _$CipherOutputController {
     required CipherMode mode,
   }) async {
     final repo = ref.read(localCipherRepositoryProvider);
-
     String output = "";
 
     state = const AsyncLoading();
@@ -37,14 +34,17 @@ class CipherOutputController extends _$CipherOutputController {
             secretKey,
             algorithm: mode.algorithm,
           );
+          return;
         }
 
         if (mode.algorithm.type == CipherAlgorithmType.asymmetric) {
           output = await repo.encryptAsymmetric(input, mode: mode);
+          return;
         }
 
         if (mode.algorithm.type == CipherAlgorithmType.hash) {
           output = await repo.hash(input, mode: mode);
+          return;
         }
       }
 
@@ -55,10 +55,12 @@ class CipherOutputController extends _$CipherOutputController {
           secretKey,
           algorithm: mode.algorithm,
         );
+        return;
       }
 
       if (mode.algorithm.type == CipherAlgorithmType.asymmetric) {
         output = await repo.decryptAsymmetric(input, mode: mode);
+        return;
       }
 
       // Hash cannot be decrypted.

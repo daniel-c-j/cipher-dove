@@ -25,7 +25,7 @@ class HomeScreenOutput extends ConsumerWidget {
             GAP_H8,
             HomeTextfield(
               hintText: "Result here",
-              maxLines: 5,
+              maxLines: 6,
               readOnly: true,
               controller: output,
               onTap: () {

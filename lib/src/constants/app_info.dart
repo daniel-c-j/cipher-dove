@@ -8,8 +8,7 @@ class AppInfo {
   // These two are crucial and should not depend on the packageInfo.
   static const String TITLE = "Cipher Dove"; // TODO change this.
   // TODO change this.
-  static const String DESCRIPTION =
-      "An open-source, offline, zero-ads, basic encryption and decryption tool.";
+  static const String DESCRIPTION = "An open-source, offline, ad-free, basic encryption and decryption tool.";
 
   static late final String CURRENT_VERSION;
   static late final String PACKAGE_NAME;

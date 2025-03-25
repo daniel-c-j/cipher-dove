@@ -19,6 +19,7 @@ class ProcessButton extends ConsumerWidget {
     final outputValue = ref.watch(cipherOutputControllerProvider);
 
     return CustomButton(
+      msg: "Process",
       onTap: () async {
         // Flagging
         if (outputValue.isLoading) return;

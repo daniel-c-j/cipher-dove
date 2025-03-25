@@ -1,10 +1,11 @@
+import 'package:cipher_dove/src/features/version_check/data/version_repo_.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:cipher_dove/src/constants/app_info.dart';
 import 'package:cipher_dove/src/exceptions/app_exception.dart';
-import 'package:cipher_dove/src/features/version_check/data/version_repo.dart';
+import 'package:cipher_dove/src/features/version_check/data/remote/remote_version_repo.dart';
 import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
 import 'package:cipher_dove/src/features/version_check/presentation/version_check_controller.dart';
 import 'package:version/version.dart';

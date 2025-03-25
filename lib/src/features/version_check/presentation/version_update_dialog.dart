@@ -40,7 +40,7 @@ class VersionUpdateDialog extends ConsumerWidget {
           ),
           label: Text("Take me to the download page"),
           onPressed: () async {
-            final url = Uri.parse(NetConsts.URL_CHECK_LATEST_VERSION);
+            final url = Uri.parse(NetConsts.URL_UPDATE_VERSION);
             await launchUrl(url);
           },
         ),

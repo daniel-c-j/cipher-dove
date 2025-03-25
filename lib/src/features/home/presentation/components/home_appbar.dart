@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/constants/_constants.dart';
+import 'package:cipher_dove/src/features/about/presentation/components/about_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/theme_icon_button.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
               ),
               const Spacer(),
+              GAP_W4,
+              const AboutIconButton(),
+              GAP_W4,
               const ThemeIconButton(),
               GAP_W4,
             ],

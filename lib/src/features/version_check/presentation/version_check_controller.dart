@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:cipher_dove/src/features/version_check/data/version_repo.dart';
+import 'package:cipher_dove/src/features/version_check/data/remote/remote_version_repo.dart';
 import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
 
 import '../../../exceptions/_exceptions.dart';

@@ -25,8 +25,8 @@ class App extends ConsumerWidget {
 //
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-      color: brightness == Brightness.light ? Colors.white : Colors.black,
-      themeMode: brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark,
+      color: (brightness == Brightness.light) ? Colors.white : Colors.black,
+      themeMode: (brightness == Brightness.light) ? ThemeMode.light : ThemeMode.dark,
       theme: ref.watch(lightThemeProvider),
       darkTheme: ref.watch(darkThemeProvider),
 //
