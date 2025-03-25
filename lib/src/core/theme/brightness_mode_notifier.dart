@@ -3,6 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'brightness_mode_notifier.g.dart';
 
+// TODO brightness persistent data.
+
 @Riverpod(keepAlive: true)
 class PlatformBrightness extends _$PlatformBrightness {
   @override

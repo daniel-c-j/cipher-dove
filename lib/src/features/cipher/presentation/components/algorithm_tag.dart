@@ -5,7 +5,6 @@ import '../../../../core/_core.dart';
 import '../../../../util/context_shortcut.dart';
 import '../../domain/cipher_algorithm.dart';
 
-// TODO logo
 // TODO documentation
 // TODO test
 // TODO ReadME

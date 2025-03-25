@@ -1,5 +1,6 @@
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
+import 'package:cipher_dove/src/features/cipher/data/cipher_repo.dart';
 import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:cipher_dove/src/features/cipher/domain/cipher_algorithm.dart';
 import 'package:cipher_dove/src/features/cipher/domain/cipher_mode.dart';
@@ -13,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'local_cipher_repo.g.dart';
 
 // TODO abstraction
-class LocalCipherRepository {
+class LocalCipherRepository extends CipherRepostitory {
   const LocalCipherRepository(
     this.sharedPref,
     this.crypt,
@@ -28,11 +29,13 @@ class LocalCipherRepository {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 
+  @override
   Future<CipherAlgorithm> getDefaultAlgorithm() async {
     final index = await sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX);
     return CipherAlgorithm.values[index ?? Default.CIPHER_ALGORITHM_INDEX];
   }
 
+  @override
   Future<void> setDefaultAlgorithm(CipherAlgorithm algorithm) async {
     return await sharedPref.setInt(DBKeys.CIPHER_ALGORITHM_INDEX, CipherAlgorithm.values.indexOf(algorithm));
   }
@@ -49,6 +52,7 @@ class LocalCipherRepository {
 
 // TODO more readable output encryption, by convert raw to hex, and decrypt should then accept the hex and convert it
 // back to raw bytes List<int>.
+  @override
   Future<String> encryptSymmetric(
     String input,
     String secretKey, {
@@ -64,6 +68,7 @@ class LocalCipherRepository {
     };
   }
 
+  @override
   Future<String> decryptSymmetric(
     String input,
     String secretKey, {
@@ -146,6 +151,7 @@ class LocalCipherRepository {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 
+  @override
   Future<String> hash(String input, {required CipherMode mode}) async {
     return switch (mode.algorithm) {
       == CipherAlgorithm.md5 => md5.convert(input.codeUnits).toString(),

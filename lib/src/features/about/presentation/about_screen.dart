@@ -6,7 +6,6 @@ import '../../../util/context_shortcut.dart';
 import 'components/contact_dev.dart';
 import 'components/license_dev.dart';
 
-// TODO icon image here
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
@@ -19,6 +18,7 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset("assets/images/icon/icon.png", width: 85, height: 85),
             Text(
               AppInfo.TITLE,
               textAlign: TextAlign.center,

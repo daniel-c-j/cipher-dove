@@ -16,6 +16,8 @@ import '../../features/cipher/presentation/cipher_mode_state.dart';
 import '../../util/context_shortcut.dart';
 import '../_core.dart';
 
+// TODO localize strings in the app, watchout.
+
 /// Helper class to initialize services and configure the error handlers.
 class AppStartup {
   /// Create the root widget that should be passed to [runApp].

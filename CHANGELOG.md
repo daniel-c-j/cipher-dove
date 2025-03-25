@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Added
 
 -
+
+## [0.8.0] - 2025-03-26
+
+### Added
+
+- LocalCipherRepository abstraction.
+- App Icon.
+- App Splash.
 
 ## [0.7.0] - 2025-03-25
 
