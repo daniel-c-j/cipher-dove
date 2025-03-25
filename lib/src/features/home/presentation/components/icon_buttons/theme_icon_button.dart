@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +15,7 @@ class ThemeIconButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(platformBrightnessProvider);
     return CustomButton(
-      msg: "Switch dark/light theme",
+      msg: "Switch dark/light theme".tr(),
       padding: const EdgeInsets.all(10),
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),

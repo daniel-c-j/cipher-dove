@@ -9,7 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+-
+
+## [0.7.0] - 2025-03-25
+
+### Added
+
+- Localizations.
+
+### Changed
+
 - Version check mechanism.
+- Version check UI.
 
 ## [0.6.0] - 2025-03-25
 

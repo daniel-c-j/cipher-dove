@@ -3,6 +3,7 @@ import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
 import 'package:cipher_dove/src/features/home/presentation/input_output_form_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class ProcessButton extends ConsumerWidget {
     final outputValue = ref.watch(cipherOutputControllerProvider);
 
     return CustomButton(
-      msg: "Process",
+      msg: "Process".tr(),
       onTap: () async {
         // Flagging
         if (outputValue.isLoading) return;
@@ -39,7 +40,7 @@ class ProcessButton extends ConsumerWidget {
           // Using notifier to also force update the corresponding widget.
           ref
               .read(outputTextFormStateProvider.notifier)
-              .text((outputValue.hasError || output.isEmpty) ? "Invalid" : output);
+              .text((outputValue.hasError || output.isEmpty) ? "Invalid".tr() : output);
           ref.read(showHudOverlayProvider.notifier).hide();
         });
       },
@@ -64,7 +65,7 @@ class ProcessButton extends ConsumerWidget {
               : const [Icon(Icons.arrow_forward_rounded, size: 18, color: Colors.white)],
           GAP_W4,
           Text(
-            "Process",
+            "Process".tr(),
             style: kTextStyle(context).bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

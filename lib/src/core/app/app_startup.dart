@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import '../../app.dart';
 import '../../constants/_constants.dart';
 import '../../exceptions/error_logger.dart';
+import '../../features/cipher/presentation/cipher_mode_state.dart';
 import '../../util/context_shortcut.dart';
 import '../_core.dart';
 
@@ -31,16 +32,19 @@ class AppStartup {
 
     return UncontrolledProviderScope(
       container: container,
-      child: const App(),
+      child: EasyLocalization(
+        path: 'assets/translations',
+        supportedLocales: const [Locale('en', 'US')],
+        fallbackLocale: const Locale('en', 'US'),
+        child: const App(),
+      ),
     );
   }
 
   /// Core app initializations.
   Future<void> _initializeApp() async {
-    // If in release mode, debugPrint will not print.
-    if (kReleaseMode) {
-      debugPrint = (String? message, {int? wrapWidth}) {};
-    }
+    // Localization initialization.
+    await EasyLocalization.ensureInitialized();
 
     // Setting and getting general informations and configurations.
     Default.init();
@@ -60,9 +64,16 @@ class AppStartup {
 
     // Prevent google font to access internet to download the font again.
     GoogleFonts.config.allowRuntimeFetching = false;
+
+    // Release mode configurations.
+    if (kReleaseMode) {
+      debugPrint = (String? message, {int? wrapWidth}) {};
+      EasyLocalization.logger.enableBuildModes = [];
+    }
   }
 
-  /// Provider and/or service listener initializations.
+  /// Provider and/or service listener initializations. Not to confuse with ProviderContainer
+  /// initialization.
   Future<void> _initializeProviders(ProviderContainer container) async {
     await container.read(cipherModeStateProvider.notifier).init();
   }
@@ -105,12 +116,6 @@ class AppStartup {
                   GAP_H24,
                   Text(details.toString()),
                   GAP_H24,
-                  ElevatedButton(
-                    onPressed: () {
-                      NavigationService.currentContext.pop();
-                    },
-                    child: const Text('Go Back'),
-                  ),
                 ],
               ),
             ),

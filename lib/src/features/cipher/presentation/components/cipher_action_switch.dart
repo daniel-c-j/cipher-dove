@@ -1,5 +1,6 @@
 import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -31,7 +32,7 @@ class CipherActionSwitch extends ConsumerWidget {
         Transform.scale(
           scale: 0.9,
           child: GenericTitle(
-            title: "Encrypt ",
+            title: "Encrypt ".tr(),
             titleColor: (cipherAction == CipherAction.encrypt) ? Colors.white : null,
             iconColor: (cipherAction == CipherAction.encrypt) ? Colors.white : null,
             icon: Icons.lock,
@@ -41,7 +42,7 @@ class CipherActionSwitch extends ConsumerWidget {
         Transform.scale(
           scale: 0.9,
           child: GenericTitle(
-            title: "Decrypt ",
+            title: "Decrypt ".tr(),
             titleColor: (cipherAction == CipherAction.decrypt) ? Colors.white : null,
             iconColor: (cipherAction == CipherAction.decrypt) ? Colors.white : null,
             icon: Icons.key,
@@ -54,8 +55,8 @@ class CipherActionSwitch extends ConsumerWidget {
         if (isHash) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Hash is a One-way Encryption, so it cannot be decrypted."),
+            SnackBar(
+              content: Text("Hash is a One-way Encryption, so it cannot be decrypted.".tr()),
               dismissDirection: DismissDirection.horizontal,
             ),
           );

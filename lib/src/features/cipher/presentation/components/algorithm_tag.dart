@@ -5,12 +5,10 @@ import '../../../../core/_core.dart';
 import '../../../../util/context_shortcut.dart';
 import '../../domain/cipher_algorithm.dart';
 
+// TODO logo
 // TODO documentation
 // TODO test
-// TODO imports like above.
 // TODO ReadME
-// TODO logo
-// TODO version check
 // TODO Code-Review
 class AlgorithmTag extends StatelessWidget {
   const AlgorithmTag({super.key, required this.type});

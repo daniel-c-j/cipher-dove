@@ -1,6 +1,6 @@
 library;
 
-import '../core/_core.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 part 'net_resp_exception.dart';
 
@@ -11,17 +11,20 @@ sealed class AppException implements Exception {
   final String message;
   final int code;
 
-  // TODO watchout with this App strings map, modify accordingly whether to use localization or not.
-  @override
-  String toString() => APP_STRINGS[message] ?? "ERROR";
+  // ! Why don't just Exception(-1, "nope_exception".tr()) directly?
+  // ! If that's the case then the Exceptions can't be const, which is not good.
+  // ! So then if using the toString() approach, how to track the necessary tr() in the json?
+  // ! 1) Manually
+  // ! 2) Remove const temporarily, then use the .tr() directly, track them, then remove
+  // !    them back to normal.
 
   // To use translation third party would be just:
   // @override
   // Future<String> toString() async => await translate(APP_STRINGS[message] ?? "ERROR");
 
   // To use hardcoded localization would be:
-  // @override
-  // String toString() => message.tr();
+  @override
+  String toString() => message.tr();
 
   @override
   bool operator ==(covariant AppException other) {
@@ -44,6 +47,11 @@ class CustomException extends AppException {
   const CustomException(this._msg) : super(-2, _msg);
   // ignore: unused_field
   final String _msg;
+
+  /// Will just return the original message since, it does not support localization
+  /// from the [AppException] directly.
+  @override
+  String toString() => _msg;
 }
 
 /// Might you wonder why this is not network response exception, the reason is because this
@@ -53,7 +61,7 @@ class NoConnectionException extends AppException {
 }
 
 class EmailAlreadyInUseException extends AppException {
-  const EmailAlreadyInUseException() : super(-4, 'email-already-in-use');
+  const EmailAlreadyInUseException() : super(-4, 'email_already_in_use');
 }
 
 class UpdateCheckException extends AppException {

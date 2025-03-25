@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/core/_core.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,7 @@ class AlgorithmSelected extends ConsumerWidget {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: kScreenWidth(context) * 0.55),
       child: CustomButton(
-        msg: "Select Algorithm",
+        msg: "Select Algorithm".tr(),
         onTap: () {
           context.pushNamed(AppRoute.algorithmSelection.name);
         },

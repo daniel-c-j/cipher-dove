@@ -15,6 +15,7 @@ migrate_working_dir/
 *NOTE.txt
 bump.py
 *mian.dart
+*strings.json
 
 # IntelliJ related
 *.iml

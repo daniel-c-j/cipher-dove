@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+// TODO Localizations for those stringDetail.
 
 enum CipherAlgorithmType {
   symmetric(
@@ -18,6 +21,10 @@ enum CipherAlgorithmType {
 
   final String tag;
   final IconData icon;
+
+  String get stringDetail {
+    return tag.tr();
+  }
 }
 
 enum CipherAlgorithm {
@@ -101,5 +108,11 @@ enum CipherAlgorithm {
 
   static List<CipherAlgorithm> get(CipherAlgorithmType type) {
     return CipherAlgorithm.values.where((CipherAlgorithm alg) => alg.type == type).toList();
+  }
+
+  /// Exists for the sole purpose of maintaining the enum's const behaviour, while
+  /// using method.
+  String get stringDetail {
+    return detail.tr();
   }
 }

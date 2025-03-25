@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -21,19 +22,20 @@ class HomeScreenOutput extends ConsumerWidget {
       children: [
         Column(
           children: [
-            const GenericTitle(icon: Icons.output_outlined, title: "Output"),
+            GenericTitle(icon: Icons.output_outlined, title: "Output".tr()),
             GAP_H8,
             HomeTextfield(
-              hintText: "Result here",
+              hintText: "Result here".tr(),
               maxLines: 6,
               readOnly: true,
               controller: output,
               onTap: () {
                 Clipboard.setData(ClipboardData(text: output.text));
+
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Copied to clipboard."),
+                  SnackBar(
+                    content: Text("Copied to clipboard.".tr()),
                     dismissDirection: DismissDirection.horizontal,
                   ),
                 );

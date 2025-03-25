@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/features/home/presentation/input_output_form_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class SwapIconButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
-      msg: "Set Output to Input",
+      msg: "Set Output to Input".tr(),
       padding: const EdgeInsets.all(4),
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),

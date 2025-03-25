@@ -58,10 +58,10 @@ dependencies:
   sha3: ^0.2.0
 
   # Time utility.
-  intl: ^0.20.2
+  intl: ^0.19.0
 
   # Localization utility.
-  # easy_localization: ^3.0.7+1
+  easy_localization: ^3.0.7+1
 
   # Local database/storage utility.
   shared_preferences: ^2.2.3
@@ -98,6 +98,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   icons_plus: ^5.0.0
   toggle_switch: ^2.3.0
+  flutter_string_extractor: ^1.1.2
 
 #
 # ======================================================================================================

@@ -16,6 +16,7 @@ class ErrorLogger {
       // TODO Watchout
     }
 
+    // Fatal level since it isn't recognized as a defined AppException.
     _log.f('ERROR', error: error, stackTrace: stackTrace);
   }
 
@@ -25,15 +26,18 @@ class ErrorLogger {
       // TODO Watchout
     }
 
+    // Warning level since it is recognized as a defined AppException.
     _log.w('', error: exception);
   }
 }
 
-// Basic usage would be:
-// try {}
-// catch (e, st) {
-//    ref.read(errorLoggerProvider).logError(e, st);
-// }
+/// Basic usage would be:
+/// ```
+/// try {}
+/// catch (e, st) {
+///    ref.read(errorLoggerProvider).logError(e, st);
+/// }
+/// ```
 
 @riverpod
 ErrorLogger errorLogger(Ref ref) {

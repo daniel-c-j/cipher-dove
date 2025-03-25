@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -42,8 +43,8 @@ class AlgorithmListTile extends ConsumerWidget {
             if (!currentAlgorithm.supported) {
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Sorry, not supported yet! :)"),
+                SnackBar(
+                  content: Text("Sorry, not supported yet! :)".tr()),
                   dismissDirection: DismissDirection.horizontal,
                 ),
               );

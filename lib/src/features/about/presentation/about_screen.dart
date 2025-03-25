@@ -28,7 +28,7 @@ class AboutScreen extends StatelessWidget {
                   ),
             ),
             Text(
-              'ver ${AppInfo.CURRENT_VERSION}',
+              'v${AppInfo.CURRENT_VERSION}',
               textAlign: TextAlign.center,
               style: kTextStyle(context).bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,

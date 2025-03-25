@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/cipher_action_switch.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selected.dart';
@@ -48,7 +49,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           context: context,
           useSafeArea: true,
           builder: (context) {
-            return VersionUpdateDialog(ver);
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              contentPadding: const EdgeInsets.all(16),
+              content: VersionUpdateDialog(ver),
+            );
           },
         );
       },
@@ -57,8 +62,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         if (e is AppException) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              // TODO localization
-              content: Text(e.message),
+              content: Text(e.toString()),
               dismissDirection: DismissDirection.horizontal,
             ),
           );
@@ -68,8 +72,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         // Unexpected one.
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            // TODO localization
-            content: Text(const UnknownException().message),
+            content: Text(e.toString()),
             dismissDirection: DismissDirection.horizontal,
           ),
         );
@@ -79,14 +82,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: HomeAppBar(),
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
-          content: Text("Tap again to exit."),
+          content: Text("Tap again to exit.".tr()),
           dismissDirection: DismissDirection.horizontal,
         ),
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           padding: EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

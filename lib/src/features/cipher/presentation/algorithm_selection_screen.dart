@@ -3,6 +3,7 @@ import 'package:cipher_dove/src/features/cipher/presentation/components/algorith
 import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selection_appbar.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,7 +36,10 @@ class AlgorithmSelectionScreen extends StatelessWidget {
                     return ExpansionTile(
                       title: AlgorithmTag(type: CipherAlgorithmType.values[idx]),
                       subtitle: (content.firstWhereOrNull((alg) => alg == cipherMode.algorithm) != null)
-                          ? Text('(Selected)')
+                          ? Text(
+                              '(Selected)'.tr(),
+                              style: kTextStyle(context).bodySmall,
+                            )
                           : null,
                       dense: true,
                       children: [

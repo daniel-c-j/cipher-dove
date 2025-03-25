@@ -1,6 +1,7 @@
-import 'package:cipher_dove/src/util/context_shortcut.dart';
 import 'package:flutter/material.dart';
-import 'package:cipher_dove/src/constants/screen_breakpoints.dart';
+
+import '../constants/_constants.dart';
+import '../util/context_shortcut.dart';
 
 /// Multi screensizes layout support.
 class ResponsiveLayout extends StatelessWidget {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,7 +27,7 @@ class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeW
               ),
               GAP_W4,
               Text(
-                "Algorithm Selection",
+                "Algorithm Selection".tr(),
                 style: kTextStyle(context).titleMedium?.copyWith(
                       color: PRIMARY_COLOR_L0,
                       fontWeight: FontWeight.bold,

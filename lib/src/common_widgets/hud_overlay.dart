@@ -5,14 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'hud_overlay.g.dart';
 
-// Typical use case of the HUD overlay.
-// SchedulerBinding.instance.addPostFrameCallback((_) {
-//   operation();
-//   ref.read(showHudOverlayProvider.notifier).show();
-//   Timer(Duration(seconds: 5), () {
-//     ref.read(showHudOverlayProvider.notifier).hide();
-//   });
-// });
 @Riverpod(keepAlive: true)
 class ShowHudOverlay extends _$ShowHudOverlay {
   @override

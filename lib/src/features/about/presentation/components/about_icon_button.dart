@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/features/home/presentation/input_output_form_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class AboutIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      msg: "About",
+      msg: "About".tr(),
       padding: const EdgeInsets.all(10),
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),

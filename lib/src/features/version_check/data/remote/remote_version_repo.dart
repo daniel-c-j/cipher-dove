@@ -2,12 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:cipher_dove/src/constants/app_info.dart';
-import 'package:cipher_dove/src/constants/network_constants.dart';
-import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
 import 'package:version/version.dart';
 
+import '../../../../constants/_constants.dart';
 import '../../../../core/_core.dart';
+import '../../domain/version_check.dart';
 import '../version_repo_.dart';
 
 part 'remote_version_repo.g.dart';

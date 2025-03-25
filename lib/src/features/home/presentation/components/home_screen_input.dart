@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -39,10 +40,10 @@ class HomeScreenInput extends ConsumerWidget {
       children: [
         Column(
           children: [
-            const GenericTitle(icon: Icons.input_outlined, title: "Input"),
+            GenericTitle(icon: Icons.input_outlined, title: "Input".tr()),
             GAP_H8,
             HomeTextfield(
-              hintText: "Type here...",
+              hintText: "Type here...".tr(),
               maxLines: 6,
               readOnly: false,
               controller: input,
@@ -53,8 +54,8 @@ class HomeScreenInput extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: HomeTextfield(
-                      hintText: "Secret Key here...",
-                      labelText: " Secret ",
+                      hintText: "Secret Key here...".tr(),
+                      labelText: " Secret ".tr(),
                       maxLines: 1,
                       readOnly: false,
                       controller: inputPass,
@@ -66,15 +67,17 @@ class HomeScreenInput extends ConsumerWidget {
                     onTap: () {
                       ref.read(obscureSecretStateProvider.notifier).set(!isSecretObscure);
                     },
-                    msg: "Censor/Decensor secret",
+                    msg: "Censor/Decensor secret".tr(),
                     isOutlined: true,
                     borderWidth: 1,
                     borderColor: kColor(context).primary,
                     borderRadius: BorderRadius.circular(6),
                     padding: const EdgeInsets.all(8),
                     margin: EdgeInsets.zero,
-                    child:
-                        Icon((isSecretObscure) ? Icons.visibility_rounded : Icons.visibility_off, size: 18),
+                    child: Icon(
+                      (isSecretObscure) ? Icons.visibility_rounded : Icons.visibility_off,
+                      size: 18,
+                    ),
                   ),
                 ],
               ),

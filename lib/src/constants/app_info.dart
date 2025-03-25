@@ -5,9 +5,9 @@ import 'package:package_info_plus/package_info_plus.dart';
 class AppInfo {
   static const unknown = "UNKNOWN";
 
-  // These two are crucial and should not depend on the packageInfo.
-  static const String TITLE = "Cipher Dove"; // TODO change this.
   // TODO change this.
+  // These two are crucial and should not depend on the packageInfo or any changing operations.
+  static const String TITLE = "Cipher Dove";
   static const String DESCRIPTION = "An open-source, offline, ad-free, basic encryption and decryption tool.";
 
   static late final String CURRENT_VERSION;

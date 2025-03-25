@@ -1,10 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cipher_dove/src/constants/_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 
+import '../constants/_constants.dart';
 import '../util/delay.dart';
 import 'app_router.dart';
 
@@ -31,19 +32,19 @@ class _NotFoundScreenState extends State<NotFoundScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '404 - Page not found!',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              '404 - Page not found!'.tr(),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             GAP_H8,
             Text(
-              'Redirecting to home page...',
-              style: TextStyle(fontSize: 14),
+              'Redirecting to home page...'.tr(),
+              style: const TextStyle(fontSize: 14),
             ),
           ],
         ),

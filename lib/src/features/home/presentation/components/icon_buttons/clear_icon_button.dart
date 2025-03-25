@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/features/home/presentation/input_output_form_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -13,7 +14,7 @@ class ClearInputIconButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
-      msg: "Remove all Input",
+      msg: "Remove all Input".tr(),
       padding: const EdgeInsets.all(4),
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),
@@ -36,7 +37,7 @@ class ClearOutputIconButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
-      msg: "Remove all Output",
+      msg: "Remove all Output".tr(),
       padding: const EdgeInsets.all(4),
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),

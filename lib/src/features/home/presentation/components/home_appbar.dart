@@ -20,7 +20,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               GAP_W12,
               Text(
-                "Cipher Dove",
+                AppInfo.TITLE,
                 style: kTextStyle(context).titleLarge?.copyWith(
                       color: PRIMARY_COLOR_L0,
                       fontWeight: FontWeight.bold,
