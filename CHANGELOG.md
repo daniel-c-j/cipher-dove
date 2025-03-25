@@ -10,10 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Minor details.
+- Minor app structure.
+- Algorithms.
 
 ### Added
 
-- Secret text field obscure text option option.
+- Secret text field obscure text option.
+- Output text field enhancement.
+- Default algorithm feature.
 
 ## [0.4.0] - 2025-03-24
 

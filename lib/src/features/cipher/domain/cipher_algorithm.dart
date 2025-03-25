@@ -22,11 +22,6 @@ enum CipherAlgorithmType {
 
 enum CipherAlgorithm {
   // * symmetric
-  blowfish(
-    name: "Blowfish",
-    detail: "A symmetric-key block cipher designed to be fast and secure.",
-    type: CipherAlgorithmType.symmetric,
-  ),
   aes(
     name: "AES",
     detail: "Advanced Encryption Standard, a symmetric encryption algorithm.",

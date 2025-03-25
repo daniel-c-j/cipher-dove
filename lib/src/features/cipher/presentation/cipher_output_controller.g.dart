@@ -7,12 +7,12 @@ part of 'cipher_output_controller.dart';
 // **************************************************************************
 
 String _$cipherOutputControllerHash() =>
-    r'2000c69c375d5f7ab30195a13f05ee2a6ed5ff8c';
+    r'1cbff63e06f4e8b47610e6e83390d5294a823dda';
 
 /// See also [CipherOutputController].
 @ProviderFor(CipherOutputController)
 final cipherOutputControllerProvider =
-    AsyncNotifierProvider<CipherOutputController, String>.internal(
+    AsyncNotifierProvider<CipherOutputController, void>.internal(
   CipherOutputController.new,
   name: r'cipherOutputControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final cipherOutputControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CipherOutputController = AsyncNotifier<String>;
+typedef _$CipherOutputController = AsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

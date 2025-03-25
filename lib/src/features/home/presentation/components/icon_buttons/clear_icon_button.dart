@@ -41,7 +41,7 @@ class ClearOutputIconButton extends ConsumerWidget {
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),
       onTap: () {
-        ref.read(outputTextFormStateProvider).clear();
+        ref.read(outputTextFormStateProvider.notifier).clear();
       },
       child: Icon(
         BoxIcons.bxs_eraser,

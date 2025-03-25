@@ -30,7 +30,7 @@ class InputPasswordTextFormState extends _$InputPasswordTextFormState with Notif
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class OutputTextFormState extends _$OutputTextFormState with NotifierMounted {
   @override
   TextEditingController build() {
@@ -45,5 +45,10 @@ class OutputTextFormState extends _$OutputTextFormState with NotifierMounted {
   void text(String newState) {
     if (!mounted) return;
     state = TextEditingController(text: newState);
+  }
+
+  void clear() {
+    if (!mounted) return;
+    state = TextEditingController(text: "");
   }
 }

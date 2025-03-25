@@ -1,3 +1,4 @@
+import 'package:cipher_dove/src/common_widgets/hud_overlay.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
@@ -16,17 +17,18 @@ class ProcessButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final outputValue = ref.watch(cipherOutputControllerProvider);
-    print(outputValue.isLoading);
+
     return CustomButton(
       onTap: () async {
         // Flagging
         if (outputValue.isLoading) return;
+        ref.read(showHudOverlayProvider.notifier).show();
 
+        final cipherMode = ref.read(cipherModeStateProvider);
         final input = ref.read(inputTextFormStateProvider).text;
         final secret = ref.read(inputPasswordTextFormStateProvider).text;
-        final cipherMode = ref.read(cipherModeStateProvider);
 
-        await ref.read(cipherOutputControllerProvider.notifier).process(
+        final output = await ref.read(cipherOutputControllerProvider.notifier).process(
               input,
               secret,
               mode: cipherMode,
@@ -34,7 +36,10 @@ class ProcessButton extends ConsumerWidget {
 
         SchedulerBinding.instance.addPostFrameCallback((_) {
           // Using notifier to also force update the corresponding widget.
-          ref.read(outputTextFormStateProvider.notifier).text(outputValue.value!);
+          ref
+              .read(outputTextFormStateProvider.notifier)
+              .text((outputValue.hasError || output.isEmpty) ? "Invalid" : output);
+          ref.read(showHudOverlayProvider.notifier).hide();
         });
       },
       buttonColor: PRIMARY_COLOR_D0,
@@ -44,12 +49,18 @@ class ProcessButton extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          (outputValue.isLoading)
-              ? const SizedBox.square(
-                  dimension: 20,
-                  child: CircularProgressIndicator(),
-                )
-              : const Icon(Icons.arrow_forward_rounded, size: 18, color: Colors.white),
+          ...(outputValue.isLoading)
+              ? const [
+                  SizedBox.square(
+                    dimension: 12,
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      strokeWidth: 2.5,
+                    ),
+                  ),
+                  GAP_W4,
+                ]
+              : const [Icon(Icons.arrow_forward_rounded, size: 18, color: Colors.white)],
           GAP_W4,
           Text(
             "Process",

@@ -1,4 +1,3 @@
-import 'package:blowfish/blowfish.dart';
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
@@ -25,8 +24,6 @@ class LocalCipherRepository {
   final Cryptography crypt;
   final SHA3 sha3Factory;
 
-  static const keyLength = 32;
-
   Future<CipherAlgorithm> getDefaultAlgorithm() async {
     final index = await sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX);
     return CipherAlgorithm.values[index ?? Default.CIPHER_ALGORITHM_INDEX];
@@ -36,7 +33,7 @@ class LocalCipherRepository {
     return await sharedPref.setInt(DBKeys.CIPHER_ALGORITHM_INDEX, CipherAlgorithm.values.indexOf(algorithm));
   }
 
-  String padKey(String key) {
+  String padKey(String key, int keyLength) {
     if (key.length < keyLength) return key.padRight(keyLength, '0'); // Padding
     if (key.length > keyLength) return key.substring(0, keyLength); // Truncating
     return key; // Already the correct length
@@ -53,10 +50,10 @@ class LocalCipherRepository {
     String secretKey, {
     required CipherAlgorithm algorithm,
   }) async {
-    final key = SecretKey(padKey(secretKey).codeUnits);
+    final key = SecretKey(padKey(secretKey, 32).codeUnits);
 
     return switch (algorithm) {
-      == CipherAlgorithm.blowfish => await blowfish(input, secretKey, action: CipherAction.encrypt),
+      // == CipherAlgorithm.blowfish => await blowfish(input, secretKey, action: CipherAction.encrypt),
       == CipherAlgorithm.aes => await aes(input, key, action: CipherAction.encrypt),
       == CipherAlgorithm.chacha20 => await chacha20(input, key, action: CipherAction.encrypt),
       _ => throw UnsupportedError("CipherAlgorithm not supported."),
@@ -68,10 +65,10 @@ class LocalCipherRepository {
     String secretKey, {
     required CipherAlgorithm algorithm,
   }) async {
-    final key = SecretKey(padKey(secretKey).codeUnits);
+    final key = SecretKey(padKey(secretKey, 32).codeUnits);
 
     return switch (algorithm) {
-      == CipherAlgorithm.blowfish => await blowfish(input, secretKey, action: CipherAction.decrypt),
+      // == CipherAlgorithm.blowfish => await blowfish(input, secretKey, action: CipherAction.decrypt),
       == CipherAlgorithm.aes => await aes(input, key, action: CipherAction.decrypt),
       == CipherAlgorithm.chacha20 => await chacha20(input, key, action: CipherAction.decrypt),
       _ => throw UnsupportedError("CipherAlgorithm not supported."),
@@ -84,11 +81,11 @@ class LocalCipherRepository {
 
   /// Will always decrypt if not encrypt.
   Future<String> chacha20(String input, SecretKey secretKey, {required CipherAction action}) async {
-    final chacha20 = crypt.chacha20(macAlgorithm: MacAlgorithm.empty);
+    final algorithm = crypt.chacha20(macAlgorithm: MacAlgorithm.empty);
     final nonce = '0'.padRight(12, '0');
 
     if (action == CipherAction.encrypt) {
-      final encrypted = await chacha20.encrypt(
+      final encrypted = await algorithm.encrypt(
         input.codeUnits,
         secretKey: secretKey,
         nonce: nonce.codeUnits.sublist(0, 12),
@@ -96,7 +93,7 @@ class LocalCipherRepository {
       return String.fromCharCodes(encrypted.cipherText);
     }
 
-    final decrypted = await chacha20.decrypt(
+    final decrypted = await algorithm.decrypt(
       SecretBox(input.codeUnits, nonce: nonce.codeUnits.sublist(0, 12), mac: Mac.empty),
       secretKey: secretKey,
     );
@@ -109,11 +106,11 @@ class LocalCipherRepository {
 
   /// Will always decrypt if not encrypt.
   Future<String> aes(String input, SecretKey secretKey, {required CipherAction action}) async {
-    final aes = crypt.aesCbc(macAlgorithm: MacAlgorithm.empty);
+    final algorithm = crypt.aesCbc(macAlgorithm: MacAlgorithm.empty);
     final nonce = '0'.padRight(16, '0');
 
     if (action == CipherAction.encrypt) {
-      final encrypted = await aes.encrypt(
+      final encrypted = await algorithm.encrypt(
         input.codeUnits,
         secretKey: secretKey,
         nonce: nonce.codeUnits.sublist(0, 16),
@@ -121,29 +118,10 @@ class LocalCipherRepository {
       return String.fromCharCodes(encrypted.cipherText);
     }
 
-    final decrypted = await aes.decrypt(
+    final decrypted = await algorithm.decrypt(
       SecretBox(input.codeUnits, nonce: nonce.codeUnits.sublist(0, 16), mac: Mac.empty),
       secretKey: secretKey,
     );
-    return String.fromCharCodes(decrypted);
-  }
-
-//
-// ======================================================================================================
-//
-
-  /// Will always decrypt if not encrypt.
-  Future<String> blowfish(String input, String secretKey, {required CipherAction action}) async {
-    final blowfish = Blowfish();
-    final iv = '0'.padRight(8, '0');
-
-    if (action == CipherAction.encrypt) {
-      final encrypted = blowfish.encryptCBC(input.codeUnits, iv.codeUnits.sublist(0, 8), applyPadding: true);
-
-      return String.fromCharCodes(encrypted);
-    }
-
-    final decrypted = blowfish.decryptCBC(input.codeUnits, iv.codeUnits.sublist(0, 8), applyPadding: true);
     return String.fromCharCodes(decrypted);
   }
 
@@ -213,7 +191,7 @@ class LocalCipherRepository {
 //
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 LocalCipherRepository localCipherRepository(Ref ref) {
   final sharedPref = ref.watch(sharedPrefProvider);
   final crypt = Cryptography.defaultInstance;

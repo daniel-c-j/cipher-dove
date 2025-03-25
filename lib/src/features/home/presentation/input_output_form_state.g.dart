@@ -42,12 +42,12 @@ final inputPasswordTextFormStateProvider = AutoDisposeNotifierProvider<
 typedef _$InputPasswordTextFormState
     = AutoDisposeNotifier<TextEditingController>;
 String _$outputTextFormStateHash() =>
-    r'adeaef99c231acaecf9cf21eaae13d1413c49326';
+    r'3ccc478feb50ffdd780b16129038df518e0d2b11';
 
 /// See also [OutputTextFormState].
 @ProviderFor(OutputTextFormState)
-final outputTextFormStateProvider = AutoDisposeNotifierProvider<
-    OutputTextFormState, TextEditingController>.internal(
+final outputTextFormStateProvider =
+    NotifierProvider<OutputTextFormState, TextEditingController>.internal(
   OutputTextFormState.new,
   name: r'outputTextFormStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -57,6 +57,6 @@ final outputTextFormStateProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$OutputTextFormState = AutoDisposeNotifier<TextEditingController>;
+typedef _$OutputTextFormState = Notifier<TextEditingController>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

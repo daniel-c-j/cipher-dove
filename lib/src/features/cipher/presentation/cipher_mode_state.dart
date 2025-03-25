@@ -20,8 +20,16 @@ class CipherModeState extends _$CipherModeState {
 
   /// Fetching config data from local repo.
   Future<void> init() async {
-    final algorithm = await ref.watch(localCipherRepositoryProvider).getDefaultAlgorithm();
+    final algorithm = await getDefault();
     state = state.copyWith(algorithm: algorithm);
+  }
+
+  Future<CipherAlgorithm> getDefault() async {
+    return await ref.read(localCipherRepositoryProvider).getDefaultAlgorithm();
+  }
+
+  Future<void> setDefault(CipherAlgorithm algorithm) async {
+    await ref.read(localCipherRepositoryProvider).setDefaultAlgorithm(algorithm);
   }
 
   set mode(CipherMode mode) => state = mode;

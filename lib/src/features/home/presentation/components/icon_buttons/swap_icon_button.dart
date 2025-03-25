@@ -22,7 +22,7 @@ class SwapIconButton extends ConsumerWidget {
         if (output.text.isEmpty) return;
 
         ref.read(inputTextFormStateProvider).text = output.text;
-        ref.read(outputTextFormStateProvider).clear();
+        ref.read(outputTextFormStateProvider.notifier).clear();
       },
       child: Icon(
         Icons.arrow_circle_up_rounded,

@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/features/cipher/data/local/local_cipher_repo.dart';
+import 'package:cipher_dove/src/util/delay.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/cipher_action.dart';
@@ -10,52 +11,59 @@ part 'cipher_output_controller.g.dart';
 @Riverpod(keepAlive: true)
 class CipherOutputController extends _$CipherOutputController {
   @override
-  FutureOr<String> build() async {
-    return "";
+  FutureOr<void> build() {
+    // return "";
   }
 
-  Future<void> process(
+  Future<String> process(
     String input,
     String secretKey, {
     required CipherMode mode,
   }) async {
+    ref.invalidate(localCipherRepositoryProvider);
+    final repo = ref.read(localCipherRepositoryProvider);
+    String output = "";
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
+      // Small delay
+      await delay(true, 400);
+
       if (mode.action == CipherAction.encrypt) {
         //
         if (mode.algorithm.type == CipherAlgorithmType.symmetric) {
-          return await ref.read(localCipherRepositoryProvider).encryptSymmetric(
-                input,
-                secretKey,
-                algorithm: mode.algorithm,
-              );
+          output = await repo.encryptSymmetric(
+            input,
+            secretKey,
+            algorithm: mode.algorithm,
+          );
         }
 
         if (mode.algorithm.type == CipherAlgorithmType.asymmetric) {
-          return await ref.read(localCipherRepositoryProvider).encryptAsymmetric(input, mode: mode);
+          output = await repo.encryptAsymmetric(input, mode: mode);
         }
 
         if (mode.algorithm.type == CipherAlgorithmType.hash) {
-          return await ref.read(localCipherRepositoryProvider).hash(input, mode: mode);
+          output = await repo.hash(input, mode: mode);
         }
       }
 
       // Expected to be CipherAction.decrypt
       if (mode.algorithm.type == CipherAlgorithmType.symmetric) {
-        return await ref.read(localCipherRepositoryProvider).decryptSymmetric(
-              input,
-              secretKey,
-              algorithm: mode.algorithm,
-            );
+        output = await repo.decryptSymmetric(
+          input,
+          secretKey,
+          algorithm: mode.algorithm,
+        );
       }
 
       if (mode.algorithm.type == CipherAlgorithmType.asymmetric) {
-        return await ref.read(localCipherRepositoryProvider).decryptAsymmetric(input, mode: mode);
+        output = await repo.decryptAsymmetric(input, mode: mode);
       }
 
       // Hash cannot be decrypted.
-
-      return "";
     });
+
+    return output;
   }
 }
