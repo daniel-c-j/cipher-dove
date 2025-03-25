@@ -7,7 +7,7 @@ part of 'version_check_controller.dart';
 // **************************************************************************
 
 String _$versionCheckControllerHash() =>
-    r'95c093f4c067a23926569b8824a9eaa8985120ef';
+    r'dead28f6cc22890d762dbc7275ab2c72633bf564';
 
 /// See also [VersionCheckController].
 @ProviderFor(VersionCheckController)

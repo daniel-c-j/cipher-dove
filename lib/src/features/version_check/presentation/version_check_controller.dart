@@ -11,7 +11,7 @@ part 'version_check_controller.g.dart';
 @riverpod
 class VersionCheckController extends _$VersionCheckController {
   @override
-  FutureOr<void> build() {
+  FutureOr<void> build() async {
     // Nothing.
   }
 
@@ -22,18 +22,21 @@ class VersionCheckController extends _$VersionCheckController {
     required void Function(Object e, StackTrace? st) whenError,
   }) async {
     final versionRepo = ref.read(versionCheckRepoProvider);
+    late final VersionCheck versionCheck;
 
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => versionRepo.getVersionCheck());
+    try {
+      versionCheck = await versionRepo.getVersionCheck();
+      state = AsyncValue.data(null);
 
-    // Throws custom exception.
-    if (state.hasError) {
+      // Typically calls for a showDialog widget.
+      return whenSuccess(versionCheck);
+      //
+    } catch (e) {
+      // Throws custom exception.
       final error = state.asError?.error;
       return _handleErrors(error, whenError: whenError);
     }
-
-    // Typically calls for a showDialog widget.
-    return whenSuccess(versionRepo.versionCheck);
   }
 
   void _handleErrors(

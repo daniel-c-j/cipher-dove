@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/cipher_action_switch.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selected.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/process_button.dart';
@@ -5,12 +6,76 @@ import 'package:cipher_dove/src/features/home/presentation/components/home_appba
 import 'package:cipher_dove/src/features/home/presentation/components/home_screen_input.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../../constants/_constants.dart';
+import '../../../exceptions/_exceptions.dart';
+import '../../version_check/domain/version_check.dart';
+import '../../version_check/presentation/version_check_controller.dart';
+import '../../version_check/presentation/version_update_dialog.dart';
 import 'components/home_screen_output.dart';
 
-class HomeScreen extends StatelessWidget {
+// To prevent multi checking.
+bool _updateIsChecked = false;
+
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (mounted && !_updateIsChecked) await _checkVersionUpdate();
+    });
+  }
+
+  // Check the version when the app starts.
+  Future<void> _checkVersionUpdate() async {
+    // Flagging.
+    _updateIsChecked = true;
+
+    final controller = ref.read(versionCheckControllerProvider.notifier);
+    await controller.checkData(
+      whenSuccess: (VersionCheck ver) async {
+        // Do nothing if there's no update available.
+        if (!ver.canUpdate) return;
+        return await showDialog(
+          context: context,
+          useSafeArea: true,
+          builder: (context) {
+            return VersionUpdateDialog(ver);
+          },
+        );
+      },
+      whenError: (e, st) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        if (e is AppException) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              // TODO localization
+              content: Text(e.message),
+              dismissDirection: DismissDirection.horizontal,
+            ),
+          );
+          return;
+        }
+
+        // Unexpected one.
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            // TODO localization
+            content: Text(const UnknownException().message),
+            dismissDirection: DismissDirection.horizontal,
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

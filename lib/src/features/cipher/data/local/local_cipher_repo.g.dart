@@ -7,11 +7,12 @@ part of 'local_cipher_repo.dart';
 // **************************************************************************
 
 String _$localCipherRepositoryHash() =>
-    r'4ceb8d743707246660c56d6839b20a0e6e9885bc';
+    r'20b045a2d1c604eae80300479b6d310d0a0ee00a';
 
 /// See also [localCipherRepository].
 @ProviderFor(localCipherRepository)
-final localCipherRepositoryProvider = Provider<LocalCipherRepository>.internal(
+final localCipherRepositoryProvider =
+    AutoDisposeProvider<LocalCipherRepository>.internal(
   localCipherRepository,
   name: r'localCipherRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,6 +24,7 @@ final localCipherRepositoryProvider = Provider<LocalCipherRepository>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef LocalCipherRepositoryRef = ProviderRef<LocalCipherRepository>;
+typedef LocalCipherRepositoryRef
+    = AutoDisposeProviderRef<LocalCipherRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

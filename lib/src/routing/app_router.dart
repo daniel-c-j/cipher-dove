@@ -61,26 +61,27 @@ GoRouter goRouter(Ref ref) {
         routes: [],
       ),
       GoRoute(
-          path: AppRoute.about.path,
-          name: AppRoute.about.name,
-          builder: (context, state) {
-            return const HudOverlay(child: AboutScreen());
-          },
-          onExit: (context, state) {
-            // Prevent keyboard suddenly opens when going back to home screen after
-            // once focused on one of the textfields.
-            FocusScope.of(context).unfocus();
-            return true;
-          },
-          routes: [
-            GoRoute(
-              path: AppRoute.license.path,
-              name: AppRoute.license.name,
-              builder: (context, state) {
-                return const LicensePage();
-              },
-            ),
-          ]),
+        path: AppRoute.about.path,
+        name: AppRoute.about.name,
+        builder: (context, state) {
+          return const HudOverlay(child: AboutScreen());
+        },
+        onExit: (context, state) {
+          // Prevent keyboard suddenly opens when going back to home screen after
+          // once focused on one of the textfields.
+          FocusScope.of(context).unfocus();
+          return true;
+        },
+        routes: [
+          GoRoute(
+            path: AppRoute.license.path,
+            name: AppRoute.license.name,
+            builder: (context, state) {
+              return const LicensePage();
+            },
+          ),
+        ],
+      ),
       GoRoute(
         path: "/404",
         name: AppRoute.unknown.name,
