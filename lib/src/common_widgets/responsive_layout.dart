@@ -21,7 +21,7 @@ class ResponsiveLayout extends StatelessWidget {
   final Widget wearOS;
 
   @override
-  Widget build(BuildContext context) => switch (width ?? kScreenHeight(context)) {
+  Widget build(BuildContext context) => switch (width ?? kScreenWidth(context)) {
         > Breakpoint.DESKTOP => desktop,
         > Breakpoint.TABLET => tablet,
         > Breakpoint.MOBILE => mobile,

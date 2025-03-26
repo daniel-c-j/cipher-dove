@@ -53,13 +53,13 @@ void main() {
       final controller = container.read(versionCheckControllerProvider);
 
       // * Assert
-      expect(controller.asData, AsyncData<void>(null));
+      expect(controller, const AsyncData<void>(null));
     });
 
     test('''
       Given getVersionCheck state is valid.
       When checkData is called.
-      Then whenSuccess callback is returned with the VersionCheck value.
+      Then onSuccess callback is returned with the VersionCheck value.
       And state has no error.
     ''', () async {
       // * Arrange
@@ -77,7 +77,7 @@ void main() {
 
       // * Pre-Act
       // Initial value is null.
-      expect(controller.asData, null);
+      expect(controller, const AsyncData<void>(null));
 
       // * Act
       // Create listener and listen to the provider.
@@ -86,13 +86,14 @@ void main() {
         (prev, next) => states.add(next),
         fireImmediately: true,
       );
-      await notifier.checkData(whenSuccess: (val) => returnedVersionCheck = val, whenError: (_, __) {});
+      await notifier.checkData(onSuccess: (val) => returnedVersionCheck = val, onError: (_, __) {});
 
       // * Assert
       expect(returnedVersionCheck, mockVersionCheck());
       expect(states, [
+        const AsyncData<void>(null),
         isA<AsyncLoading<void>>(),
-        const AsyncData<void>(null), // Done
+        const AsyncData<void>(null),
       ]);
 
       verify(() => versionCheckRepo.getVersionCheck()).called(1);
@@ -101,7 +102,7 @@ void main() {
     test('''
       Given getVersionCheck state is invalid or has error/exception.
       When checkData is called.
-      Then whenError callback is returned.
+      Then onError callback is returned.
       And state has an error.
     ''', () async {
       // * Arrange
@@ -118,7 +119,7 @@ void main() {
 
       // * Pre-Act
       // Initial value is null.
-      expect(controller.asData, AsyncData<void>(null));
+      expect(controller, const AsyncData<void>(null));
 
       // * Act
       // Create listener and listen to the provider.
@@ -127,14 +128,14 @@ void main() {
         (prev, next) => states.add(next),
         fireImmediately: true,
       );
-      await notifier.checkData(whenSuccess: (_) {}, whenError: (e, _) => error = e as AppException);
+      await notifier.checkData(onSuccess: (_) {}, onError: (e, _) => error = e as AppException);
 
       // * Assert
-      expect(error, UpdateCheckException());
+      expect(error, const UpdateCheckException());
       expect(states, [
-        const AsyncData<void>(null), // Init
+        const AsyncData<void>(null),
         isA<AsyncLoading<void>>(),
-        isA<AsyncError<void>>(), // Error
+        isA<AsyncError<void>>(),
       ]);
 
       verify(() => versionCheckRepo.getVersionCheck()).called(1);
@@ -143,7 +144,7 @@ void main() {
     test('''
       Given there's a network error.
       When handleErrors is called.
-      Then whenError callback is returned alongside a formatted AppException from DioException.
+      Then onError callback is returned alongside a formatted AppException from DioException.
       And state has error.
     ''', () async {
       // * Arrange
@@ -152,10 +153,10 @@ void main() {
       final notifier = container.read(versionCheckControllerProvider.notifier);
 
       // Flag indicators.
-      late AppException error;
+      late final AppException error;
 
       // * Act
-      notifier.handleErrors(mock404Exception(), whenError: (e, _) => error = e as AppException);
+      notifier.handleErrors(mock404Exception(), onError: (e, _) => error = e as AppException);
 
       // * Assert
       // NotFoundException code is 404.
@@ -165,7 +166,7 @@ void main() {
     test('''
       Given there's a general error.
       When handleErrors is called.
-      Then whenError callback is returned alongside UpdateCheckException.
+      Then onError callback is returned alongside UpdateCheckException.
       And state has error.
     ''', () async {
       // * Arrange
@@ -174,10 +175,10 @@ void main() {
       final notifier = container.read(versionCheckControllerProvider.notifier);
 
       // Flag indicators.
-      late AppException error;
+      late final AppException error;
 
       // * Act
-      notifier.handleErrors(mockRegularException(), whenError: (e, _) => error = e as AppException);
+      notifier.handleErrors(mockRegularException(), onError: (e, _) => error = e as AppException);
 
       // * Assert
       expect(error, UpdateCheckException());

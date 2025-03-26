@@ -42,7 +42,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     final controller = ref.read(versionCheckControllerProvider.notifier);
     await controller.checkData(
-      whenSuccess: (VersionCheck ver) async {
+      onSuccess: (VersionCheck ver) async {
         // Do nothing if there's no update available.
         if (!ver.canUpdate) return;
         return await showDialog(
@@ -57,7 +57,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           },
         );
       },
-      whenError: (e, st) {
+      onError: (e, st) {
         ScaffoldMessenger.of(context).clearSnackBars();
         if (e is AppException) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -82,6 +82,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // To prevent future already completed error.
+    final versionCheck = ref.watch(versionCheckControllerProvider);
+
     return Scaffold(
       appBar: HomeAppBar(),
       body: DoubleBackToCloseApp(

@@ -19,9 +19,13 @@ class HudOverlay extends StatelessWidget {
   const HudOverlay({
     super.key,
     required this.child,
+    this.withDelay = true,
   });
 
   final Widget child;
+  final bool withDelay;
+
+  static const loadingHudKey = Key("hud-loading");
 
   // Not using get, to be easily configured if there's a need for parameter passing.
   Widget _showOverlayBackground() {
@@ -33,6 +37,7 @@ class HudOverlay extends StatelessWidget {
   // TODO Change this as needed.
   Widget _showOverlayContent() {
     return const Center(
+      key: loadingHudKey, // ! Whatever the widget is, this key needs to be adapted.
       child: CircularProgressIndicator(),
     );
   }
@@ -52,10 +57,10 @@ class HudOverlay extends StatelessWidget {
             return Consumer(
               builder: (context, ref, child) {
                 final show = ref.watch(showHudOverlayProvider);
-                const duration = Duration(milliseconds: 800);
+                final duration = Duration(milliseconds: (withDelay) ? 800 : 0);
 
                 // Returns nothing when animation ends and show is false.
-                if (!show && !shouldRender) return SizedBox.shrink();
+                if (!show && !shouldRender) return const SizedBox.shrink();
 
                 return IgnorePointer(
                   child: AnimatedOpacity(

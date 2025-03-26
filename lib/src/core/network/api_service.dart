@@ -25,14 +25,14 @@ class ApiService {
   }
 
   // Expecting to refetch again with another interceptors...
-  _onError(DioException exception, ErrorInterceptorHandler handler) {
-    try {
-      return handler.next(exception);
-    } catch (e) {
-      return handler.reject(exception);
-      // onUnexpectedError(handler, error);
-    }
-  }
+  // _onError(DioException exception, ErrorInterceptorHandler handler) {
+  //   try {
+  //     return handler.next(exception);
+  //   } catch (e) {
+  //     return handler.reject(exception);
+  //     // onUnexpectedError(handler, error);
+  //   }
+  // }
 
   _onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     // Always check internet connection before doing any request.

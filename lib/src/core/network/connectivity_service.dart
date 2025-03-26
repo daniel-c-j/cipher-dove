@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -20,13 +19,12 @@ class ConnectivityNotifier extends _$ConnectivityNotifier {
     return false;
   }
 
+  final _internetConnectionChecker = InternetConnection();
   late StreamSubscription<InternetStatus> _subscription;
 
   ConnectivityNotifier() {
-    final internetConnectionChecker = ref.watch(internetConnectionProvider);
-
     // Continuously listen for internet connection changes.
-    _subscription = internetConnectionChecker.onStatusChange.listen(
+    _subscription = _internetConnectionChecker.onStatusChange.listen(
       (InternetStatus status) {
         // Updates state to true when the condition is true, vice-versa.
         state = status == InternetStatus.connected;
@@ -36,9 +34,4 @@ class ConnectivityNotifier extends _$ConnectivityNotifier {
       },
     );
   }
-}
-
-@Riverpod(keepAlive: true)
-InternetConnection internetConnection(Ref ref) {
-  return InternetConnection();
 }

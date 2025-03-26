@@ -1,3 +1,4 @@
+import 'package:cipher_dove/src/util/notifier_mounted.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,16 +10,18 @@ import '../domain/version_check.dart';
 part 'version_check_controller.g.dart';
 
 @riverpod
-class VersionCheckController extends _$VersionCheckController {
+class VersionCheckController extends _$VersionCheckController with NotifierMounted {
   @override
-  FutureOr<void> build() async {
-    // Nothing.
+  FutureOr<void> build() {
+    ref.onDispose(setUnmounted);
   }
 
   Future<void> checkData({
-    required void Function(VersionCheck val) whenSuccess,
-    required void Function(Object e, StackTrace? st) whenError,
+    required void Function(VersionCheck val) onSuccess,
+    required void Function(Object e, StackTrace? st) onError,
   }) async {
+    if (!mounted) return;
+
     final versionRepo = ref.read(versionCheckRepoProvider);
     late final VersionCheck versionCheck;
 
@@ -26,32 +29,33 @@ class VersionCheckController extends _$VersionCheckController {
     // For some good reason, AsyncGuard doesn't catch the error.
     try {
       versionCheck = await versionRepo.getVersionCheck();
-      // state = AsyncValue.data(null);
+      state = const AsyncData(null);
 
       // Typically calls for a showDialog widget.
-      return whenSuccess(versionCheck);
-      //
-    } catch (e) {
+      return onSuccess(versionCheck);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+
       // Throws custom exception.
       final error = state.asError?.error;
-      return _handleErrors(error, whenError: whenError);
+      return _handleErrors(error, onError: onError);
     }
   }
 
   void _handleErrors(
     Object? error, {
-    required void Function(AppException e, StackTrace? st) whenError,
+    required void Function(AppException e, StackTrace? st) onError,
   }) {
     if (error is DioException) {
       final netError = ref.read(netErrorHandlerProvider).handle(error);
-      return whenError(netError, state.stackTrace);
+      return onError(netError, state.stackTrace);
     }
 
     // Doesn't care what kind of exception, just return the formatted one.
-    return whenError(UpdateCheckException(), state.stackTrace);
+    return onError(UpdateCheckException(), state.stackTrace);
   }
 
   @visibleForTesting
-  void handleErrors(Object? error, {required void Function(Object e, StackTrace? st) whenError}) =>
-      _handleErrors(error, whenError: whenError);
+  void handleErrors(Object? error, {required void Function(Object e, StackTrace? st) onError}) =>
+      _handleErrors(error, onError: onError);
 }

@@ -18,23 +18,32 @@ class ProcessButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final outputValue = ref.watch(cipherOutputControllerProvider);
+    final output = ref.watch(cipherOutputControllerProvider);
 
     return CustomButton(
       msg: "Process".tr(),
       onTap: () async {
         // Flagging
-        if (outputValue.isLoading) return;
+        if (output.isLoading) return;
 
         final cipherMode = ref.read(cipherModeStateProvider);
         final input = ref.read(inputTextFormStateProvider).text;
         final secret = ref.read(inputPasswordTextFormStateProvider).text;
 
-        if (input.isEmpty) return;
+        if (input.isEmpty) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Input cannot be empty".tr()),
+              dismissDirection: DismissDirection.horizontal,
+            ),
+          );
+          return;
+        }
 
         // Start operation.
         ref.read(showHudOverlayProvider.notifier).show(); // Shows overlay loading
-        final output = await ref.read(cipherOutputControllerProvider.notifier).process(
+        final outputValue = await ref.read(cipherOutputControllerProvider.notifier).process(
               input,
               secret,
               mode: cipherMode,
@@ -44,7 +53,7 @@ class ProcessButton extends ConsumerWidget {
           // Using notifier to also force update the corresponding watching widget.
           ref
               .read(outputTextFormStateProvider.notifier)
-              .text((outputValue.hasError || output.isEmpty) ? "Invalid".tr() : output);
+              .text((output.hasError || outputValue.isEmpty) ? "Invalid".tr() : outputValue);
           ref.read(showHudOverlayProvider.notifier).hide(); // Hide overlay
         });
       },
@@ -55,7 +64,7 @@ class ProcessButton extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ...(outputValue.isLoading)
+          ...(output.isLoading)
               ? const [
                   SizedBox.square(
                     dimension: 12,

@@ -12,7 +12,7 @@ part 'cipher_output_controller.g.dart';
 @Riverpod(keepAlive: true)
 class CipherOutputController extends _$CipherOutputController {
   @override
-  FutureOr<void> build() async {
+  FutureOr<void> build() {
     // Nothing.
   }
 
