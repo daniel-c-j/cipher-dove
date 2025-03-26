@@ -14,7 +14,7 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Creating app startup instance for initialization.
-  final appStartup = AppStartup();
+  const appStartup = AppStartup();
   final container = await appStartup.initializeProviderContainer();
   final root = await appStartup.createRootWidget(container: container);
 

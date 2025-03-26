@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/_constants.dart';
 import '../util/context_shortcut.dart';
 
-/// Multi screensizes layout support.
+/// Responsive screensizes layout support.
 class ResponsiveLayout extends StatelessWidget {
   const ResponsiveLayout({
     super.key,

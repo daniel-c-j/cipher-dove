@@ -5,10 +5,9 @@ import '../../../../core/_core.dart';
 import '../../../../util/context_shortcut.dart';
 import '../../domain/cipher_algorithm.dart';
 
-// TODO documentation
-// TODO test
-// TODO ReadME
-// TODO Code-Review
+// TODO documentations
+
+/// A widget that is defined exclusively for [CipherAlgorithmType].
 class AlgorithmTag extends StatelessWidget {
   const AlgorithmTag({super.key, required this.type});
 

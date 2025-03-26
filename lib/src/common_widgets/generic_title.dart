@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/_constants.dart';
 import '../util/context_shortcut.dart';
 
+/// Classic title text widget.
 class GenericTitle extends StatelessWidget {
   const GenericTitle({
     super.key,

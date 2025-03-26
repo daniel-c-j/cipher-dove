@@ -8,6 +8,7 @@ import '../../../../core/_core.dart';
 import '../../../../routing/app_router.dart';
 import '../../../../util/context_shortcut.dart';
 
+/// Widget about the license this app/project using.
 class LicenseDev extends StatelessWidget {
   const LicenseDev({super.key});
 
@@ -15,6 +16,9 @@ class LicenseDev extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
         Text(
           "Licenses".tr(),
           textAlign: TextAlign.center,
@@ -22,6 +26,9 @@ class LicenseDev extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
         ),
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
         GAP_H4,
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -38,6 +45,9 @@ class LicenseDev extends StatelessWidget {
             ),
           ],
         ),
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
         GAP_H4,
         CustomButton(
           onTap: () async {
@@ -61,6 +71,9 @@ class LicenseDev extends StatelessWidget {
             ],
           ),
         ),
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
       ],
     );
   }

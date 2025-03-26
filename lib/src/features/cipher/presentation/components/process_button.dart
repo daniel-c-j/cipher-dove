@@ -12,6 +12,7 @@ import '../../../../common_widgets/custom_button.dart';
 import '../../../../constants/_constants.dart';
 import '../../../../util/context_shortcut.dart';
 
+/// Process button to start the operations and set the output value to the [OutputTextFormField].
 class ProcessButton extends ConsumerWidget {
   const ProcessButton({super.key});
 
@@ -24,12 +25,15 @@ class ProcessButton extends ConsumerWidget {
       onTap: () async {
         // Flagging
         if (outputValue.isLoading) return;
-        ref.read(showHudOverlayProvider.notifier).show();
 
         final cipherMode = ref.read(cipherModeStateProvider);
         final input = ref.read(inputTextFormStateProvider).text;
         final secret = ref.read(inputPasswordTextFormStateProvider).text;
 
+        if (input.isEmpty) return;
+
+        // Start operation.
+        ref.read(showHudOverlayProvider.notifier).show(); // Shows overlay loading
         final output = await ref.read(cipherOutputControllerProvider.notifier).process(
               input,
               secret,
@@ -37,11 +41,11 @@ class ProcessButton extends ConsumerWidget {
             );
 
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          // Using notifier to also force update the corresponding widget.
+          // Using notifier to also force update the corresponding watching widget.
           ref
               .read(outputTextFormStateProvider.notifier)
               .text((outputValue.hasError || output.isEmpty) ? "Invalid".tr() : output);
-          ref.read(showHudOverlayProvider.notifier).hide();
+          ref.read(showHudOverlayProvider.notifier).hide(); // Hide overlay
         });
       },
       buttonColor: PRIMARY_COLOR_D0,

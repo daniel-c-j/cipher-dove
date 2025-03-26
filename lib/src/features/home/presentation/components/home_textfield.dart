@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../util/context_shortcut.dart';
 
+/// Base widget class for defined textfields widget.
 class HomeTextfield extends StatelessWidget {
   const HomeTextfield({
     super.key,

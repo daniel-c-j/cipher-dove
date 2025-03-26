@@ -1,0 +1,13 @@
+# TODO Change this.
+# dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/splash/splash_light.png
+  color_dark: "#000000"
+  image_dark: assets/images/splash/splash_dark.png
+
+  android_12:
+    image: assets/images/splash/splash_light.png
+    icon_background_color: "#FFFFFF"
+    image_dark: assets/images/splash/splash_dark.png
+    icon_background_color_dark: "#000000"

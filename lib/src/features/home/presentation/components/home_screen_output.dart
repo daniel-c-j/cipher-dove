@@ -10,6 +10,7 @@ import 'home_textfield.dart';
 import 'icon_buttons/swap_icon_button.dart';
 import '../input_output_form_state.dart';
 
+/// Containing output text field with its other options.
 class HomeScreenOutput extends ConsumerWidget {
   const HomeScreenOutput({super.key});
 

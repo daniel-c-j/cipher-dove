@@ -8,9 +8,11 @@ import '../../../../constants/_constants.dart';
 import '../../../../core/_core.dart';
 import '../../../../util/context_shortcut.dart';
 
+/// Widget about the guy coding this app (－.－)... zzz
 class ContactDev extends StatelessWidget {
   const ContactDev({super.key});
 
+  /// Generate predefined CustomButton.
   Widget _getContact(Widget icon, String title, {required String url}) {
     return CustomButton(
       msg: url,
@@ -40,6 +42,9 @@ class ContactDev extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
         Text(
           "Contact".tr(),
           textAlign: TextAlign.center,
@@ -47,6 +52,9 @@ class ContactDev extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
         ),
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
         GAP_H4,
         Wrap(
           alignment: WrapAlignment.spaceEvenly,
@@ -73,6 +81,9 @@ class ContactDev extends StatelessWidget {
             ),
           ],
         ),
+//
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
       ],
     );
   }

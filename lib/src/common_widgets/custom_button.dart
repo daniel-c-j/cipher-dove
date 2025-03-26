@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Custom button widget that supports [InkWell] splash behaviour, but more enhanced.
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,

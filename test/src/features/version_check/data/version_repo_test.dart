@@ -39,7 +39,7 @@ void main() {
       );
 
   group('RemoteVersionCheckRepo', () {
-    test("getVersionCheck returns a Future.", () async {
+    test("getVersionCheck returns a Future of VersionCheck.", () async {
       // * Arrange
       final apiService = MockApiService();
       when(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).thenAnswer((_) async => mockResponse());
@@ -50,9 +50,7 @@ void main() {
 
       // * Assert
       expect(getVersionCheck, isA<Future<void>>());
-
-      await getVersionCheck;
-      expect(versionCheckRepo.versionCheck, mockVersionCheck());
+      expect(await getVersionCheck, mockVersionCheck());
 
       verify(() => apiService.get(url: NetConsts.URL_CHECK_VERSION)).called(1);
     });

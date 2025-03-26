@@ -12,6 +12,7 @@ import '../domain/version_check.dart';
 
 // TODO better UI
 
+/// Content of the version update dialog.
 class VersionUpdateDialog extends ConsumerWidget {
   const VersionUpdateDialog(this.versionCheck, {super.key});
 

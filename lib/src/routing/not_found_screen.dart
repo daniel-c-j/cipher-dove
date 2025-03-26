@@ -11,7 +11,7 @@ import 'app_router.dart';
 
 // TODO better UI
 
-/// Simple not found screen used for 404 errors (page not found on web)
+/// Simple not found screen used for 404 errors (page not found on web).
 class NotFoundScreen extends StatefulWidget {
   const NotFoundScreen({super.key});
 

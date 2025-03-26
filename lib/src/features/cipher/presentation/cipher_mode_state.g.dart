@@ -8,7 +8,9 @@ part of 'cipher_mode_state.dart';
 
 String _$cipherModeStateHash() => r'19918dd1c56052e4746085aa2864db801ac98a2c';
 
-/// See also [CipherModeState].
+/// Controls the state of the operation configuration.
+///
+/// Copied from [CipherModeState].
 @ProviderFor(CipherModeState)
 final cipherModeStateProvider =
     NotifierProvider<CipherModeState, CipherMode>.internal(

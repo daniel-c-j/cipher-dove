@@ -9,7 +9,9 @@ part of 'home_screen_input.dart';
 String _$obscureSecretStateHash() =>
     r'19f9656ca5ef21791e79a736ba7962e63d90ef7c';
 
-/// See also [ObscureSecretState].
+/// Set the secret textfield text mode.
+///
+/// Copied from [ObscureSecretState].
 @ProviderFor(ObscureSecretState)
 final obscureSecretStateProvider =
     AutoDisposeNotifierProvider<ObscureSecretState, bool>.internal(

@@ -6,10 +6,30 @@ part of 'connectivity_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$connectivityNotifierHash() =>
-    r'439887297e30fbc656c45a91eadefc380c078b0f';
+String _$internetConnectionHash() =>
+    r'97ac2700b7886a7909385e8ec534af8523d4f0f4';
 
-/// See also [ConnectivityNotifier].
+/// See also [internetConnection].
+@ProviderFor(internetConnection)
+final internetConnectionProvider = Provider<InternetConnection>.internal(
+  internetConnection,
+  name: r'internetConnectionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$internetConnectionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef InternetConnectionRef = ProviderRef<InternetConnection>;
+String _$connectivityNotifierHash() =>
+    r'0dcd578fcb85f21e66359d2914941160b1ba35f1';
+
+/// Watching this will cause the widget to rebuild based on the internet connectivity status.
+///
+/// Copied from [ConnectivityNotifier].
 @ProviderFor(ConnectivityNotifier)
 final connectivityNotifierProvider =
     NotifierProvider<ConnectivityNotifier, bool>.internal(

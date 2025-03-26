@@ -17,7 +17,7 @@ class Sizes {
   static const P64 = 64.0;
 }
 
-/// GaP widths
+/// Gap widths
 const GAP_W2 = SizedBox(width: Sizes.P2);
 const GAP_W4 = SizedBox(width: Sizes.P4);
 const GAP_W6 = SizedBox(width: Sizes.P6);
@@ -31,7 +31,7 @@ const GAP_W40 = SizedBox(width: Sizes.P40);
 const GAP_W48 = SizedBox(width: Sizes.P48);
 const GAP_W64 = SizedBox(width: Sizes.P64);
 
-/// GaP heights
+/// Gap heights
 const GAP_H2 = SizedBox(height: Sizes.P2);
 const GAP_H4 = SizedBox(height: Sizes.P4);
 const GAP_H6 = SizedBox(height: Sizes.P6);

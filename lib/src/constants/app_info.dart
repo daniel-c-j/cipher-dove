@@ -1,39 +1,66 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
+import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// Basic app identity informations.
 class AppInfo {
   static const unknown = "UNKNOWN";
 
-  // TODO change this.
-  // These two are crucial and should not depend on the packageInfo or any changing operations.
+  // TODO change these.
+  // ! These two are crucial and should not depend on the packageInfo or any changing operations.
   static const String TITLE = "Cipher Dove";
   static const String DESCRIPTION = "An open-source, offline, ad-free, basic encryption and decryption tool.";
 
-  static late final String CURRENT_VERSION;
-  static late final String PACKAGE_NAME;
-  static late final String BUILD_NUMBER;
-  static late final String BUILD_SIGNATURE;
+  // ! Must be initialized first before being used.
+  static late String _CURRENT_VERSION;
+  static late String _PACKAGE_NAME;
+  static late String _BUILD_NUMBER;
+  static late String _BUILD_SIGNATURE;
+
+  // ? Why are these needed and why the above properties are private?
+  // ? - NEEDED because of unit testing purposes.
+  // ?   This class is a data container, and should be constant or not changed during runtime.
+  // ?   Because the state remains static once init method is called, the only way to simulate
+  // ?   the class behaviour for testing different scenario while in the same static data container,
+  // ?   is through non-final/non-const private properties and public getters.
+  // ?
+  // ? - PRIVATE because they should NOT be modified unless from the init method --which will be simulated
+  // ?   with cases [if success] and [if fail]-- that's why they can only be accessed through
+  // ?   the getters below --which will verify the testing cases--, which cannot be modified.
+  // ?
+  static String get CURRENT_VERSION => _CURRENT_VERSION;
+  static String get PACKAGE_NAME => _PACKAGE_NAME;
+  static String get BUILD_NUMBER => _BUILD_NUMBER;
+  static String get BUILD_SIGNATURE => _BUILD_SIGNATURE;
+
+  @visibleForTesting
+  static set CURRENT_VERSION(String value) => _CURRENT_VERSION = value;
+  @visibleForTesting
+  static set PACKAGE_NAME(String value) => _PACKAGE_NAME = value;
+  @visibleForTesting
+  static set BUILD_NUMBER(String value) => _BUILD_NUMBER = value;
+  @visibleForTesting
+  static set BUILD_SIGNATURE(String value) => _BUILD_SIGNATURE = value;
 
   static Future<void> init(PackageInfoWrapper info) async {
     try {
       final PackageInfo packageInfo = await info.fromPlatform();
 
       // Making all of these variables accessible synchronously.
-      CURRENT_VERSION = packageInfo.version;
-      PACKAGE_NAME = packageInfo.packageName;
-      BUILD_NUMBER = packageInfo.buildNumber;
-      BUILD_SIGNATURE = packageInfo.buildSignature;
-      //
+      _CURRENT_VERSION = packageInfo.version;
+      _PACKAGE_NAME = packageInfo.packageName;
+      _BUILD_NUMBER = packageInfo.buildNumber;
+      _BUILD_SIGNATURE = packageInfo.buildSignature;
     } catch (e) {
-      CURRENT_VERSION = unknown;
-      PACKAGE_NAME = unknown;
-      BUILD_NUMBER = unknown;
-      BUILD_SIGNATURE = unknown;
+      _CURRENT_VERSION = unknown;
+      _PACKAGE_NAME = unknown;
+      _BUILD_NUMBER = unknown;
+      _BUILD_SIGNATURE = unknown;
     }
   }
 }
 
 class PackageInfoWrapper {
+  const PackageInfoWrapper();
   Future<PackageInfo> fromPlatform() async => await PackageInfo.fromPlatform();
 }

@@ -19,12 +19,14 @@ class RemoteVersionCheckRepo implements VersionCheckRepo {
   // ! Fetched data is expected to be in this particular format:
   // ! {"requiredV": "1.2.0", "latestV": "1.2.5"}
   // ! See VERSION.json for example.
+  /// Fetch formatted version data.
   @override
   Future<VersionCheck> getVersionCheck() async {
     final response = await fetchLatestVersion();
     return _parseVersionFromResponse(response);
   }
 
+  /// Fetch raw latest version data.
   Future<Response> fetchLatestVersion() async {
     return await _apiService.get(url: NetConsts.URL_CHECK_VERSION);
   }

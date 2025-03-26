@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:cipher_dove/src/exceptions/network_specific/network_error_handler_service.dart';
 import 'package:cipher_dove/src/exceptions/app_exception.dart';
 
-import '../../../../mocks.dart';
+import '../../../mocks.dart';
 
 void main() {
   ProviderContainer makeProviderContainer() {

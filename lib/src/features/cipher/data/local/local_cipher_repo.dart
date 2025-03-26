@@ -16,14 +16,14 @@ part 'local_cipher_repo.g.dart';
 // TODO abstraction
 class LocalCipherRepository extends CipherRepostitory {
   const LocalCipherRepository(
-    this.sharedPref,
-    this.crypt,
-    this.sha3Factory,
+    this._sharedPref,
+    this._crypt,
+    this._sha3Factory,
   );
 
-  final SharedPreferencesAsync sharedPref;
-  final Cryptography crypt;
-  final SHA3 sha3Factory;
+  final SharedPreferencesAsync _sharedPref;
+  final Cryptography _crypt;
+  final SHA3 _sha3Factory;
 
 //
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -31,13 +31,13 @@ class LocalCipherRepository extends CipherRepostitory {
 
   @override
   Future<CipherAlgorithm> getDefaultAlgorithm() async {
-    final index = await sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX);
+    final index = await _sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX);
     return CipherAlgorithm.values[index ?? Default.CIPHER_ALGORITHM_INDEX];
   }
 
   @override
   Future<void> setDefaultAlgorithm(CipherAlgorithm algorithm) async {
-    return await sharedPref.setInt(DBKeys.CIPHER_ALGORITHM_INDEX, CipherAlgorithm.values.indexOf(algorithm));
+    return await _sharedPref.setInt(DBKeys.CIPHER_ALGORITHM_INDEX, CipherAlgorithm.values.indexOf(algorithm));
   }
 
   String padKey(String key, int keyLength) {
@@ -90,7 +90,7 @@ class LocalCipherRepository extends CipherRepostitory {
 
   /// Will always decrypt if not encrypt.
   Future<String> chacha20(String input, SecretKey secretKey, {required CipherAction action}) async {
-    final algorithm = crypt.chacha20(macAlgorithm: MacAlgorithm.empty);
+    final algorithm = _crypt.chacha20(macAlgorithm: MacAlgorithm.empty);
     final nonce = '0'.padRight(12, '0');
 
     if (action == CipherAction.encrypt) {
@@ -115,7 +115,7 @@ class LocalCipherRepository extends CipherRepostitory {
 
   /// Will always decrypt if not encrypt.
   Future<String> aes(String input, SecretKey secretKey, {required CipherAction action}) async {
-    final algorithm = crypt.aesCbc(macAlgorithm: MacAlgorithm.empty);
+    final algorithm = _crypt.aesCbc(macAlgorithm: MacAlgorithm.empty);
     final nonce = '0'.padRight(16, '0');
 
     if (action == CipherAction.encrypt) {
@@ -168,29 +168,29 @@ class LocalCipherRepository extends CipherRepostitory {
 //
 
   Future<String> sha1(String input) async {
-    final algorithm = crypt.sha1();
+    final algorithm = _crypt.sha1();
     final digest = await algorithm.hash(input.codeUnits);
     // Convert the digest to a hexadecimal string
     return digest.bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
   }
 
   Future<String> sha2(String input) async {
-    final algorithm = crypt.sha256();
+    final algorithm = _crypt.sha256();
     final digest = await algorithm.hash(input.codeUnits);
     // Convert the digest to a hexadecimal string
     return digest.bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
   }
 
   Future<String> sha3(String input) async {
-    sha3Factory.update(input.codeUnits);
+    _sha3Factory.update(input.codeUnits);
 
-    final digest = sha3Factory.digest();
+    final digest = _sha3Factory.digest();
     // Convert the digest to a hexadecimal string
     return digest.map((byte) => byte.toRadixString(16).padLeft(2, '0')).join();
   }
 
   Future<String> blake2(String input) async {
-    final algorithm = crypt.blake2b();
+    final algorithm = _crypt.blake2b();
     final digest = await algorithm.hash(input.codeUnits);
     // Convert the digest to a hexadecimal string
     return digest.bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();

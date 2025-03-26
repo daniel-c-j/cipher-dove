@@ -42,11 +42,13 @@ class OutputTextFormState extends _$OutputTextFormState with NotifierMounted {
     return TextEditingController();
   }
 
+  /// This will force update the corresponding watching widget.
   void text(String newState) {
     if (!mounted) return;
     state = TextEditingController(text: newState);
   }
 
+  /// This will force update the corresponding watching widget.
   void clear() {
     if (!mounted) return;
     state = TextEditingController(text: "");

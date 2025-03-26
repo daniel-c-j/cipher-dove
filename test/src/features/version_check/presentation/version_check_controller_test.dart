@@ -1,9 +1,9 @@
+import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/features/version_check/data/version_repo_.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:cipher_dove/src/constants/app_info.dart';
 import 'package:cipher_dove/src/exceptions/app_exception.dart';
 import 'package:cipher_dove/src/features/version_check/data/remote/remote_version_repo.dart';
 import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
@@ -13,6 +13,9 @@ import 'package:version/version.dart';
 import '../../../../mocks.dart';
 
 void main() {
+  // Mocking value.
+  AppInfo.CURRENT_VERSION = "0.9.0";
+
   ProviderContainer makeProviderContainer(VersionCheckRepo versionCheckRepo) {
     final container = ProviderContainer(
       overrides: [
@@ -40,9 +43,6 @@ void main() {
 
   Exception mockRegularException() => Exception("test");
 
-  // Mocking value.
-  AppInfo.CURRENT_VERSION = "0.9.0";
-
   group("VersionCheckController", () {
     test("Initial state is null.", () {
       // * Arrange
@@ -59,13 +59,13 @@ void main() {
     test('''
       Given getVersionCheck state is valid.
       When checkData is called.
-      Then whenSuccess callback is returned with the VersionCheck.
+      Then whenSuccess callback is returned with the VersionCheck value.
       And state has no error.
     ''', () async {
       // * Arrange
       final versionCheckRepo = MockVersionCheckRepo();
-      when(() => versionCheckRepo.versionCheck).thenReturn(mockVersionCheck());
-      when(() => versionCheckRepo.getVersionCheck()).thenAnswer((_) async => Future.value());
+      when(() => versionCheckRepo.getVersionCheck())
+          .thenAnswer((_) async => Future.value(mockVersionCheck()));
 
       final container = makeProviderContainer(versionCheckRepo);
       final controller = container.read(versionCheckControllerProvider);
@@ -73,11 +73,11 @@ void main() {
 
       // Flag indicators.
       final states = <AsyncValue<void>>[];
-      late VersionCheck returnedVersionCheck;
+      late final VersionCheck returnedVersionCheck;
 
       // * Pre-Act
       // Initial value is null.
-      expect(controller.asData, AsyncData<void>(null));
+      expect(controller.asData, null);
 
       // * Act
       // Create listener and listen to the provider.
@@ -91,7 +91,6 @@ void main() {
       // * Assert
       expect(returnedVersionCheck, mockVersionCheck());
       expect(states, [
-        const AsyncData<void>(null), // Init
         isA<AsyncLoading<void>>(),
         const AsyncData<void>(null), // Done
       ]);

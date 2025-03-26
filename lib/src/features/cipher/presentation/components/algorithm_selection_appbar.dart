@@ -20,9 +20,7 @@ class AlgorithmSelectionAppBar extends StatelessWidget implements PreferredSizeW
           child: Row(
             children: [
               IconButton(
-                onPressed: () {
-                  context.pop();
-                },
+                onPressed: () => context.pop(),
                 icon: const Icon(Icons.arrow_back),
               ),
               GAP_W4,

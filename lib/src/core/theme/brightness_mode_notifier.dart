@@ -1,9 +1,12 @@
+import 'dart:core';
+
+import 'package:cipher_dove/src/core/_core.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'brightness_mode_notifier.g.dart';
+import '../../constants/_constants.dart';
 
-// TODO brightness persistent data.
+part 'brightness_mode_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 class PlatformBrightness extends _$PlatformBrightness {
@@ -20,8 +23,25 @@ class PlatformBrightness extends _$PlatformBrightness {
     return WidgetsBinding.instance.platformDispatcher.platformBrightness;
   }
 
-  void dark() => state = Brightness.dark;
-  void light() => state = Brightness.light;
+  /// Used in early app initialization to remember configuration.
+  Future<void> init() async {
+    final isLightMode =
+        await ref.read(sharedPrefProvider).getBool(DBKeys.BRIGHTNESS_LIGHT) ?? Default.BRIGHTNESS_LIGHT;
+    if (isLightMode) return await light();
+    return await dark();
+  }
+
+  /// Will directly remembers the configuration in order to maintain simplicity.
+  Future<void> light() async {
+    state = Brightness.light;
+    await ref.read(sharedPrefProvider).setBool(DBKeys.BRIGHTNESS_LIGHT, true);
+  }
+
+  /// Will directly remembers the configuration in order to maintain simplicity.
+  Future<void> dark() async {
+    state = Brightness.dark;
+    await ref.read(sharedPrefProvider).setBool(DBKeys.BRIGHTNESS_LIGHT, false);
+  }
 }
 
 /// Observes platform brightness changes and notifies the listener.

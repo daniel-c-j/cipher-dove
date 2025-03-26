@@ -8,7 +8,15 @@ part of 'error_logger.dart';
 
 String _$errorLoggerHash() => r'7b218ca355d3a47fb1653e16bcbc688e6a5584b9';
 
-/// See also [errorLogger].
+/// Basic usage would be:
+/// ```
+/// try {}
+/// catch (e, st) {
+///    ref.read(errorLoggerProvider).logError(e, st);
+/// }
+/// ```
+///
+/// Copied from [errorLogger].
 @ProviderFor(errorLogger)
 final errorLoggerProvider = AutoDisposeProvider<ErrorLogger>.internal(
   errorLogger,

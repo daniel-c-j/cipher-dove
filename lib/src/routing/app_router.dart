@@ -13,6 +13,7 @@ import 'not_found_screen.dart';
 
 part 'app_router.g.dart';
 
+/// Defined app route to be handful when managing route name.
 enum AppRoute {
   home,
   algorithmSelection,

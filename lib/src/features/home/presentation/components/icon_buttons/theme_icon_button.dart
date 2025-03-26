@@ -8,6 +8,7 @@ import '../../../../../common_widgets/custom_button.dart';
 import '../../../../../core/_core.dart';
 import '../../../../../util/context_shortcut.dart';
 
+/// Change the theme of the app.
 class ThemeIconButton extends ConsumerWidget {
   const ThemeIconButton({super.key});
 
@@ -20,10 +21,10 @@ class ThemeIconButton extends ConsumerWidget {
       buttonColor: Colors.transparent,
       borderRadius: BorderRadius.circular(60),
       onTap: () {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
+        SchedulerBinding.instance.addPostFrameCallback((_) async {
           (mode == Brightness.light)
-              ? ref.read(platformBrightnessProvider.notifier).dark()
-              : ref.read(platformBrightnessProvider.notifier).light();
+              ? await ref.read(platformBrightnessProvider.notifier).dark()
+              : await ref.read(platformBrightnessProvider.notifier).light();
         });
       },
       child: Icon(

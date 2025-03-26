@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../util/context_shortcut.dart';
 import 'components/algorithm_tag.dart';
 
+/// A screen widget for user to pick their Cipher operations.
 class AlgorithmSelectionScreen extends StatelessWidget {
   const AlgorithmSelectionScreen({super.key});
 

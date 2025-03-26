@@ -8,10 +8,13 @@ import '../domain/cipher_mode.dart';
 
 part 'cipher_output_controller.g.dart';
 
+/// Controls the state of the operation itself.
 @Riverpod(keepAlive: true)
 class CipherOutputController extends _$CipherOutputController {
   @override
-  FutureOr<void> build() {}
+  FutureOr<void> build() async {
+    // Nothing.
+  }
 
   Future<String> process(
     String input,

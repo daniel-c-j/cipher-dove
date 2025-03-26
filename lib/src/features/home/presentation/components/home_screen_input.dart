@@ -15,6 +15,7 @@ import 'home_textfield.dart';
 
 part 'home_screen_input.g.dart';
 
+/// Set the secret textfield text mode.
 @riverpod
 class ObscureSecretState extends _$ObscureSecretState {
   @override
@@ -24,6 +25,7 @@ class ObscureSecretState extends _$ObscureSecretState {
   }
 }
 
+/// Containing input text field with its other options.
 class HomeScreenInput extends ConsumerWidget {
   const HomeScreenInput({super.key});
 

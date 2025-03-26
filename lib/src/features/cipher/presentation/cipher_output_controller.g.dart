@@ -7,9 +7,11 @@ part of 'cipher_output_controller.dart';
 // **************************************************************************
 
 String _$cipherOutputControllerHash() =>
-    r'ce60725e76c8eb057af6ec333fea7cd57ab38eaf';
+    r'32c73306cb22dbb5dc9fe4e7f9d42b0f01328948';
 
-/// See also [CipherOutputController].
+/// Controls the state of the operation itself.
+///
+/// Copied from [CipherOutputController].
 @ProviderFor(CipherOutputController)
 final cipherOutputControllerProvider =
     AsyncNotifierProvider<CipherOutputController, void>.internal(

@@ -20,6 +20,8 @@ import '../_core.dart';
 
 /// Helper class to initialize services and configure the error handlers.
 class AppStartup {
+  const AppStartup();
+
   /// Create the root widget that should be passed to [runApp].
   Future<Widget> createRootWidget({required ProviderContainer container}) async {
     // * Initalize app.
@@ -51,7 +53,7 @@ class AppStartup {
     // Setting and getting general informations and configurations.
     Default.init();
     NetConsts.init();
-    await AppInfo.init(PackageInfoWrapper());
+    await AppInfo.init(const PackageInfoWrapper());
 
     // Removing the # sign, and follow the real configured route in the URL for the web.
     usePathUrlStrategy();
@@ -77,6 +79,7 @@ class AppStartup {
   /// Provider and/or service listener initializations. Not to confuse with ProviderContainer
   /// initialization.
   Future<void> _initializeProviders(ProviderContainer container) async {
+    await container.read(platformBrightnessProvider.notifier).init();
     await container.read(cipherModeStateProvider.notifier).init();
   }
 
@@ -91,8 +94,8 @@ class AppStartup {
 
     // * Handle errors from the underlying platform/OS
     PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
-      if (kReleaseMode) exit(1);
       errorLogger.logError(error, stack);
+      if (kReleaseMode) exit(1);
       return true;
     };
 
@@ -126,4 +129,7 @@ class AppStartup {
       );
     };
   }
+
+  @visibleForTesting
+  void registerErrorHandlers(ErrorLogger errorLogger) => _registerErrorHandlers(errorLogger);
 }

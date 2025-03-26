@@ -10,6 +10,8 @@ import '../../../../routing/app_router.dart';
 import '../../../../util/context_shortcut.dart';
 import '../cipher_mode_state.dart';
 
+/// Preview of the currently selected [CipherAlgorithm], and at the same time a button that leads user to
+/// [AlgorithmSelectionScreen].
 class AlgorithmSelected extends ConsumerWidget {
   const AlgorithmSelected({super.key});
 

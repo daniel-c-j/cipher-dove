@@ -15,8 +15,6 @@ class VersionCheckController extends _$VersionCheckController {
     // Nothing.
   }
 
-  // Be utilizing "state" in order to be responsive when ref.watch() in widgets, but not limited to only
-  // ref.watch().
   Future<void> checkData({
     required void Function(VersionCheck val) whenSuccess,
     required void Function(Object e, StackTrace? st) whenError,
@@ -25,9 +23,10 @@ class VersionCheckController extends _$VersionCheckController {
     late final VersionCheck versionCheck;
 
     state = const AsyncLoading();
+    // For some good reason, AsyncGuard doesn't catch the error.
     try {
       versionCheck = await versionRepo.getVersionCheck();
-      state = AsyncValue.data(null);
+      // state = AsyncValue.data(null);
 
       // Typically calls for a showDialog widget.
       return whenSuccess(versionCheck);

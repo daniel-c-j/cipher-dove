@@ -2,6 +2,7 @@
 import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:cipher_dove/src/features/cipher/domain/cipher_algorithm.dart';
 
+/// Object model that acts as if a guide on what should the app do.
 class CipherMode {
   const CipherMode({required this.action, required this.algorithm});
   final CipherAction action;

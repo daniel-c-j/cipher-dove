@@ -10,6 +10,7 @@ import '../../../../core/_core.dart';
 import '../../../../util/context_shortcut.dart';
 import '../../domain/cipher_algorithm.dart';
 
+/// Toggle-able switch for user to pick a [CipherAction] operation.
 class CipherActionSwitch extends ConsumerWidget {
   const CipherActionSwitch({super.key});
 

@@ -8,7 +8,9 @@ part of 'shared_prefs.dart';
 
 String _$sharedPrefHash() => r'c42492ad979843f2e3cd03048badc0d8febc25aa';
 
-/// See also [sharedPref].
+/// Local database.
+///
+/// Copied from [sharedPref].
 @ProviderFor(sharedPref)
 final sharedPrefProvider = Provider<SharedPreferencesAsync>.internal(
   sharedPref,

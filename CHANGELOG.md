@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--
+- Android xml intents.
+- Documentations.
+- README.
+- Tests.
+
+### Changed
+
+- Process behaviour.
 
 ## [0.8.0] - 2025-03-26
 
