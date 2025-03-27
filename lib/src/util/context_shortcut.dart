@@ -4,7 +4,6 @@ import '../core/_core.dart';
 
 // ! WARNING
 // ! Everything here must only be used one widget below Material widget.
-// !
 
 /// An alternative way to get BuildContext that is assigned globally to GoRouter.
 BuildContext get altContext => NavigationService.currentContext;

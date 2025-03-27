@@ -31,8 +31,12 @@ class LocalCipherRepository extends CipherRepostitory {
 
   @override
   Future<CipherAlgorithm> getDefaultAlgorithm() async {
-    final index = await _sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX);
-    return CipherAlgorithm.values[index ?? Default.CIPHER_ALGORITHM_INDEX];
+    try {
+      final index = await _sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX);
+      return CipherAlgorithm.values[index!];
+    } catch (e) {
+      return CipherAlgorithm.values[Default.CIPHER_ALGORITHM_INDEX];
+    }
   }
 
   @override
@@ -41,6 +45,7 @@ class LocalCipherRepository extends CipherRepostitory {
   }
 
   String padKey(String key, int keyLength) {
+    if (keyLength <= 0) throw ArgumentError('keyLength must be a positive value');
     if (key.length < keyLength) return key.padRight(keyLength, '0'); // Padding
     if (key.length > keyLength) return key.substring(0, keyLength); // Truncating
     return key; // Already the correct length

@@ -83,6 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // To prevent future already completed error.
+    // ignore: unused_local_variable
     final versionCheck = ref.watch(versionCheckControllerProvider);
 
     return Scaffold(

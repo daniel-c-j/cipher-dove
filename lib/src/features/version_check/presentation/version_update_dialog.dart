@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common_widgets/custom_button.dart';
@@ -13,13 +11,13 @@ import '../domain/version_check.dart';
 // TODO better UI
 
 /// Content of the version update dialog.
-class VersionUpdateDialog extends ConsumerWidget {
+class VersionUpdateDialog extends StatelessWidget {
   const VersionUpdateDialog(this.versionCheck, {super.key});
 
   final VersionCheck versionCheck;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -75,7 +73,8 @@ class VersionUpdateDialog extends ConsumerWidget {
           borderColor: PRIMARY_COLOR_D0,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           onTap: () async {
-            context.pop();
+            // Not using context.pop() for ease of testing.
+            Navigator.of(context).pop();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

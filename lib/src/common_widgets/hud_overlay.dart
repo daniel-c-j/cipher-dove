@@ -13,8 +13,9 @@ class ShowHudOverlay extends _$ShowHudOverlay {
   void hide() => state = false;
 }
 
-/// A Head-Up display overlay that aims to be lightweight by utilizing state management with riverpod, and lightweight
-/// fade-in animation. This widget should be wrapped on top of a widget that needs to show the HUD overlay.
+/// A Head-Up display overlay that aims to be lightweight by utilizing state management with riverpod,
+/// and lightweight fade-in animation. This widget should be wrapped on top of a widget that needs
+/// to show the HUD overlay.
 class HudOverlay extends StatelessWidget {
   const HudOverlay({
     super.key,
@@ -23,13 +24,17 @@ class HudOverlay extends StatelessWidget {
   });
 
   final Widget child;
+
+  /// Intended for testing purpose.
   final bool withDelay;
 
   static const loadingHudKey = Key("hud-loading");
+  static const bgHudKey = Key("hud-bg");
 
-  // Not using get, to be easily configured if there's a need for parameter passing.
+  // Not using a getter, to be easily configured if there's a need for arguments.
   Widget _showOverlayBackground() {
     return Center(
+      key: bgHudKey, // ! Whatever the widget is, this key needs to be adapted.
       child: Container(color: Colors.black.withAlpha(120)),
     );
   }

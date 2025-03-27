@@ -32,8 +32,11 @@ void main() {
           name: AppRoute.home.name,
           path: '/',
           builder: (context, state) {
-            isInhome = true;
-            return const Scaffold(body: Text('Home'));
+            return Scaffold(body: Builder(builder: (context) {
+              isInhome = true;
+
+              return const Text('Home');
+            }));
           },
         ),
         GoRoute(
