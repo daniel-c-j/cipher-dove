@@ -9,6 +9,8 @@ import '../../../../util/context_shortcut.dart';
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
+  static const titleKey = Key("appBarTitle");
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -21,6 +23,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               GAP_W12,
               Text(
                 AppInfo.TITLE,
+                key: titleKey,
                 style: kTextStyle(context).titleLarge?.copyWith(
                       color: PRIMARY_COLOR_L0,
                       fontWeight: FontWeight.bold,

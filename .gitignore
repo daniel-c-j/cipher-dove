@@ -10,12 +10,14 @@
 .history
 .svn/
 .swiftpm/
+.ancient/
 migrate_working_dir/
-*SDLC.txt
-*NOTE.txt
-bump.py
-*mian.dart
-*strings.json
+*drawio.png
+Checklist.pdf
+*.psd
+*REMINDER.txt
+*.code-workspace
+*bump.py
 
 # IntelliJ related
 *.iml

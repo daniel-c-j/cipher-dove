@@ -9,11 +9,12 @@ import '../constants/_constants.dart';
 import '../util/delay.dart';
 import 'app_router.dart';
 
-// TODO better UI
-
 /// Simple not found screen used for 404 errors (page not found on web).
 class NotFoundScreen extends StatefulWidget {
   const NotFoundScreen({super.key, this.redirect = true});
+
+  static const titleKey = Key("NotFoundScreenTitleKey");
+  static const messageKey = Key("NotFoundScreenMessageKey");
 
   final bool redirect;
 
@@ -26,7 +27,7 @@ class _NotFoundScreenState extends State<NotFoundScreen> {
   void initState() {
     super.initState();
 
-    // After 3 seconds widget is built, user will be redirected to the home page.
+    /// ? After 3 seconds widget is built, user will be redirected to the home page.
     if (widget.redirect) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         delay(true, 3000).then((_) => context.goNamed(AppRoute.home.name));
@@ -43,11 +44,13 @@ class _NotFoundScreenState extends State<NotFoundScreen> {
           children: [
             Text(
               '404 - Page not found!'.tr(),
+              key: NotFoundScreen.titleKey,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             GAP_H8,
             Text(
               'Redirecting to home page...'.tr(),
+              key: NotFoundScreen.messageKey,
               style: const TextStyle(fontSize: 14),
             ),
           ],

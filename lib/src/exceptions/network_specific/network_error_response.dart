@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import '../_exceptions.dart';
 
+/// A set of network exceptions for network response status code to be matched.
+/// Does not include other app exceptions, and is constant.
 const List<AppException> NET_RESPONSE_ERROR = [
   // * 4xx Client Errors
   BadRequestException(),

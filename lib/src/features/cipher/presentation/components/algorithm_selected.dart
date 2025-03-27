@@ -15,6 +15,8 @@ import '../cipher_mode_state.dart';
 class AlgorithmSelected extends ConsumerWidget {
   const AlgorithmSelected({super.key});
 
+  static const buttonKey = Key("AlgorithmSelected");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cipherAlgorithm = ref.watch(cipherModeStateProvider).algorithm;
@@ -23,6 +25,7 @@ class AlgorithmSelected extends ConsumerWidget {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: kScreenWidth(context) * 0.55),
       child: CustomButton(
+        key: buttonKey,
         msg: "Select Algorithm".tr(),
         onTap: () {
           context.pushNamed(AppRoute.algorithmSelection.name);

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../../constants/_constants.dart';
-import '../../../exceptions/_exceptions.dart';
 import '../../version_check/domain/version_check.dart';
 import '../../version_check/presentation/version_check_controller.dart';
 import '../../version_check/presentation/version_update_dialog.dart';
@@ -31,51 +30,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      // Check the version when the app starts.
       if (mounted && !_updateIsChecked) await _checkVersionUpdate();
     });
   }
 
-  // Check the version when the app starts.
   Future<void> _checkVersionUpdate() async {
-    // Flagging.
-    _updateIsChecked = true;
+    _updateIsChecked = true; // Flagging.
 
     final controller = ref.read(versionCheckControllerProvider.notifier);
     await controller.checkData(
       onSuccess: (VersionCheck ver) async {
         // Do nothing if there's no update available.
-        if (!ver.canUpdate) return;
-        return await showDialog(
-          context: context,
-          useSafeArea: true,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-              contentPadding: const EdgeInsets.all(16),
-              content: VersionUpdateDialog(ver),
-            );
-          },
-        );
+        if (!ver.canUpdate || !mounted) return;
+        return await VersionUpdateDialog.show(context, ver);
       },
-      onError: (e, st) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        if (e is AppException) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(e.toString()),
-              dismissDirection: DismissDirection.horizontal,
-            ),
-          );
-          return;
-        }
-
-        // Unexpected one.
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-            dismissDirection: DismissDirection.horizontal,
-          ),
-        );
+      onError: (e, st) async {
+        if (!mounted) return;
+        return await VersionUpdateDialog.showErrorInstead(context, e: e);
       },
     );
   }
@@ -94,11 +66,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           dismissDirection: DismissDirection.horizontal,
         ),
         child: const SingleChildScrollView(
-          padding: EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GAP_H8,
               HomeScreenInput(),
               GAP_H32,
               CipherActionSwitch(),
@@ -106,7 +77,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               Row(children: [AlgorithmSelected(), Spacer(), ProcessButton()]),
               GAP_H32,
               HomeScreenOutput(),
-              GAP_H8,
             ],
           ),
         ),

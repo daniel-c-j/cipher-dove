@@ -6,7 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 class AppInfo {
   static const unknown = "UNKNOWN";
 
-  // TODO change these.
+  // TODO recheck whether README, Github Description, and Pubspec.yaml are all matching?
   // ! These two are crucial and should not depend on the packageInfo or any changing operations.
   static const String TITLE = "Cipher Dove";
   static const String DESCRIPTION = "An open-source, offline, ad-free, basic encryption and decryption tool.";

@@ -13,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'local_cipher_repo.g.dart';
 
-// TODO abstraction
 class LocalCipherRepository extends CipherRepostitory {
   const LocalCipherRepository(
     this._sharedPref,
@@ -55,8 +54,8 @@ class LocalCipherRepository extends CipherRepostitory {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 
-// TODO more readable output encryption, by convert raw to hex, and decrypt should then accept the hex and convert it
-// back to raw bytes List<int>.
+// TODO more readable output encryption, by convert raw to hex, and decrypt should then accept the hex
+// and convert it back to raw bytes List<int>.
   @override
   Future<String> encryptSymmetric(
     String input,

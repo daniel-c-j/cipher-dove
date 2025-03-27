@@ -13,7 +13,6 @@ class NetConsts {
   static late final String URL_CHECK_VERSION;
   static late final String URL_UPDATE_VERSION;
 
-  // TODO change these as needed.
   /// Lazy Initialization exists for the ease of testing to manipulate certain properties of [NetConsts].
   static void init() {
     URL_CHECK_VERSION = "https://raw.githubusercontent.com/Daniel-C-J/cipher_dove"

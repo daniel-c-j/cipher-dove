@@ -39,7 +39,6 @@ class HudOverlay extends StatelessWidget {
     );
   }
 
-  // TODO Change this as needed.
   Widget _showOverlayContent() {
     return const Center(
       key: loadingHudKey, // ! Whatever the widget is, this key needs to be adapted.

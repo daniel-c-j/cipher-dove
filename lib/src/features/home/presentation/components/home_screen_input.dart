@@ -1,12 +1,11 @@
+import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/censor_icon_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../common_widgets/custom_button.dart';
 import '../../../../common_widgets/generic_title.dart';
 import '../../../../constants/_constants.dart';
-import '../../../../util/context_shortcut.dart';
 import '../../../cipher/domain/cipher_algorithm.dart';
 import '../../../cipher/presentation/cipher_mode_state.dart';
 import '../input_output_form_state.dart';
@@ -29,6 +28,10 @@ class ObscureSecretState extends _$ObscureSecretState {
 class HomeScreenInput extends ConsumerWidget {
   const HomeScreenInput({super.key});
 
+  static const titleKey = Key("HomeScreenInputTitle");
+  static const inputFieldKey = Key("HomeScreenInputFieldKey");
+  static const inputPassFieldKey = Key("HomeScreenInputPassFieldKey");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final input = ref.watch(inputTextFormStateProvider);
@@ -42,9 +45,10 @@ class HomeScreenInput extends ConsumerWidget {
       children: [
         Column(
           children: [
-            GenericTitle(icon: Icons.input_outlined, title: "Input".tr()),
+            GenericTitle(key: titleKey, icon: Icons.input_outlined, title: "Input".tr()),
             GAP_H8,
             HomeTextfield(
+              key: inputFieldKey,
               hintText: "Type here...".tr(),
               maxLines: 6,
               readOnly: false,
@@ -56,6 +60,7 @@ class HomeScreenInput extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: HomeTextfield(
+                      key: inputPassFieldKey,
                       hintText: "Secret Key here...".tr(),
                       labelText: " Secret ".tr(),
                       maxLines: 1,
@@ -65,22 +70,7 @@ class HomeScreenInput extends ConsumerWidget {
                     ),
                   ),
                   GAP_W4,
-                  CustomButton(
-                    onTap: () {
-                      ref.read(obscureSecretStateProvider.notifier).set(!isSecretObscure);
-                    },
-                    msg: "Censor/Decensor secret".tr(),
-                    isOutlined: true,
-                    borderWidth: 1,
-                    borderColor: kColor(context).primary,
-                    borderRadius: BorderRadius.circular(6),
-                    padding: const EdgeInsets.all(8),
-                    margin: EdgeInsets.zero,
-                    child: Icon(
-                      (isSecretObscure) ? Icons.visibility_rounded : Icons.visibility_off,
-                      size: 18,
-                    ),
-                  ),
+                  const CensorIconButton(),
                 ],
               ),
           ],

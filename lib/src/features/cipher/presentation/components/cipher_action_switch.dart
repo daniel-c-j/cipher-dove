@@ -14,6 +14,10 @@ import '../../domain/cipher_algorithm.dart';
 class CipherActionSwitch extends ConsumerWidget {
   const CipherActionSwitch({super.key});
 
+  static const encryptActionKey = Key("encryptActionKey");
+  static const decryptActionKey = Key("decryptActionKey");
+  static const hashDecyrptError = Key("hashDecyrptError");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cipherMode = ref.watch(cipherModeStateProvider);
@@ -33,6 +37,7 @@ class CipherActionSwitch extends ConsumerWidget {
         Transform.scale(
           scale: 0.9,
           child: GenericTitle(
+            key: encryptActionKey,
             title: "Encrypt ".tr(),
             titleColor: (cipherAction == CipherAction.encrypt) ? Colors.white : null,
             iconColor: (cipherAction == CipherAction.encrypt) ? Colors.white : null,
@@ -43,6 +48,7 @@ class CipherActionSwitch extends ConsumerWidget {
         Transform.scale(
           scale: 0.9,
           child: GenericTitle(
+            key: decryptActionKey,
             title: "Decrypt ".tr(),
             titleColor: (cipherAction == CipherAction.decrypt) ? Colors.white : null,
             iconColor: (cipherAction == CipherAction.decrypt) ? Colors.white : null,
@@ -57,6 +63,7 @@ class CipherActionSwitch extends ConsumerWidget {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              key: hashDecyrptError,
               content: Text("Hash is a One-way Encryption, so it cannot be decrypted.".tr()),
               dismissDirection: DismissDirection.horizontal,
             ),

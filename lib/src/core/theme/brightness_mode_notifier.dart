@@ -1,10 +1,10 @@
 import 'dart:core';
 
-import 'package:cipher_dove/src/core/_core.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../constants/_constants.dart';
+import '../_core.dart';
 
 part 'brightness_mode_notifier.g.dart';
 
@@ -27,20 +27,20 @@ class PlatformBrightness extends _$PlatformBrightness {
   Future<void> init() async {
     final isLightMode =
         await ref.read(sharedPrefProvider).getBool(DBKeys.BRIGHTNESS_LIGHT) ?? Default.BRIGHTNESS_LIGHT;
-    if (isLightMode) return await light();
-    return await dark();
+    if (isLightMode) return await light(persists: false);
+    return await dark(persists: false);
   }
 
   /// Will directly remembers the configuration in order to maintain simplicity.
-  Future<void> light() async {
+  Future<void> light({bool persists = true}) async {
     state = Brightness.light;
-    await ref.read(sharedPrefProvider).setBool(DBKeys.BRIGHTNESS_LIGHT, true);
+    if (persists) await ref.read(sharedPrefProvider).setBool(DBKeys.BRIGHTNESS_LIGHT, true);
   }
 
   /// Will directly remembers the configuration in order to maintain simplicity.
-  Future<void> dark() async {
+  Future<void> dark({bool persists = true}) async {
     state = Brightness.dark;
-    await ref.read(sharedPrefProvider).setBool(DBKeys.BRIGHTNESS_LIGHT, false);
+    if (persists) await ref.read(sharedPrefProvider).setBool(DBKeys.BRIGHTNESS_LIGHT, false);
   }
 }
 

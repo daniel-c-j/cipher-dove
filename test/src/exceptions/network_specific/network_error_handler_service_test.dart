@@ -122,4 +122,91 @@ void main() {
       expect(exception, isA<CustomException>());
     });
   });
+
+  group('NetworkErrorHandlerService().extractErrorMessage', () {
+    test('''
+      Given a string,
+      When extractErrorMessage is called, 
+      Then it should return the same string
+    ''', () {
+      // * Arrange
+      final errorMessage = 'An error occurred';
+
+      // * Act
+      final result = NetworkErrorHandlerService().extractErrorMessage(errorMessage);
+
+      // * Assert
+      expect(result, equals(errorMessage));
+    });
+
+    test('''
+      Given a map with string values, 
+      When extractErrorMessage is called, 
+      Then it should concatenate the values
+    ''', () {
+      // * Arrange
+      final Map<String, String> errorData = {
+        'error1': 'First error',
+        'error2': 'Second error',
+      };
+
+      // * Act
+      final result = NetworkErrorHandlerService().extractErrorMessage(errorData);
+
+      // *  Assert
+      expect(result, equals('First error Second error'));
+    });
+
+    test('''
+      Given a map with list values, 
+      When extractErrorMessage is called, 
+      Then it should join the list items
+    ''', () {
+      // *  Arrange
+      final Map<String, dynamic> errorData = {
+        'error1': ['First error', 'Second error'],
+        'error2': 'Third error',
+      };
+
+      // * Act
+      final result = NetworkErrorHandlerService().extractErrorMessage(errorData);
+
+      // *  Assert
+      expect(result, equals('First error \nSecond errorThird error'));
+    });
+
+    test('''
+      Given a map with mixed types, 
+      When extractErrorMessage is called, 
+      Then it should handle all types correctly
+    ''', () {
+      // *  Arrange
+      final Map<String, dynamic> errorData = {
+        'error1': 'First error',
+        'error2': [1, 2, 3],
+        'error3': true,
+      };
+
+      // *  Act
+      final result = NetworkErrorHandlerService().extractErrorMessage(errorData);
+
+      // *  Assert
+      expect(result, equals('First error 1 \n2 \n3 true '));
+    });
+
+    test('''
+      Given unsupported data type, 
+      When extractErrorMessage is called, 
+      Then it should return an unknown exception message
+    ''', () {
+      // * Arrange
+      final dynamic unsupportedData = 42;
+
+      // * Act
+      final result = NetworkErrorHandlerService().extractErrorMessage(unsupportedData);
+
+      // * Assert
+      expect(result, UnknownException().toString());
+    });
+  });
 }

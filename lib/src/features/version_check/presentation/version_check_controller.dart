@@ -1,9 +1,9 @@
-import 'package:cipher_dove/src/util/notifier_mounted.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../exceptions/_exceptions.dart';
+import '../../../util/notifier_mounted.dart';
 import '../data/remote/remote_version_repo.dart';
 import '../domain/version_check.dart';
 

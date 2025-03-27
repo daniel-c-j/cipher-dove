@@ -14,6 +14,9 @@ import '../input_output_form_state.dart';
 class HomeScreenOutput extends ConsumerWidget {
   const HomeScreenOutput({super.key});
 
+  static const titleKey = Key("HomeScreenOutputTitle");
+  static const outputFieldKey = Key("HomeScreenOutputFieldKey");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final output = ref.watch(outputTextFormStateProvider);
@@ -23,9 +26,10 @@ class HomeScreenOutput extends ConsumerWidget {
       children: [
         Column(
           children: [
-            GenericTitle(icon: Icons.output_outlined, title: "Output".tr()),
+            GenericTitle(key: titleKey, icon: Icons.output_outlined, title: "Output".tr()),
             GAP_H8,
             HomeTextfield(
+              key: outputFieldKey,
               hintText: "Result here".tr(),
               maxLines: 6,
               readOnly: true,

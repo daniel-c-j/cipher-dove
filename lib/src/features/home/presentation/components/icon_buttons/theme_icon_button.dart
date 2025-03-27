@@ -12,10 +12,13 @@ import '../../../../../util/context_shortcut.dart';
 class ThemeIconButton extends ConsumerWidget {
   const ThemeIconButton({super.key});
 
+  static const buttonKey = Key("theme-icon-button");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(platformBrightnessProvider);
     return CustomButton(
+      key: buttonKey,
       msg: "Switch dark/light theme".tr(),
       padding: const EdgeInsets.all(10),
       buttonColor: Colors.transparent,

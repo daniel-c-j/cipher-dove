@@ -79,6 +79,7 @@ class AppStartup {
   /// Provider and/or service listener initializations. Not to confuse with ProviderContainer
   /// initialization.
   Future<void> _initializeProviders(ProviderContainer container) async {
+    container.read(connectivityNotifierProvider);
     await container.read(platformBrightnessProvider.notifier).init();
     await container.read(cipherModeStateProvider.notifier).init();
   }

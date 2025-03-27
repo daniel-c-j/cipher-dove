@@ -16,8 +16,8 @@ void main() {
     await tester.pumpAndSettle();
 
     // * Assert
-    expect(find.text('404 - Page not found!'), findsOneWidget); // TODO use key instead
-    expect(find.text('Redirecting to home page...'), findsOneWidget);
+    expect(find.byKey(NotFoundScreen.titleKey), findsOneWidget);
+    expect(find.byKey(NotFoundScreen.messageKey), findsOneWidget);
   });
 
   testWidgets('NotFoundScreen redirects to home page after 3 seconds', (WidgetTester tester) async {
@@ -31,13 +31,12 @@ void main() {
         GoRoute(
           name: AppRoute.home.name,
           path: '/',
-          builder: (context, state) {
-            return Scaffold(body: Builder(builder: (context) {
+          builder: (context, state) => Scaffold(
+            body: Builder(builder: (context) {
               isInhome = true;
-
               return const Text('Home');
-            }));
-          },
+            }),
+          ),
         ),
         GoRoute(
           name: AppRoute.unknown.name,

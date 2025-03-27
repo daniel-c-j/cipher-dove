@@ -11,9 +11,12 @@ import '../../../../../util/context_shortcut.dart';
 class SwapIconButton extends ConsumerWidget {
   const SwapIconButton({super.key});
 
+  static const buttonKey = Key("SwapIconButton");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
+      key: buttonKey,
       msg: "Set Output to Input".tr(),
       padding: const EdgeInsets.all(4),
       buttonColor: Colors.transparent,

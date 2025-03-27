@@ -1,4 +1,3 @@
-# TODO Change this.
 # dart run flutter_native_splash:create
 flutter_native_splash:
   color: "#FFFFFF"

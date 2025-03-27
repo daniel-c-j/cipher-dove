@@ -49,19 +49,22 @@ class NetworkErrorHandlerService {
       String message = '';
       data.forEach((key, value) {
         if (value is List) {
-          message += value.join('\n');
+          message += value.join(' \n');
         } else if (value is String) {
-          message += value;
+          message += (data.entries.last.key == key) ? value.toString() : "$value ";
         } else {
-          message += value.toString();
+          message += " $value ";
         }
       });
       return message;
     }
 
     // If data is not a string or a map, return a default error message
-    return UnknownException().message;
+    return UnknownException().toString();
   }
+
+  @visibleForTesting
+  String extractErrorMessage(dynamic data) => _extractErrorMessage(data);
 
   @visibleForTesting
   AppException getFailure(DioException error) => _getFailure(error);

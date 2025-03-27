@@ -10,9 +10,12 @@ import '../../../../util/context_shortcut.dart';
 class AboutIconButton extends StatelessWidget {
   const AboutIconButton({super.key});
 
+  static const buttonKey = Key("aboutButton");
+
   @override
   Widget build(BuildContext context) {
     return CustomButton(
+      key: buttonKey,
       msg: "About".tr(),
       padding: const EdgeInsets.all(10),
       buttonColor: Colors.transparent,

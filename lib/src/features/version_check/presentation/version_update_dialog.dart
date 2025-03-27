@@ -8,13 +8,35 @@ import '../../../core/_core.dart';
 import '../../../util/context_shortcut.dart';
 import '../domain/version_check.dart';
 
-// TODO better UI
-
 /// Content of the version update dialog.
 class VersionUpdateDialog extends StatelessWidget {
   const VersionUpdateDialog(this.versionCheck, {super.key});
 
   final VersionCheck versionCheck;
+
+  static Future<void> show(BuildContext context, VersionCheck ver) async {
+    return await showDialog(
+      context: context,
+      useSafeArea: true,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          contentPadding: const EdgeInsets.all(16),
+          content: VersionUpdateDialog(ver),
+        );
+      },
+    );
+  }
+
+  static Future<void> showErrorInstead(BuildContext context, {required Object? e}) async {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Check version error: ${e.toString()}"),
+        dismissDirection: DismissDirection.horizontal,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +72,6 @@ class VersionUpdateDialog extends StatelessWidget {
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(
                 Icons.system_update_alt,
@@ -78,7 +99,6 @@ class VersionUpdateDialog extends StatelessWidget {
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 "No thanks".tr(),

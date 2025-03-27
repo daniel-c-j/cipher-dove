@@ -18,6 +18,9 @@ sealed class AppException implements Exception {
   // ! 1) Manually
   // ! 2) Remove const temporarily, then use the .tr() directly, track them, then remove
   // !    them back to normal.
+  // !
+  // ! For now we stick with the latter option.
+  // TODO up above.
 
   // To use translation third party would be just:
   // @override

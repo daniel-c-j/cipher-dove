@@ -16,11 +16,15 @@ import '../../../../util/context_shortcut.dart';
 class ProcessButton extends ConsumerWidget {
   const ProcessButton({super.key});
 
+  static const buttonKey = Key("ProcessButton");
+  static const emptyInputSnackbarKey = Key("emptyInputSnackbarKey");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final output = ref.watch(cipherOutputControllerProvider);
 
     return CustomButton(
+      key: buttonKey,
       msg: "Process".tr(),
       onTap: () async {
         // Flagging
@@ -34,6 +38,7 @@ class ProcessButton extends ConsumerWidget {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              key: emptyInputSnackbarKey,
               content: Text("Input cannot be empty".tr()),
               dismissDirection: DismissDirection.horizontal,
             ),

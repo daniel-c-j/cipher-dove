@@ -21,69 +21,71 @@ void main() {
   const algorithmIndex = 1;
   Default.CIPHER_ALGORITHM_INDEX = 0;
 
-  test('''
+  group('defaultAlgorithm', () {
+    test('''
     Given calling getDefaultAlgorithm,
     When success,
     Then return CipherAlgorithm with the correct index.
   ''', () async {
-    // * Arrange
-    final sharedPref = MockSharedPreferences();
-    final crypt = MockCryptography();
-    final sha3Factory = MockSHA3();
-    final repo = makeLocalCipherRepo(sharedPref, crypt, sha3Factory);
+      // * Arrange
+      final sharedPref = MockSharedPreferences();
+      final crypt = MockCryptography();
+      final sha3Factory = MockSHA3();
+      final repo = makeLocalCipherRepo(sharedPref, crypt, sha3Factory);
 
-    when(() => sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX))
-        .thenAnswer((_) async => Future.value(algorithmIndex));
+      when(() => sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX))
+          .thenAnswer((_) async => Future.value(algorithmIndex));
 
-    // * Act
-    final algorithm = await repo.getDefaultAlgorithm();
+      // * Act
+      final algorithm = await repo.getDefaultAlgorithm();
 
-    // * Assert
-    expect(algorithm, CipherAlgorithm.values[algorithmIndex]);
-  });
+      // * Assert
+      expect(algorithm, CipherAlgorithm.values[algorithmIndex]);
+    });
 
-  test('''
+    test('''
     Given calling getDefaultAlgorithm,
     When error,
     Then return CipherAlgorithm with the default index.
   ''', () async {
-    // * Arrange
-    final sharedPref = MockSharedPreferences();
-    final crypt = MockCryptography();
-    final sha3Factory = MockSHA3();
-    final repo = makeLocalCipherRepo(sharedPref, crypt, sha3Factory);
+      // * Arrange
+      final sharedPref = MockSharedPreferences();
+      final crypt = MockCryptography();
+      final sha3Factory = MockSHA3();
+      final repo = makeLocalCipherRepo(sharedPref, crypt, sha3Factory);
 
-    when(() => sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenThrow(Exception());
+      when(() => sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenThrow(Exception());
 
-    // * Act
-    final algorithm = await repo.getDefaultAlgorithm();
+      // * Act
+      final algorithm = await repo.getDefaultAlgorithm();
 
-    // * Assert
-    expect(algorithm, CipherAlgorithm.values[Default.CIPHER_ALGORITHM_INDEX]);
-  });
+      // * Assert
+      expect(algorithm, CipherAlgorithm.values[Default.CIPHER_ALGORITHM_INDEX]);
+    });
 
-  test('''
+    test('''
     Given calling setDefaultAlgorithm,
     When success,
     Then getDefaultAlgorithm should return CipherAlgorithm with the right value.
   ''', () async {
-    // * Arrange
-    final sharedPref = MockSharedPreferences();
-    final crypt = MockCryptography();
-    final sha3Factory = MockSHA3();
-    final repo = makeLocalCipherRepo(sharedPref, crypt, sha3Factory);
+      // * Arrange
+      final sharedPref = MockSharedPreferences();
+      final crypt = MockCryptography();
+      final sha3Factory = MockSHA3();
+      final repo = makeLocalCipherRepo(sharedPref, crypt, sha3Factory);
 
-    when(() => sharedPref.setInt(DBKeys.CIPHER_ALGORITHM_INDEX, algorithmIndex))
-        .thenAnswer((_) async => Future.value());
-    when(() => sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX))
-        .thenAnswer((_) async => Future.value(algorithmIndex));
+      when(() => sharedPref.setInt(DBKeys.CIPHER_ALGORITHM_INDEX, algorithmIndex))
+          .thenAnswer((_) async => Future.value());
+      when(() => sharedPref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX))
+          .thenAnswer((_) async => Future.value(algorithmIndex));
 
-    // * Act
-    await repo.setDefaultAlgorithm(CipherAlgorithm.values[algorithmIndex]);
+      // * Act
+      await repo.setDefaultAlgorithm(CipherAlgorithm.values[algorithmIndex]);
 
-    // * Assert
-    final algorithm = await repo.getDefaultAlgorithm();
-    expect(algorithm, CipherAlgorithm.values[algorithmIndex]);
+      // * Assert
+      final algorithm = await repo.getDefaultAlgorithm();
+      expect(algorithm, CipherAlgorithm.values[algorithmIndex]);
+    });
   });
 
   group('padKey method', () {
@@ -131,5 +133,9 @@ void main() {
       // * Action & Assert
       expect(repo.padKey('test', 4), equals('test'));
     });
+  });
+
+  group('symmetric', () {
+    // TODO complete this.
   });
 }

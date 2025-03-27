@@ -11,9 +11,12 @@ import '../../../../../util/context_shortcut.dart';
 class ClearInputIconButton extends ConsumerWidget {
   const ClearInputIconButton({super.key});
 
+  static const buttonKey = Key("ClearInputIconButton");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
+      key: buttonKey,
       msg: "Remove all Input".tr(),
       padding: const EdgeInsets.all(4),
       buttonColor: Colors.transparent,
@@ -34,9 +37,12 @@ class ClearInputIconButton extends ConsumerWidget {
 class ClearOutputIconButton extends ConsumerWidget {
   const ClearOutputIconButton({super.key});
 
+  static const buttonKey = Key("ClearOutputIconButton");
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
+      key: buttonKey,
       msg: "Remove all Output".tr(),
       padding: const EdgeInsets.all(4),
       buttonColor: Colors.transparent,
