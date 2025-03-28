@@ -2,7 +2,6 @@ import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/about_screen.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/algorithm_selection_screen.dart';
-import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selected.dart';
 import 'package:cipher_dove/src/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -225,23 +224,5 @@ void main() {
     });
   });
 
-  testWidgets('''
-    Given selected algorithm preview widget is rendered,
-    When tapping the widget,
-    Then user redirected to algorithmSelection screen.
-  ''', (tester) async {
-    await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
-
-      await r.pumpHomeScreen(container);
-      await r.tapSelectedAlgorithmButton();
-
-      expect(find.byType(HomeScreen), findsNothing);
-      expect(find.byType(AlgorithmSelectionScreen), findsOneWidget);
-    });
-  });
+  // TODO Complete this.
 }

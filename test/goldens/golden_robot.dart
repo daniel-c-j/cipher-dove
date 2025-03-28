@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 // ignore: depend_on_referenced_packages
 import 'package:platform/platform.dart';
 
+// TODO golden test
+
 /// Helper class with some helper methods for golden image tests
 class GoldenRobot {
   GoldenRobot(this.tester);
