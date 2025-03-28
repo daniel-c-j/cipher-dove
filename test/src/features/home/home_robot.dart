@@ -1,24 +1,41 @@
+import 'package:cipher_dove/src/common_widgets/generic_title.dart';
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/components/about_icon_button.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selected.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/cipher_action_switch.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/process_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/home_appbar.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/home_screen_input.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/home_screen_output.dart';
+import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/censor_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/clear_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/swap_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/theme_icon_button.dart';
-import 'package:cipher_dove/src/features/home/presentation/home_screen.dart';
+import 'package:cipher_dove/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@visibleForTesting
 class HomeRobot {
-  const HomeRobot(this.tester);
+  HomeRobot(this.tester);
   final WidgetTester tester;
+
+  // * For the ease of testing the changetheme feature.
+  Brightness themeBrightness = Brightness.light;
+
+  ProviderContainer makeProviderContainer(SharedPreferencesAsync pref) {
+    return ProviderContainer(
+      overrides: [
+        // * This is necessary because platformBrightnessProvider and cipherModeStateProvider,
+        // * needs to access database directly when they're initialized.
+        sharedPrefProvider.overrideWithValue(pref),
+      ],
+    );
+  }
 
   Future<void> _necessaryIntializations(ProviderContainer container) async {
     try {
@@ -33,23 +50,23 @@ class HomeRobot {
     await container.read(cipherModeStateProvider.notifier).init();
   }
 
-  Future<void> pumpHomeScreen(SharedPreferencesAsync pref) async {
-    final container = ProviderContainer(
-      overrides: [
-        // * This is necessary because platformBrightnessProvider and cipherModeStateProvider,
-        // * needs to access database directly when they're initialized.
-        sharedPrefProvider.overrideWithValue(pref),
-      ],
-    );
-    _necessaryIntializations(container);
+  Future<void> pumpHomeScreen(ProviderContainer container) async {
+    await _necessaryIntializations(container);
 
     return await tester.pumpWidget(
       UncontrolledProviderScope(
         container: container,
-        child: const MaterialApp(
-          home: Scaffold(
-            body: HomeScreen(),
-          ),
+        child: Consumer(
+          builder: (context, ref, child) {
+            final brightness = ref.watch(platformBrightnessProvider);
+            themeBrightness = brightness;
+
+            return MaterialApp.router(
+              routerConfig: ref.watch(goRouterProvider),
+              color: (brightness == Brightness.light) ? Colors.white : Colors.black,
+              themeMode: (brightness == Brightness.light) ? ThemeMode.light : ThemeMode.dark,
+            );
+          },
         ),
       ),
     );
@@ -89,9 +106,12 @@ class HomeRobot {
     expect(finder, findsOneWidget);
   }
 
-  Finder expectInputField() {
+  Finder expectInputField({String? content, WidgetTester? tester}) {
     final finder = find.byKey(HomeScreenInput.inputFieldKey);
     expect(finder, findsOneWidget);
+    if (content != null && tester != null) {
+      expect(tester.widget<TextFormField>(finder).controller?.text, content);
+    }
     return finder;
   }
 
@@ -101,15 +121,37 @@ class HomeRobot {
     await tester.pumpAndSettle();
   }
 
-  Finder expectInputPassField() {
+  Future<void> enterTextInputField(String text) async {
+    await tester.enterText(expectInputField(), text);
+    await tester.pumpAndSettle();
+  }
+
+  Finder expectInputPassField({String? content, WidgetTester? tester, bool? isObscure}) {
     final finder = find.byKey(HomeScreenInput.inputPassFieldKey);
     expect(finder, findsOneWidget);
+    if (content != null && tester != null) {
+      expect(tester.widget<TextFormField>(finder).controller?.text, content);
+    }
+
+    if (isObscure != null && tester != null) {
+      // Access the EditableText through the TextFormField
+      final editableTextFinder = find.descendant(
+        of: finder,
+        matching: find.byType(EditableText),
+      );
+      expect(tester.widget<EditableText>(editableTextFinder).obscureText, isObscure);
+    }
     return finder;
   }
 
   Future<void> tapInputPassField() async {
     final finder = expectInputPassField();
     await tester.tap(finder);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> enterInputPassField(String text) async {
+    await tester.enterText(expectInputPassField(), text);
     await tester.pumpAndSettle();
   }
 
@@ -130,9 +172,30 @@ class HomeRobot {
     await tester.pumpAndSettle();
   }
 
-  Finder expectEncryptSwitch() {
+  Finder expectCensorButton() {
+    final finder = find.byKey(CensorIconButton.buttonKey);
+    expect(finder, findsOneWidget);
+    return finder;
+  }
+
+  Finder expectNoCensorButton() {
+    final finder = find.byKey(CensorIconButton.buttonKey);
+    expect(finder, findsNothing);
+    return finder;
+  }
+
+  Future<void> tapCensorButton() async {
+    final finder = expectCensorButton();
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+  }
+
+  Finder expectEncryptSwitch({bool? isActive, WidgetTester? tester}) {
     final finder = find.byKey(CipherActionSwitch.encryptActionKey);
     expect(finder, findsOneWidget);
+    if (isActive != null && tester != null) {
+      expect(tester.widget<GenericTitle>(finder).iconColor, (isActive) ? Colors.white : isNot(Colors.white));
+    }
     return finder;
   }
 
@@ -142,9 +205,12 @@ class HomeRobot {
     await tester.pumpAndSettle();
   }
 
-  Finder expectDecryptSwitch() {
+  Finder expectDecryptSwitch({bool? isActive, WidgetTester? tester}) {
     final finder = find.byKey(CipherActionSwitch.decryptActionKey);
     expect(finder, findsOneWidget);
+    if (isActive != null && tester != null) {
+      expect(tester.widget<GenericTitle>(finder).iconColor, (isActive) ? Colors.white : isNot(Colors.white));
+    }
     return finder;
   }
 
@@ -157,6 +223,25 @@ class HomeRobot {
   void expectHashDecryptErrorSnackbar() {
     final finder = find.byKey(CipherActionSwitch.hashDecyrptError);
     expect(finder, findsOneWidget);
+  }
+
+  Finder expectSelectedAlgorithmButton({String? content, WidgetTester? tester}) {
+    final finder = find.byKey(AlgorithmSelected.buttonKey);
+    expect(finder, findsOneWidget);
+    if (content != null && tester != null) {
+      final textFinder = find.descendant(
+        of: finder,
+        matching: find.byType(Text),
+      );
+      expect(tester.widget<Text>(textFinder).data, content);
+    }
+    return finder;
+  }
+
+  Future<void> tapSelectedAlgorithmButton() async {
+    final finder = expectSelectedAlgorithmButton();
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
   }
 
   Finder expectProcessButton() {
@@ -181,9 +266,12 @@ class HomeRobot {
     expect(finder, findsOneWidget);
   }
 
-  Finder expectOutputField() {
+  Finder expectOutputField({String? content, WidgetTester? tester}) {
     final finder = find.byKey(HomeScreenOutput.outputFieldKey);
     expect(finder, findsOneWidget);
+    if (content != null && tester != null) {
+      expect(tester.widget<TextFormField>(finder).controller?.text, content);
+    }
     return finder;
   }
 

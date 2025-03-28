@@ -4,7 +4,6 @@ import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_contr
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
 import 'package:cipher_dove/src/features/home/presentation/input_output_form_state.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -46,21 +45,21 @@ class ProcessButton extends ConsumerWidget {
           return;
         }
 
-        // Start operation.
         ref.read(showHudOverlayProvider.notifier).show(); // Shows overlay loading
-        final outputValue = await ref.read(cipherOutputControllerProvider.notifier).process(
-              input,
-              secret,
-              mode: cipherMode,
-            );
+        // Start operation.
+        await ref.read(cipherOutputControllerProvider.notifier).process(
+          input,
+          secret,
+          mode: cipherMode,
+          onSuccess: (String value) {
+            ref.read(outputTextFormStateProvider.notifier).text(value);
+          },
+          onError: (Object? e) {
+            ref.read(outputTextFormStateProvider.notifier).text("Invalid".tr());
+          },
+        );
 
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          // Using notifier to also force update the corresponding watching widget.
-          ref
-              .read(outputTextFormStateProvider.notifier)
-              .text((output.hasError || outputValue.isEmpty) ? "Invalid".tr() : outputValue);
-          ref.read(showHudOverlayProvider.notifier).hide(); // Hide overlay
-        });
+        ref.read(showHudOverlayProvider.notifier).hide(); // Hide overlay
       },
       buttonColor: PRIMARY_COLOR_D0,
       margin: EdgeInsets.zero,

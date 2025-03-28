@@ -29,12 +29,14 @@ class HomeScreenOutput extends ConsumerWidget {
             GenericTitle(key: titleKey, icon: Icons.output_outlined, title: "Output".tr()),
             GAP_H8,
             HomeTextfield(
-              key: outputFieldKey,
+              fieldKey: outputFieldKey,
               hintText: "Result here".tr(),
               maxLines: 6,
               readOnly: true,
               controller: output,
               onTap: () {
+                if (output.text.isEmpty) return;
+
                 Clipboard.setData(ClipboardData(text: output.text));
 
                 ScaffoldMessenger.of(context).clearSnackBars();

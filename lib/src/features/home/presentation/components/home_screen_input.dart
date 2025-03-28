@@ -48,7 +48,7 @@ class HomeScreenInput extends ConsumerWidget {
             GenericTitle(key: titleKey, icon: Icons.input_outlined, title: "Input".tr()),
             GAP_H8,
             HomeTextfield(
-              key: inputFieldKey,
+              fieldKey: inputFieldKey,
               hintText: "Type here...".tr(),
               maxLines: 6,
               readOnly: false,
@@ -60,7 +60,7 @@ class HomeScreenInput extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: HomeTextfield(
-                      key: inputPassFieldKey,
+                      fieldKey: inputPassFieldKey,
                       hintText: "Secret Key here...".tr(),
                       labelText: " Secret ".tr(),
                       maxLines: 1,

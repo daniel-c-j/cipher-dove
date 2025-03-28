@@ -16,10 +16,12 @@ class CipherOutputController extends _$CipherOutputController {
     // Nothing.
   }
 
-  Future<String> process(
+  Future<void> process(
     String input,
     String secretKey, {
     required CipherMode mode,
+    required void Function(String value) onSuccess,
+    required void Function(Object? e) onError,
   }) async {
     final repo = ref.read(localCipherRepositoryProvider);
     String output = "";
@@ -69,6 +71,7 @@ class CipherOutputController extends _$CipherOutputController {
       // Hash cannot be decrypted.
     });
 
-    return output;
+    if (state.hasError || output.isEmpty) return onError(state.error);
+    return onSuccess(output);
   }
 }

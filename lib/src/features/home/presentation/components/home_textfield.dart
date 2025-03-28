@@ -8,6 +8,7 @@ class HomeTextfield extends StatelessWidget {
     super.key,
     this.hintText,
     this.labelText,
+    required this.fieldKey,
     required this.maxLines,
     required this.readOnly,
     required this.controller,
@@ -17,6 +18,7 @@ class HomeTextfield extends StatelessWidget {
     this.obscureText = false,
   });
 
+  final Key fieldKey;
   final TextEditingController controller;
   final String? hintText;
   final String? labelText;
@@ -30,6 +32,7 @@ class HomeTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: fieldKey,
       controller: controller,
       style: kTextStyle(context).bodySmall?.copyWith(height: 0),
       maxLines: maxLines,
