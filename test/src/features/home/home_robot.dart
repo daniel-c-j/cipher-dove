@@ -3,6 +3,7 @@ import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/components/about_icon_button.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selected.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/cipher_action_switch.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/process_button.dart';
@@ -27,12 +28,14 @@ class HomeRobot {
   // * For the ease of testing the changetheme feature.
   Brightness themeBrightness = Brightness.light;
 
-  ProviderContainer makeProviderContainer(SharedPreferencesAsync pref) {
+  ProviderContainer makeProviderContainer(SharedPreferencesAsync pref, CipherOutputController cipherOutput) {
     return ProviderContainer(
       overrides: [
         // * This is necessary because platformBrightnessProvider and cipherModeStateProvider,
         // * needs to access database directly when they're initialized.
         sharedPrefProvider.overrideWithValue(pref),
+        // * To mock the process when process button is clicked.
+        cipherOutputControllerProvider.overrideWith(() => cipherOutput)
       ],
     );
   }

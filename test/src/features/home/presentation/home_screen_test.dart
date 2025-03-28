@@ -1,11 +1,15 @@
+import 'package:cipher_dove/src/common_widgets/hud_overlay.dart';
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/about_screen.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/algorithm_selection_screen.dart';
+import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
 import 'package:cipher_dove/src/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../mocks.dart';
 import '../home_robot.dart';
@@ -13,6 +17,21 @@ import '../home_robot.dart';
 void main() {
   const dummyTextInput = "DUMMY";
   const dummySecretTextInput = "DUMMY-SECRET";
+
+  late SharedPreferencesAsync pref;
+  late CipherOutputController cipherOutput;
+  late ProviderContainer container;
+
+  setUp(() {
+    pref = MockSharedPreferences();
+    cipherOutput = MockCipherOutputController();
+    when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
+    when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+  });
+
+  tearDown(() {
+    container.dispose();
+  });
 
   // * Note: All tests are wrapped with `runAsync` to prevent this error:
   // * A Timer is still pending even after the widget tree was disposed.
@@ -24,10 +43,8 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
+
       await r.pumpHomeScreen(container);
       r.expectAppbarTitle();
       r.expectAboutIconButton();
@@ -58,10 +75,7 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
       await r.tapAboutIconButton();
@@ -78,11 +92,9 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
+
+      container = r.makeProviderContainer(pref, cipherOutput);
       when(() => pref.setBool(DBKeys.BRIGHTNESS_LIGHT, any())).thenAnswer((_) async => Future.value());
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
 
       // Initial
       await r.pumpHomeScreen(container);
@@ -106,10 +118,7 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
       r.expectNoClearInputButton(); // Initial empty input
@@ -133,10 +142,7 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
       r.expectNoClearInputButton(); // Initial empty input
@@ -158,10 +164,7 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
       r.expectInputPassField();
@@ -185,10 +188,7 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
       r.expectEncryptSwitch(isActive: true, tester: tester); // Init
@@ -211,10 +211,7 @@ void main() {
   ''', (tester) async {
     await tester.runAsync(() async {
       final r = HomeRobot(tester);
-      final pref = MockSharedPreferences();
-      final container = r.makeProviderContainer(pref);
-      when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-      when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+      container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
       await r.tapSelectedAlgorithmButton();
@@ -224,5 +221,42 @@ void main() {
     });
   });
 
-  // TODO Complete this.
+  testWidgets('''
+    Given process button is rendered and input is empty,
+    When tapping the button,
+    Then error snackbar appears.
+  ''', (tester) async {
+    await tester.runAsync(() async {
+      final r = HomeRobot(tester);
+      container = r.makeProviderContainer(pref, cipherOutput);
+
+      await r.pumpHomeScreen(container);
+      await r.tapProcessButton();
+      r.expectEmptyInputErrorSnackbar();
+    });
+  });
+
+  testWidgets('''
+    Given process button is rendered and input is not empty,
+    When tapping the button,
+    Then Head-Up Display should appear for a moment, and disappear.
+  ''', (tester) async {
+    await tester.runAsync(() async {
+      final r = HomeRobot(tester);
+      container = r.makeProviderContainer(pref, cipherOutput);
+
+      await r.pumpHomeScreen(container);
+      await r.enterTextInputField(dummyTextInput);
+      await r.enterInputPassField(dummySecretTextInput);
+      expect(container.read(showHudOverlayProvider), isFalse); // Init
+
+      final states = [];
+      container.listen(showHudOverlayProvider, (previous, next) {
+        states.add(next);
+      }, fireImmediately: true);
+
+      await r.tapProcessButton();
+      expect(states, const [false, true, false]); // HUD hides, HUD shows, HUD hides again.
+    });
+  });
 }

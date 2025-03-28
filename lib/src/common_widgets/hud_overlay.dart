@@ -65,7 +65,6 @@ class HudOverlay extends StatelessWidget {
 
                 // Returns nothing when animation ends and show is false.
                 if (!show && !shouldRender) return const SizedBox.shrink();
-
                 return IgnorePointer(
                   child: AnimatedOpacity(
                     opacity: (show) ? 1 : 0,
