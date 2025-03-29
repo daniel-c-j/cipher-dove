@@ -1,29 +1,9 @@
-// TODO Github camo test result etc etc...
-
-<img src="./media/icon_hd.png" align="center" alt="icon_title" width=200></img>
+<img src="./media/icon_hd.png" align="center" alt="icon_title" width=200  style="display: block; margin: 0 auto;"></img>
 <h1 align="center"> [Cipher Dove] </h1>
 <p align="center">An open-source, offline, ad-free, basic encryption and decryption tool. </p>
 
-
-## Disclaimer
-This project, **Cipher Dove**, is a project intended for the purpose of showcasing my flutter skills... and also for fun.
-
-
-## Community and support
-No, currently I'm not accepting new features, but you can still submit a bug report.
-
-Yes, I'm always open for donation. 
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P4L666F)
-
-
-## Screenshots
-<img src="./media/screenshot (1).png" alt="screenshot"></img>
-<img src="./media/screenshot (2).png" alt="screenshot"></img>
-<img src="./media/screenshot (3).png" alt="screenshot"></img>
-<img src="./media/screenshot (4).png" alt="screenshot"></img>
-
-
+![GitHub License](https://img.shields.io/github/license/Daniel-C-J/cipher_dove)
+![Release Version](https://img.shields.io/github/v/release/Daniel-C-J/cipher_dove)
 
 ## Quick Start
 Currently, this app only supports for Android. I am unable to test the app for iOS platform, since I don't have any apple device.
@@ -31,11 +11,15 @@ Currently, this app only supports for Android. I am unable to test the app for i
 [Download latest version here.](https://github.com/Daniel-C-J/cipher_dove/releases)
 
 
-## About Cipher Dove
-1) This app is just your another basic encryption-decryption application with known and common algorithms, but optimized with certain packages that is fast, and have low memory consumptions. 
+## About Cipher 
+This project, **Cipher Dove**, is an application intended for the purpose of showcasing my flutter skills... and also for fun.
+
+1) This app is just your another simple basic encryption-decryption application with known and common algorithms, but optimized with certain packages that is fast, and have low memory consumptions. 
 2) This app is quite small, around 30MB.
-3) This app android min-sdk is 21. 
+3) This app android `min-sdk` is 21. 
 4) This app sole network request is only to this github page to check the version. (So no data of your phone sent)
+
+<br>
 
 Currently this app supports:
 - Aes Encryption/Decryption
@@ -45,6 +29,11 @@ Currently this app supports:
 - Sha-2 Hash
 - Sha-3 Hash
 - Blake2 Hash
+
+<img src="./media/screenshot (1).png" alt="screenshot" width=350  style="padding: 5px;" ></img>
+<img src="./media/screenshot (2).png" alt="screenshot" width=350  style="padding: 5px;"></img>
+<img src="./media/screenshot (3).png" alt="screenshot" width=350  style="padding: 5px;"></img>
+<img src="./media/screenshot (4).png" alt="screenshot" width=350  style="padding: 5px;"></img>
   
 Upcoming cipher algorithms:
 - RSA
@@ -52,6 +41,8 @@ Upcoming cipher algorithms:
 - ECC
 - Argon2
 - etc...
+
+<br>
 
 Overview of this project dependencies:
 - Riverpod (State Management & Dependency Injection)
@@ -61,6 +52,13 @@ Overview of this project dependencies:
 - And many more...!
 
 [See Changelog](./CHANGELOG.md)
+
+## Community and support
+No, currently I'm not accepting new features, but you can still submit a bug report.
+
+Yes, coffee is okay for me.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P4L666F)
 
 
 ## Install
