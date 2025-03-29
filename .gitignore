@@ -18,6 +18,7 @@ Checklist.pdf
 *REMINDER.txt
 *.code-workspace
 *bump.py
+*strings.json
 
 # IntelliJ related
 *.iml

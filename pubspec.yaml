@@ -110,7 +110,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
 
-  # Cool & Useful codegen
+  # Cool & useful codegen
   build_runner: ^2.4.13
 
   # Lints
