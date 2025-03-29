@@ -1,3 +1,5 @@
+<a id="readme-top"></a>
+
 <!-- Icon -->
 <p align="center">
     <img src="./media/icon_hd.png" alt="icon_title" width= 200></img>
@@ -94,13 +96,23 @@ flutter build --help
 flutter build apk --release # If you choose to build android app.
 ```
 
-1. The output path is usually in `./build`, for android specifically it is in `./build/app/outputs/flutter-apk/` alongside with the `sha-1` hash.
+4. The output path is usually in `./build`, for android specifically it is in `./build/app/outputs/flutter-apk/` alongside with the `sha-1` hash.
 ```sh
 start . # To quickly opens file explorer to see for yourself the output.
 ```
 
-1. And you're done! Congrats 🎉!
+5. And you're done! Congrats 🎉!
    
 
 ## License
-[MIT](./LICENSE)
+Distributed under the [MIT License](./LICENSE).
+
+
+## Contact
+Daniel CJ - dcj.dandy800@passinbox.com
+
+Project Link: [https://github.com/Daniel-C-J/cipher_dove](https://github.com/Daniel-C-J/cipher_dove)
+
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
+
+
