@@ -1,7 +1,7 @@
+<p align="center">
+  <img src="./media/icon_hd.png" alt="icon_title" width= 200></img>
+</p>
 
-<div style="width:20%; margin: auto;">
-    ![Icon](./media/icon_hd.png)
-</div>
 <h1 align="center"> [Cipher Dove] </h1>
 <p align="center">An open-source, offline, ad-free, basic encryption and decryption tool. </p>
 
