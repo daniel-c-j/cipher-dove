@@ -17,7 +17,6 @@ class NetConsts {
   static void init() {
     URL_CHECK_VERSION = "https://raw.githubusercontent.com/Daniel-C-J/cipher_dove"
         "/refs/heads/master/VERSION.json";
-
     URL_UPDATE_VERSION = "https://github.com/Daniel-C-J/cipher_dove/releases";
   }
 }

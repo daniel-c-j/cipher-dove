@@ -1,13 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:version/version.dart';
 
-import '../../../../constants/_constants.dart';
-import '../../../../core/_core.dart';
-import '../../domain/version_check.dart';
-import '../version_repo_.dart';
+import '../../../constants/_constants.dart';
+import '../../../core/_core.dart';
+import '../domain/version_check.dart';
+import 'version_repo_.dart';
 
 part 'remote_version_repo.g.dart';
 
@@ -32,9 +34,10 @@ class RemoteVersionCheckRepo implements VersionCheckRepo {
   }
 
   VersionCheck _parseVersionFromResponse(Response resp) {
-    final latestVer = _parseToVersion(resp.data['latestV']);
+    final mappedResp = json.decode(resp.data);
+    final latestVer = _parseToVersion(mappedResp['latestV']);
     final currentVer = _parseToVersion(AppInfo.CURRENT_VERSION);
-    final requiredToUpdateVer = _parseToVersion(resp.data['requiredV']);
+    final requiredToUpdateVer = _parseToVersion(mappedResp['requiredV']);
 
     return VersionCheck(
       latestVersion: latestVer,
