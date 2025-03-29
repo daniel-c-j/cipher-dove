@@ -4,7 +4,7 @@
 
 ![GitHub License](https://img.shields.io/github/license/Daniel-C-J/cipher_dove)
 ![Release Version](https://img.shields.io/github/v/release/Daniel-C-J/cipher_dove)
-![Coverage](https://github.com/Daniel-C-J/cipher_dove/coverage_badge.svg?sanitize=true)
+![Coverage](https://github.com/Daniel-C-J/cipher_dove/blob/master/coverage_badge.svg?sanitize=true)
 
 ## Quick Start
 Currently, this app only supports for Android. I am unable to test the app for iOS platform, since I don't have any apple device.
