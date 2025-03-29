@@ -1,14 +1,14 @@
 <p align="center">
     <img src="./media/icon_hd.png" alt="icon_title" width= 200></img>
-
-    <h1> [Cipher Dove] </h1>
-    <p>An open-source, offline, ad-free, basic encryption and decryption tool. </p>
 </p>
 
+<h1 align="center"> [Cipher Dove] </h1>
+<p align="center">An open-source, offline, ad-free, basic encryption and decryption tool. </p>
+
 <div align="center">
-    <a href="">![GitHub License](https://img.shields.io/github/license/Daniel-C-J/cipher_dove)</a>
-    <a href="">![Release Version](https://img.shields.io/github/v/release/Daniel-C-J/cipher_dove)</a>
-    <a href="">![Coverage](https://github.com/Daniel-C-J/cipher_dove/blob/master/coverage_badge.svg?sanitize=true)</a>
+    ![GitHub License](https://img.shields.io/github/license/Daniel-C-J/cipher_dove)
+    ![Release Version](https://img.shields.io/github/v/release/Daniel-C-J/cipher_dove)
+    ![Coverage](https://github.com/Daniel-C-J/cipher_dove/blob/master/coverage_badge.svg?sanitize=true)
 </div>
 
 ## Quick Start
