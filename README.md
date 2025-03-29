@@ -1,6 +1,6 @@
 // TODO Github camo test result etc etc...
 
-<img src="./media/icon_hd.png" align="center" alt="icon_title"></img>
+<img src="./media/icon_hd.png" align="center" alt="icon_title" width=200></img>
 <h1 align="center"> [Cipher Dove] </h1>
 <p align="center">An open-source, offline, ad-free, basic encryption and decryption tool. </p>
 
