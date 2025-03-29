@@ -1,15 +1,19 @@
+<!-- Icon -->
 <p align="center">
     <img src="./media/icon_hd.png" alt="icon_title" width= 200></img>
 </p>
 
+<!-- Title & Description -->
 <h1 align="center"> [Cipher Dove] </h1>
 <p align="center">An open-source, offline, ad-free, basic encryption and decryption tool. </p>
 
-<p align="center">
-    ![GitHub License](https://img.shields.io/github/license/Daniel-C-J/cipher_dove)
-</p>
-    ![Release Version](https://img.shields.io/github/v/release/Daniel-C-J/cipher_dove)
-    ![Coverage](https://github.com/Daniel-C-J/cipher_dove/blob/master/coverage_badge.svg?sanitize=true)
+<!-- Badges -->
+<div align="center">
+    <img src="https://img.shields.io/github/license/Daniel-C-J/cipher_dove" alt="license"></img>
+    <img src="https://img.shields.io/github/v/release/Daniel-C-J/cipher_dove" alt="release"></img>
+    <img src="https://github.com/Daniel-C-J/cipher_dove/blob/master/coverage_badge.svg?sanitize=true" alt="coverage"></img>
+</div>
+
 
 ## Quick Start
 Currently, this app only supports for Android. I am unable to test the app for iOS platform, since I don't have any apple device.
