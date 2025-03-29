@@ -78,10 +78,15 @@ Please head to the [release](https://github.com/Daniel-C-J/cipher_dove/releases)
 ## Build
 Make sure you have Flutter framework v3.27.4+ installed.
 
-1. Clone this repository `git clone https://github.com/Daniel-C-J/cipher_dove.git`
-2. Open your terminal and `cd` to the root path of the repository
-3. Type `flutter build --help` then head down to the `Available subcommands:` section, you'll be able to found the platform specific options to build the app. If you want to just build for android then simply type `flutter build apk`.
-4. The output path is usually in `./build`, for android specifically it is in `./build/app/outputs/flutter-apk/` alongside with the sha-1 hash.
+1. Clone this repository 
+> `git clone https://github.com/Daniel-C-J/cipher_dove.git`
+2. Open your terminal and `cd` to the root path of the repository, for example:
+> `cd cipher_dove`
+3. Type `flutter build --help` then head down to the `Available subcommands:` section, you'll be able to found the platform specific options to build the app. 
+> flutter build --help 
+> flutter build apk --release
+4. The output path is usually in `./build`, for android specifically it is in `./build/app/outputs/flutter-apk/` alongside with the sha-1 hash. You can, type `start .` to open the explorer (if you're using windows), and see for yourself the output app in the path `./build`.
+> start .
 5. And you're done! Congrats 🎉!
    
 
