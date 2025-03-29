@@ -29,7 +29,6 @@ This project, **Cipher Dove**, is an application intended for the purpose of sho
 1) This app is just your another simple basic encryption-decryption application with known and common algorithms, but optimized with certain packages that is fast, and have low memory consumptions. 
 2) This app is quite small, around 30MB.
 3) This app android `min-sdk` is 21. 
-4) This app sole network request is only to this github page to check the version. (So no data of your phone sent)
 
 <br>
 
