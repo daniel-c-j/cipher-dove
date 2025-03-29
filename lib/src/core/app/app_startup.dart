@@ -23,16 +23,16 @@ class AppStartup {
   const AppStartup();
 
   /// Create the root widget that should be passed to [runApp].
-  Future<Widget> createRootWidget({required ProviderContainer container}) async {
+  Future<Widget> createRootWidget({required ProviderContainer container, bool minimumTest = false}) async {
     // * Initalize app.
-    await _initializeApp();
+    if (!minimumTest) await _initializeApp();
 
     // * Initialize services/providers.
     await _initializeProviders(container);
 
     // * Register error handlers.
     final errorLogger = container.read(errorLoggerProvider);
-    _registerErrorHandlers(errorLogger);
+    if (!minimumTest) _registerErrorHandlers(errorLogger);
 
     return UncontrolledProviderScope(
       container: container,

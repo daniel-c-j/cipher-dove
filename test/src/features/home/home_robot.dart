@@ -1,4 +1,5 @@
 import 'package:cipher_dove/src/common_widgets/generic_title.dart';
+import 'package:cipher_dove/src/common_widgets/hud_overlay.dart';
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/components/about_icon_button.dart';
@@ -73,6 +74,28 @@ class HomeRobot {
         ),
       ),
     );
+  }
+
+  Future<void> expectLayoutIsCorrectByDefault() async {
+    expectAppbarTitle();
+    expectAboutIconButton();
+    expectThemeIconButton();
+
+    expectInputTitle();
+    expectInputField();
+    // Cipher algorithm is by default AES which is symmetric and require secretkey
+    expectInputPassField(isObscure: true, tester: tester);
+    expectCensorButton();
+    // Since input field is empty by default.
+    expectNoClearInputButton();
+
+    expectEncryptSwitch();
+    expectDecryptSwitch();
+
+    expectOutputTitle();
+    expectOutputField();
+    expectNoSwapButton(); // Output is empty
+    expectNoClearOutputButton(); // Output is empty
   }
 
   void expectAppbarTitle() {
@@ -284,6 +307,16 @@ class HomeRobot {
     await tester.pumpAndSettle();
   }
 
+  Future<void> enterOutputField(String text) async {
+    await tester.enterText(expectOutputField(), text);
+    await tester.pumpAndSettle();
+  }
+
+  void expectOutputCopiedSnackbar() {
+    final finder = find.byKey(HomeScreenOutput.outputFieldSnackbarCopiedKey);
+    expect(finder, findsOneWidget);
+  }
+
   Finder expectSwapButton() {
     final finder = find.byKey(SwapIconButton.buttonKey);
     expect(finder, findsOneWidget);
@@ -316,5 +349,25 @@ class HomeRobot {
     final finder = expectClearOutputButton();
     await tester.tap(finder);
     await tester.pumpAndSettle();
+  }
+
+  void expectHudBackground() {
+    final finder = find.byKey(HudOverlay.bgHudKey);
+    expect(finder, findsOneWidget);
+  }
+
+  void expectLaterHudBackground() {
+    final finder = find.byKey(HudOverlay.bgHudKey);
+    expectLater(finder, findsOneWidget);
+  }
+
+  void expectHudLoading() {
+    final finder = find.byKey(HudOverlay.loadingHudKey);
+    expect(finder, findsOneWidget);
+  }
+
+  void expectLaterHudLoading() {
+    final finder = find.byKey(HudOverlay.loadingHudKey);
+    expectLater(finder, findsOneWidget);
   }
 }

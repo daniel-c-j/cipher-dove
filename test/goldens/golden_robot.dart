@@ -6,8 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 // ignore: depend_on_referenced_packages
 import 'package:platform/platform.dart';
 
-// TODO golden test
-
 /// Helper class with some helper methods for golden image tests
 class GoldenRobot {
   GoldenRobot(this.tester);
@@ -38,11 +36,24 @@ class GoldenRobot {
     await fontLoader.load();
   }
 
-  /// Load Roboto font from the assets
-  Future<void> loadRobotoFont() async {
-    final font = rootBundle.load('assets/fonts/Roboto-Regular.ttf');
+  // TODO Dunno, does not work.
+  Future<void> loadBoxIconFont() async {
+    // const fs = LocalFileSystem();
+    // final iconFont = fs.file(
+    //     "C:/Users/Lenovo/AppData/Local/Pub/Cache/hosted/pub.dev/icons_plus-5.0.0/assets/fonts/BoxIcons.ttf");
+    final bytes = rootBundle.load('assets/icons/BoxIcons.ttf');
 
-    final fontLoader = FontLoader('Roboto')..addFont(font);
+    // final bytes = Future<ByteData>.value(iconFont.readAsBytesSync().buffer.asByteData());
+
+    final fontLoader = FontLoader('BoxIcons')..addFont(bytes);
+    await fontLoader.load();
+  }
+
+  /// Load Roboto font from the assets
+  Future<void> loadTextFont() async {
+    final font = rootBundle.load('assets/google_fonts/SourceCodePro-Regular.ttf');
+
+    final fontLoader = FontLoader('SourceCodePro')..addFont(font);
     await fontLoader.load();
   }
 

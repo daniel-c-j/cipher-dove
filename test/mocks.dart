@@ -39,6 +39,9 @@ class MockCipherMode extends Mock implements CipherMode {}
 
 /// Force manual mocking, life is sad :(... but keep smile!
 class MockCipherOutputController extends CipherOutputController {
+  MockCipherOutputController({this.action});
+  final Function()? action;
+
   @override
   FutureOr<void> build() {}
 
@@ -49,7 +52,9 @@ class MockCipherOutputController extends CipherOutputController {
     required CipherMode mode,
     required void Function(String value) onSuccess,
     required void Function(Object? e) onError,
-  }) async {}
+  }) async {
+    action;
+  }
 }
 
 class MockCallback extends Mock {

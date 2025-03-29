@@ -107,6 +107,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
 
   # Cool & Useful codegen
   build_runner: ^2.4.13
@@ -131,6 +133,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/google_fonts/
+    - assets/icons/
     - assets/translations/
     - assets/images/contact/
     - assets/images/splash/

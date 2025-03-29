@@ -10,12 +10,16 @@ import 'home_textfield.dart';
 import 'icon_buttons/swap_icon_button.dart';
 import '../input_output_form_state.dart';
 
+@visibleForTesting
+bool readOnlyOutputField = true;
+
 /// Containing output text field with its other options.
 class HomeScreenOutput extends ConsumerWidget {
   const HomeScreenOutput({super.key});
 
   static const titleKey = Key("HomeScreenOutputTitle");
   static const outputFieldKey = Key("HomeScreenOutputFieldKey");
+  static const outputFieldSnackbarCopiedKey = Key("outputFieldSnackbarCopiedKey");
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +36,7 @@ class HomeScreenOutput extends ConsumerWidget {
               fieldKey: outputFieldKey,
               hintText: "Result here".tr(),
               maxLines: 6,
-              readOnly: true,
+              readOnly: readOnlyOutputField,
               controller: output,
               onTap: () {
                 if (output.text.isEmpty) return;
@@ -42,6 +46,7 @@ class HomeScreenOutput extends ConsumerWidget {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
+                    key: outputFieldSnackbarCopiedKey,
                     content: Text("Copied to clipboard.".tr()),
                     dismissDirection: DismissDirection.horizontal,
                   ),
@@ -50,19 +55,24 @@ class HomeScreenOutput extends ConsumerWidget {
             ),
           ],
         ),
-        if (output.text.isNotEmpty)
-          const Positioned(
-            right: -2.5,
-            top: -3.5,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SwapIconButton(),
-                GAP_W4,
-                ClearOutputIconButton(),
-              ],
-            ),
-          )
+        // To autoupdate
+        ValueListenableBuilder(
+          valueListenable: output,
+          builder: (context, value, child) {
+            if (output.text.isNotEmpty) {
+              return const Positioned(
+                right: -2.5,
+                top: -3.5,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [SwapIconButton(), GAP_W4, ClearOutputIconButton()],
+                ),
+              );
+            }
+
+            return const SizedBox.shrink();
+          },
+        ),
       ],
     );
   }

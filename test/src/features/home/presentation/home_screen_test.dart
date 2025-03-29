@@ -4,6 +4,7 @@ import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/about_screen.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/algorithm_selection_screen.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
+import 'package:cipher_dove/src/features/home/presentation/components/home_screen_output.dart';
 import 'package:cipher_dove/src/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,25 +47,7 @@ void main() {
       container = r.makeProviderContainer(pref, cipherOutput);
 
       await r.pumpHomeScreen(container);
-      r.expectAppbarTitle();
-      r.expectAboutIconButton();
-      r.expectThemeIconButton();
-
-      r.expectInputTitle();
-      r.expectInputField();
-      // Cipher algorithm is AES which is symmetric and require secretkey
-      r.expectInputPassField();
-      r.expectCensorButton();
-      // Since input field is empty by default.
-      r.expectNoClearInputButton();
-
-      r.expectEncryptSwitch();
-      r.expectDecryptSwitch();
-
-      r.expectOutputTitle();
-      r.expectOutputField();
-      r.expectNoSwapButton(); // Output is empty
-      r.expectNoClearOutputButton(); // Output is empty
+      r.expectLayoutIsCorrectByDefault();
     });
   });
 
@@ -257,6 +240,66 @@ void main() {
 
       await r.tapProcessButton();
       expect(states, const [false, true, false]); // HUD hides, HUD shows, HUD hides again.
+    });
+  });
+
+  testWidgets('''
+    Given outputTextField is rendered and is empty,
+    When entering text,
+    Then text should not appear since the textfield is read-only.
+  ''', (tester) async {
+    await tester.runAsync(() async {
+      final r = HomeRobot(tester);
+      container = r.makeProviderContainer(pref, cipherOutput);
+
+      await r.pumpHomeScreen(container);
+      await r.enterOutputField(dummySecretTextInput);
+      r.expectOutputField(content: '', tester: tester);
+    });
+  });
+
+  testWidgets('''
+    Given outputTextField is rendered and is empty, 
+    When content exist,
+    Then text should appear along-side with swap buttons and clearOutput button, vice-versa.
+  ''', (tester) async {
+    await tester.runAsync(() async {
+      final r = HomeRobot(tester);
+      container = r.makeProviderContainer(pref, cipherOutput);
+
+      readOnlyOutputField = false;
+      await r.pumpHomeScreen(container);
+      r.expectNoSwapButton();
+      r.expectNoClearOutputButton();
+
+      await r.enterOutputField(dummySecretTextInput);
+      r.expectOutputField(content: dummySecretTextInput, tester: tester);
+      r.expectSwapButton();
+      r.expectClearOutputButton();
+
+      await r.enterOutputField("");
+      r.expectOutputField(content: "", tester: tester);
+      r.expectNoSwapButton();
+      r.expectNoClearOutputButton();
+    });
+  });
+
+  testWidgets('''
+    Given outputTextField has content,
+    When widget is tapped,
+    Then output copied feedback snackbar should appear.
+  ''', (tester) async {
+    await tester.runAsync(() async {
+      final r = HomeRobot(tester);
+      container = r.makeProviderContainer(pref, cipherOutput);
+
+      readOnlyOutputField = false;
+      await r.pumpHomeScreen(container);
+      await r.enterOutputField(dummySecretTextInput);
+
+      r.expectOutputField(content: dummySecretTextInput, tester: tester);
+      await r.tapOutputField();
+      r.expectOutputCopiedSnackbar();
     });
   });
 }
