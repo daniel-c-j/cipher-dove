@@ -24,6 +24,8 @@ Currently, this app only supports for Android. I am unable to test the app for i
 
 
 ## About Cipher 
+<img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)"></img>
+
 This project, **Cipher Dove**, is an application intended for the purpose of showcasing my flutter skills... and also for fun.
 
 1) This app is just your another simple basic encryption-decryption application with known and common algorithms, but optimized with certain packages that is fast, and have low memory consumptions. 
