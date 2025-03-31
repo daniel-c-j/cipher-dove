@@ -60,6 +60,8 @@ Overview of this project dependencies:
 - Dio (Network requests)
 - Logger (Logging)
 - Localizations
+- SharedPreferences & Hive CE
+- GoRouter (Routing)
 - And many more...!
 
 [See Changelog](./CHANGELOG.md)

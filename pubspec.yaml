@@ -30,6 +30,9 @@ dependencies:
   # Unique id generator.
   uuid: ^4.4.2
 
+  # Api to expose native OS filesystem's path.
+  path_provider: ^2.1.5
+
   # Handles dependency licenses.
   # flutter_oss_licenses: ^3.0.4
 
@@ -104,7 +107,6 @@ dependencies:
 
   # README badge.
   test_coverage_badge: ^0.3.2
-  path_provider: ^2.1.5
 
 #
 # ======================================================================================================
