@@ -1,8 +1,8 @@
-import 'package:cipher_dove/src/features/cipher/data/local/local_cipher_repo.dart';
 import 'package:cipher_dove/src/features/cipher/domain/cipher_action.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../constants/_constants.dart';
+import '../data/local_default_cipher_repo.dart';
 import '../domain/cipher_algorithm.dart';
 import '../domain/cipher_mode.dart';
 
@@ -19,6 +19,9 @@ class CipherModeState extends _$CipherModeState {
     );
   }
 
+  /// Change the state of this provider.
+  set mode(CipherMode mode) => state = mode;
+
   /// Fetching config data from local repo.
   Future<void> init() async {
     final algorithm = await getDefault();
@@ -27,14 +30,11 @@ class CipherModeState extends _$CipherModeState {
 
   /// Talks to the repository to get the data.
   Future<CipherAlgorithm> getDefault() async {
-    return await ref.read(localCipherRepositoryProvider).getDefaultAlgorithm();
+    return await ref.read(defaultCipherRepoProvider).getDefaultAlgorithm();
   }
 
   /// Talks to the repository to set the data.
   Future<void> setDefault(CipherAlgorithm algorithm) async {
-    await ref.read(localCipherRepositoryProvider).setDefaultAlgorithm(algorithm);
+    await ref.read(defaultCipherRepoProvider).setDefaultAlgorithm(algorithm);
   }
-
-  /// Change the state of this provider.
-  set mode(CipherMode mode) => state = mode;
 }

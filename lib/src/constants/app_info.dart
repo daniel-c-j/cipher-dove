@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// Basic app identity informations.
-class AppInfo {
+final class AppInfo {
   static const unknown = "UNKNOWN";
 
-  // TODO recheck whether README, Github Description, and Pubspec.yaml are all matching?
+  // TODO recheck whether README, Github Description, and Pubspec.yaml are all matching with title and desc.
   // ! These two are crucial and should not depend on the packageInfo or any changing operations.
   static const String TITLE = "Cipher Dove";
   static const String DESCRIPTION = "An open-source, offline, ad-free, basic encryption and decryption tool.";
@@ -19,15 +19,17 @@ class AppInfo {
 
   // ? Why are these needed and why the above properties are private?
   // ? - NEEDED because of unit testing purposes.
-  // ?   This class is a data container, and should be constant or not changed during runtime.
+  // ?   This class is a global data container, and should be constant or not changed during runtime.
   // ?   Because the state remains static once init method is called, the only way to simulate
-  // ?   the class behaviour for testing different scenario while in the same static data container,
+  // ?   the class behaviour for testing different scenarios while in the same static data container,
   // ?   is through non-final/non-const private properties and public getters.
   // ?
   // ? - PRIVATE because they should NOT be modified unless from the init method --which will be simulated
   // ?   with cases [if success] and [if fail]-- that's why they can only be accessed through
-  // ?   the getters below --which will verify the testing cases--, which cannot be modified.
+  // ?   the getters below --which will verify the testing cases--, which cannot and should not be modified.
   // ?
+  // ? A better solution is to make this class a singleton and change the static method into non-static ones.
+  // ? Or just use a provider and/or make this class private.
   static String get CURRENT_VERSION => _CURRENT_VERSION;
   static String get PACKAGE_NAME => _PACKAGE_NAME;
   static String get BUILD_NUMBER => _BUILD_NUMBER;
@@ -60,6 +62,8 @@ class AppInfo {
   }
 }
 
+/// Helper class to easily mock the [PackageInfo], since `PackageInfo.fromPlatform()` is  a static method,
+/// and is hard to test.
 class PackageInfoWrapper {
   const PackageInfoWrapper();
   Future<PackageInfo> fromPlatform() async => await PackageInfo.fromPlatform();

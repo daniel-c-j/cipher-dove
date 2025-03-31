@@ -1,10 +1,10 @@
+import 'package:cipher_dove/src/features/version_check/data/remote_version_repo.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:cipher_dove/src/constants/app_info.dart';
 import 'package:cipher_dove/src/constants/network_constants.dart';
 import 'package:cipher_dove/src/core/network/api_service.dart';
-import 'package:cipher_dove/src/features/version_check/data/remote/remote_version_repo.dart';
 import 'package:cipher_dove/src/features/version_check/domain/version_check.dart';
 import 'package:version/version.dart';
 

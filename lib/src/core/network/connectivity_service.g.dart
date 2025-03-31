@@ -7,7 +7,7 @@ part of 'connectivity_service.dart';
 // **************************************************************************
 
 String _$connectivityNotifierHash() =>
-    r'439887297e30fbc656c45a91eadefc380c078b0f';
+    r'e852ba1c89782c7f61078ed620d511a2b53e1440';
 
 /// Watching this will cause the widget to rebuild based on the internet connectivity status.
 ///

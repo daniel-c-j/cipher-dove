@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
 /// Data container containing network constants.
-class NetConsts {
+final class NetConsts {
   /// [Dio] configuration.
   static const String APPLICATION_JSON = "application/json";
   static const String CONTENT_TYPE = "content-type";

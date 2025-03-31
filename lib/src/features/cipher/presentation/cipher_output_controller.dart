@@ -1,4 +1,4 @@
-import 'package:cipher_dove/src/features/cipher/data/local/local_cipher_repo.dart';
+import 'package:cipher_dove/src/features/cipher/data/local_algorithm_repo.dart';
 import 'package:cipher_dove/src/util/delay.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

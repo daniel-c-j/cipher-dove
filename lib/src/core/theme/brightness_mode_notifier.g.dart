@@ -7,7 +7,7 @@ part of 'brightness_mode_notifier.dart';
 // **************************************************************************
 
 String _$platformBrightnessHash() =>
-    r'78d5c8ba6e8506145d5d0c3b6efdf7604c1a2216';
+    r'0f9bc19a22272225cb8220582cb841ebe688508a';
 
 /// See also [PlatformBrightness].
 @ProviderFor(PlatformBrightness)

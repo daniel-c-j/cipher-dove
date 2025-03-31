@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cipher_dove/src/core/local_db/hive_adapters.dart';
+import 'package:cipher_dove/src/core/local_db/hive_registrar.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,8 @@ import 'package:go_transitions/go_transitions.dart';
 import 'package:google_fonts/google_fonts.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../app.dart';
 import '../../constants/_constants.dart';
 import '../../exceptions/error_logger.dart';
@@ -55,9 +59,18 @@ class AppStartup {
     NetConsts.init();
     await AppInfo.init(const PackageInfoWrapper());
 
+    // Hive localDB -- Must be after Default.init()
+    if (Default.LOCAL_DB == LocalDB.hive) {
+      if (!kIsWeb) Hive.init((await getApplicationDocumentsDirectory()).path);
+      Hive.registerAdapters();
+      await Hive.initBoxes();
+    }
+
     // Removing the # sign, and follow the real configured route in the URL for the web.
-    usePathUrlStrategy();
-    GoRouter.optionURLReflectsImperativeAPIs = true;
+    if (kIsWeb) {
+      usePathUrlStrategy();
+      GoRouter.optionURLReflectsImperativeAPIs = true;
+    }
 
     /// Set default transition values for all `GoTransition`.
     GoTransition.defaultCurve = Curves.easeInOut;
@@ -66,7 +79,7 @@ class AppStartup {
     // Necessary to prevent http error for some devices.
     HttpOverrides.global = MyHttpOverrides();
 
-    // Prevent google font to access internet to download the font again.
+    // Prevent google font to access internet to download the already downloaded font.
     GoogleFonts.config.allowRuntimeFetching = false;
 
     // Release mode configurations.

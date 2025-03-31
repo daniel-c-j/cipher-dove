@@ -1,7 +1,7 @@
 name: cipher_dove
 description: "An open-source, offline, ad-free, basic encryption and decryption tool."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 1.0.1+1
+version: 1.1.0+1
 
 #
 # ======================================================================================================
@@ -66,6 +66,8 @@ dependencies:
 
   # Local database/storage utility.
   shared_preferences: ^2.2.3
+  hive_ce: ^2.10.1
+  hive_ce_flutter: ^2.2.0
 
   # Handy collection library
   collection: ^1.19.0
@@ -95,13 +97,14 @@ dependencies:
   # App theme font customization.
   google_fonts: ^6.2.1
 
-  # Decorations
+  # Decorations.
   cupertino_icons: ^1.0.8
   icons_plus: ^5.0.0
   toggle_switch: ^2.3.0
 
-  # README
+  # README badge.
   test_coverage_badge: ^0.3.2
+  path_provider: ^2.1.5
 
 #
 # ======================================================================================================
@@ -114,7 +117,7 @@ dev_dependencies:
     sdk: flutter
 
   # Cool & useful codegen
-  build_runner: ^2.4.13
+  build_runner: ^2.4.15
 
   # Lints
   flutter_lints: ^5.0.0
@@ -123,6 +126,9 @@ dev_dependencies:
   # Helps code faster and lesser.
   riverpod_generator: ^2.6.2
   riverpod_lint: ^2.6.2
+
+  # For hive noSQL db.
+  hive_ce_generator: ^1.8.1
 
   # For testing.
   mocktail: ^1.0.4

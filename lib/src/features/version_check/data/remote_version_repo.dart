@@ -34,7 +34,7 @@ class RemoteVersionCheckRepo implements VersionCheckRepo {
   }
 
   VersionCheck _parseVersionFromResponse(Response resp) {
-    final mappedResp = json.decode(resp.data);
+    final mappedResp = json.decode(resp.data as String);
     final latestVer = _parseToVersion(mappedResp['latestV']);
     final currentVer = _parseToVersion(AppInfo.CURRENT_VERSION);
     final requiredToUpdateVer = _parseToVersion(mappedResp['requiredV']);

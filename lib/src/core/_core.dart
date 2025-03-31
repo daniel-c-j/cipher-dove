@@ -1,7 +1,7 @@
 export 'app/app_startup.dart';
 export 'app/app_startup_container.dart';
 export 'app/navigation.dart';
-export 'app/shared_prefs.dart';
+export 'local_db/shared_prefs.dart';
 export 'network/api_service.dart';
 export 'network/connectivity_service.dart';
 export 'network/dio_factory.dart';
