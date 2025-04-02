@@ -1,26 +1,29 @@
 // coverage:ignore-file
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dio_factory.dart';
+part of 'shared_prefs.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dioHash() => r'b08ba6a215e771ef4fdde7a26aad799615aa14d9';
+String _$sharedPrefHash() => r'c42492ad979843f2e3cd03048badc0d8febc25aa';
 
-/// See also [dio].
-@ProviderFor(dio)
-final dioProvider = AutoDisposeProvider<Dio>.internal(
-  dio,
-  name: r'dioProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$dioHash,
+/// Local database.
+///
+/// Copied from [sharedPref].
+@ProviderFor(sharedPref)
+final sharedPrefProvider = Provider<SharedPreferencesAsync>.internal(
+  sharedPref,
+  name: r'sharedPrefProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedPrefHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DioRef = AutoDisposeProviderRef<Dio>;
+typedef SharedPrefRef = ProviderRef<SharedPreferencesAsync>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

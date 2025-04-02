@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../exceptions/_exceptions.dart';

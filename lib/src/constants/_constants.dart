@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 export 'app_info.dart';
 export 'app_sizes.dart';
 export 'conf.dart';

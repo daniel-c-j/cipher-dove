@@ -1,10 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
 import 'package:cipher_dove/src/common_widgets/generic_title.dart';
 import 'package:cipher_dove/src/common_widgets/hud_overlay.dart';
-import 'package:cipher_dove/src/constants/_constants.dart';
-import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/components/about_icon_button.dart';
-import 'package:cipher_dove/src/features/cipher/presentation/cipher_mode_state.dart';
-import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/algorithm_selected.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/cipher_action_switch.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/components/process_button.dart';
@@ -15,66 +12,13 @@ import 'package:cipher_dove/src/features/home/presentation/components/icon_butto
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/clear_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/swap_icon_button.dart';
 import 'package:cipher_dove/src/features/home/presentation/components/icon_buttons/theme_icon_button.dart';
-import 'package:cipher_dove/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @visibleForTesting
 class HomeRobot {
   HomeRobot(this.tester);
   final WidgetTester tester;
-
-  // * For the ease of testing the changetheme feature.
-  Brightness themeBrightness = Brightness.light;
-
-  ProviderContainer makeProviderContainer(SharedPreferencesAsync pref, CipherOutputController cipherOutput) {
-    return ProviderContainer(
-      overrides: [
-        // * This is necessary because platformBrightnessProvider and cipherModeStateProvider,
-        // * needs to access database directly when they're initialized.
-        sharedPrefProvider.overrideWithValue(pref),
-        // * To mock the process when process button is clicked.
-        cipherOutputControllerProvider.overrideWith(() => cipherOutput)
-      ],
-    );
-  }
-
-  Future<void> _necessaryIntializations(ProviderContainer container) async {
-    try {
-      Default.init();
-      NetConsts.init();
-      await AppInfo.init(const PackageInfoWrapper());
-    } catch (e) {
-      // Simply put, they're all initialized.
-    }
-
-    await container.read(platformBrightnessProvider.notifier).init();
-    await container.read(cipherModeStateProvider.notifier).init();
-  }
-
-  Future<void> pumpHomeScreen(ProviderContainer container) async {
-    await _necessaryIntializations(container);
-
-    return await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: Consumer(
-          builder: (context, ref, child) {
-            final brightness = ref.watch(platformBrightnessProvider);
-            themeBrightness = brightness;
-
-            return MaterialApp.router(
-              routerConfig: ref.watch(goRouterProvider),
-              color: (brightness == Brightness.light) ? Colors.white : Colors.black,
-              themeMode: (brightness == Brightness.light) ? ThemeMode.light : ThemeMode.dark,
-            );
-          },
-        ),
-      ),
-    );
-  }
 
   Future<void> expectLayoutIsCorrectByDefault() async {
     expectAppbarTitle();

@@ -1,26 +1,27 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dio_factory.dart';
+part of 'local_default_cipher_repo.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dioHash() => r'b08ba6a215e771ef4fdde7a26aad799615aa14d9';
+String _$defaultCipherRepoHash() => r'afc7f94e29b7655d7b0237e3dd3b78038693c4d6';
 
-/// See also [dio].
-@ProviderFor(dio)
-final dioProvider = AutoDisposeProvider<Dio>.internal(
-  dio,
-  name: r'dioProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$dioHash,
+/// See also [defaultCipherRepo].
+@ProviderFor(defaultCipherRepo)
+final defaultCipherRepoProvider = Provider<DefaultCipherRepository>.internal(
+  defaultCipherRepo,
+  name: r'defaultCipherRepoProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$defaultCipherRepoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DioRef = AutoDisposeProviderRef<Dio>;
+typedef DefaultCipherRepoRef = ProviderRef<DefaultCipherRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

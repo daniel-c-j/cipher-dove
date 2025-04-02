@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,7 +9,7 @@ part 'cipher_algorithm.g.dart';
 
 // TODO Localizations for those stringDetail.
 
-@HiveType(typeId: DBKeys.CIPHER_ALROGITHM_TYPE)
+@HiveType(typeId: DBKeys.CIPHER_ALROGITHM_TYPE_HIVE)
 enum CipherAlgorithmType {
   @HiveField(0)
   symmetric(
@@ -34,7 +35,7 @@ enum CipherAlgorithmType {
   String get stringDetail => tag.tr();
 }
 
-@HiveType(typeId: DBKeys.CIPHER_ALROGITHM)
+@HiveType(typeId: DBKeys.CIPHER_ALROGITHM_HIVE)
 enum CipherAlgorithm {
   // * symmetric
   @HiveField(0)

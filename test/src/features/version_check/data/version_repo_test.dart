@@ -26,13 +26,13 @@ void main() {
         requiredToUpdateVer: Version(0, 1, 0, preRelease: ["alpha"]),
       );
 
-  Response<Map<String, dynamic>> mockResponse() => Response(
+  Response mockResponse() => Response(
         requestOptions: RequestOptions(),
         statusCode: 200,
-        data: {"latestV": "1.0.0", "requiredV": "0.1.0-alpha"},
+        data: '{"latestV": "1.0.0", "requiredV": "0.1.0-alpha"}',
       );
 
-  Response<Map<String, dynamic>> mockErrResponse() => Response(
+  Response mockErrResponse() => Response(
         requestOptions: RequestOptions(),
         statusCode: 404,
         data: null,

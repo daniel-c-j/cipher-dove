@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 // ignore_for_file: constant_identifier_names
 
 /// Layout breakpoints used in the app.

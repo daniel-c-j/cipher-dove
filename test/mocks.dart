@@ -7,6 +7,7 @@ import 'package:cipher_dove/src/features/cipher/domain/cipher_mode.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/cipher_output_controller.dart';
 import 'package:cipher_dove/src/features/version_check/data/version_repo_.dart';
 import 'package:cryptography_plus/cryptography_plus.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
@@ -29,7 +30,9 @@ class MockVersionCheckRepo extends Mock implements VersionCheckRepo {}
 
 class MockInternetConnection extends Mock implements InternetConnection {}
 
-class MockSharedPreferences extends Mock implements SharedPreferencesAsync {}
+class MockSharedPreferencesAsync extends Mock implements SharedPreferencesAsync {}
+
+class MockHiveBox<T> extends Mock implements Box<T> {}
 
 class MockCryptography extends Mock implements Cryptography {}
 

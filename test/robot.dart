@@ -1,10 +1,16 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
+import 'package:cipher_dove/src/core/local_db/hive_registrar.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
@@ -28,25 +34,35 @@ class Robot {
       Default.init();
       NetConsts.init();
       await AppInfo.init(const PackageInfoWrapper());
+
+      // Hive-specific
+      if (Default.LOCAL_DB == LocalDB.hive) {
+        Hive.init((Directory('/mock/path')).path);
+        Hive.registerAdapters();
+        await Hive.initBoxes();
+      }
     } catch (e) {
       // Simply put, they're all initialized.
+      log(e.toString());
     }
   }
 
-  Future<void> pumpApp({bool isGolden = false}) async {
+  Future<void> pumpApp({bool isGolden = false, ProviderContainer? container}) async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    // Golden test requirements.
-    if (isGolden) SharedPreferences.setMockInitialValues({});
-    if (isGolden) await SharedPreferences.getInstance();
-    if (isGolden) SharedPreferencesAsyncPlatform.instance = InMemorySharedPreferencesAsync.empty();
-    canListenToNetworkStatusChange = (isGolden == false);
+    // Simulation requirements.
+    SharedPreferencesAsyncPlatform.instance = InMemorySharedPreferencesAsync.empty();
+    canListenToNetworkStatusChange = false;
+
+    // Easy_localization test requirement.
+    SharedPreferences.setMockInitialValues({});
+
+    await _necessaryIntializations(); // Must be before rootWidget.
 
     // Creating app startup instance for initialization.
-    await _necessaryIntializations(); // Must be before rootWidget.
     const appStartup = AppStartup();
-    final container = await appStartup.initializeProviderContainer();
-    final root = await appStartup.createRootWidget(container: container, minimumTest: true);
+    final container_ = await appStartup.initializeProviderContainer();
+    final root = await appStartup.createRootWidget(container: container ?? container_, minimumTest: true);
 
     // * Entry point of the app
     await tester.pumpWidget(root);

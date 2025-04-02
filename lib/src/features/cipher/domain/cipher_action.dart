@@ -3,7 +3,7 @@ import 'package:hive_ce/hive.dart';
 
 part 'cipher_action.g.dart';
 
-@HiveType(typeId: DBKeys.CIPHER_ACTION)
+@HiveType(typeId: DBKeys.CIPHER_ACTION_HIVE)
 enum CipherAction {
   @HiveField(0)
   encrypt,

@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'connectivity_service.dart';
@@ -6,20 +8,16 @@ part of 'connectivity_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$connectivityNotifierHash() =>
-    r'e852ba1c89782c7f61078ed620d511a2b53e1440';
+String _$connectivityNotifierHash() => r'e852ba1c89782c7f61078ed620d511a2b53e1440';
 
 /// Watching this will cause the widget to rebuild based on the internet connectivity status.
 ///
 /// Copied from [ConnectivityNotifier].
 @ProviderFor(ConnectivityNotifier)
-final connectivityNotifierProvider =
-    NotifierProvider<ConnectivityNotifier, bool>.internal(
+final connectivityNotifierProvider = NotifierProvider<ConnectivityNotifier, bool>.internal(
   ConnectivityNotifier.new,
   name: r'connectivityNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$connectivityNotifierHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$connectivityNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

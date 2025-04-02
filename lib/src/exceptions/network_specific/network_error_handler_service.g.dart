@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'network_error_handler_service.dart';
@@ -10,13 +11,10 @@ String _$netErrorHandlerHash() => r'64aa4826e1c6d23cb37d975ff3442c05ed9327dc';
 
 /// See also [netErrorHandler].
 @ProviderFor(netErrorHandler)
-final netErrorHandlerProvider =
-    AutoDisposeProvider<NetworkErrorHandlerService>.internal(
+final netErrorHandlerProvider = AutoDisposeProvider<NetworkErrorHandlerService>.internal(
   netErrorHandler,
   name: r'netErrorHandlerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$netErrorHandlerHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$netErrorHandlerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

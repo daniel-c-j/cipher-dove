@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:cipher_dove/src/core/local_db/hive_adapters.dart';
-import 'package:cipher_dove/src/core/local_db/hive_registrar.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_transitions/go_transitions.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hive_ce/hive.dart';
@@ -17,10 +16,9 @@ import '../../app.dart';
 import '../../constants/_constants.dart';
 import '../../exceptions/error_logger.dart';
 import '../../features/cipher/presentation/cipher_mode_state.dart';
+import '../local_db/hive_registrar.g.dart';
 import '../../util/context_shortcut.dart';
 import '../_core.dart';
-
-// TODO localize strings in the app, watchout.
 
 /// Helper class to initialize services and configure the error handlers.
 class AppStartup {
@@ -35,13 +33,15 @@ class AppStartup {
     await _initializeProviders(container);
 
     // * Register error handlers.
-    final errorLogger = container.read(errorLoggerProvider);
-    if (!minimumTest) _registerErrorHandlers(errorLogger);
+    if (!minimumTest) {
+      final errorLogger = container.read(errorLoggerProvider);
+      _registerErrorHandlers(errorLogger);
+    }
 
     return UncontrolledProviderScope(
       container: container,
       child: EasyLocalization(
-        path: 'assets/translations',
+        path: 'assets/translations', // TODO localize strings in the app, watchout.
         supportedLocales: const [Locale('en', 'US')],
         fallbackLocale: const Locale('en', 'US'),
         child: const App(),
@@ -92,7 +92,6 @@ class AppStartup {
   /// Provider and/or service listener initializations. Not to confuse with ProviderContainer
   /// initialization.
   Future<void> _initializeProviders(ProviderContainer container) async {
-    container.read(connectivityNotifierProvider);
     await container.read(platformBrightnessProvider.notifier).init();
     await container.read(cipherModeStateProvider.notifier).init();
   }

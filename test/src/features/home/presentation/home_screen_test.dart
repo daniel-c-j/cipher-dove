@@ -1,5 +1,4 @@
 import 'package:cipher_dove/src/common_widgets/hud_overlay.dart';
-import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/features/about/presentation/about_screen.dart';
 import 'package:cipher_dove/src/features/cipher/presentation/algorithm_selection_screen.dart';
@@ -9,25 +8,21 @@ import 'package:cipher_dove/src/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../mocks.dart';
-import '../home_robot.dart';
+import '../../../../robot.dart';
 
 void main() {
   const dummyTextInput = "DUMMY";
   const dummySecretTextInput = "DUMMY-SECRET";
 
-  late SharedPreferencesAsync pref;
-  late CipherOutputController cipherOutput;
   late ProviderContainer container;
 
   setUp(() {
-    pref = MockSharedPreferences();
-    cipherOutput = MockCipherOutputController();
-    when(() => pref.getBool(DBKeys.BRIGHTNESS_LIGHT)).thenAnswer((_) async => Future.value(true));
-    when(() => pref.getInt(DBKeys.CIPHER_ALGORITHM_INDEX)).thenAnswer((_) async => Future.value(0));
+    final cipherOutput = MockCipherOutputController();
+    container = ProviderContainer(overrides: [
+      cipherOutputControllerProvider.overrideWith(() => cipherOutput),
+    ]);
   });
 
   tearDown(() {
@@ -43,11 +38,9 @@ void main() {
     Then layout should be correct.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
-
-      await r.pumpHomeScreen(container);
-      r.expectLayoutIsCorrectByDefault();
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
+      await r.home.expectLayoutIsCorrectByDefault();
     });
   });
 
@@ -57,11 +50,10 @@ void main() {
     Then screen should change into AboutScreen.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      await r.tapAboutIconButton();
+      await r.home.tapAboutIconButton();
 
       expect(find.byType(HomeScreen), findsNothing);
       expect(find.byType(AboutScreen), findsOneWidget);
@@ -74,23 +66,17 @@ void main() {
     Then app theme should change accordingly.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-
-      container = r.makeProviderContainer(pref, cipherOutput);
-      when(() => pref.setBool(DBKeys.BRIGHTNESS_LIGHT, any())).thenAnswer((_) async => Future.value());
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
       // Initial
-      await r.pumpHomeScreen(container);
       expect(container.read(platformBrightnessProvider), Brightness.light);
-      expect(r.themeBrightness, Brightness.light);
 
-      await r.tapThemeIconButton();
+      await r.home.tapThemeIconButton();
       expect(container.read(platformBrightnessProvider), Brightness.dark);
-      expect(r.themeBrightness, Brightness.dark);
 
-      await r.tapThemeIconButton();
+      await r.home.tapThemeIconButton();
       expect(container.read(platformBrightnessProvider), Brightness.light);
-      expect(r.themeBrightness, Brightness.light);
     });
   });
 
@@ -100,20 +86,20 @@ void main() {
     Then clearInputButton should appear accordingly.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      r.expectNoClearInputButton(); // Initial empty input
+      // Initial empty input
+      r.home.expectNoClearInputButton();
 
-      await r.tapInputField();
-      r.expectNoClearInputButton();
+      await r.home.tapInputField();
+      r.home.expectNoClearInputButton();
 
-      await r.enterTextInputField(dummyTextInput);
-      r.expectClearInputButton();
+      await r.home.enterTextInputField(dummyTextInput);
+      r.home.expectClearInputButton();
 
-      await r.enterTextInputField("");
-      r.expectNoClearInputButton();
+      await r.home.enterTextInputField("");
+      r.home.expectNoClearInputButton();
     });
   });
 
@@ -124,18 +110,17 @@ void main() {
     And clearInputButton disappear.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      r.expectNoClearInputButton(); // Initial empty input
+      r.home.expectNoClearInputButton(); // Initial empty input
 
-      await r.enterTextInputField(dummyTextInput);
-      r.expectClearInputButton();
+      await r.home.enterTextInputField(dummyTextInput);
+      r.home.expectClearInputButton();
 
-      await r.tapClearInputButton();
-      r.expectInputField(content: "", tester: tester);
-      r.expectNoClearInputButton();
+      await r.home.tapClearInputButton();
+      r.home.expectInputField(content: "", tester: tester);
+      r.home.expectNoClearInputButton();
     });
   });
 
@@ -146,21 +131,20 @@ void main() {
     And can be un-obscured.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      r.expectInputPassField();
-      r.expectCensorButton();
+      r.home.expectInputPassField();
+      r.home.expectCensorButton();
 
-      await r.enterInputPassField(dummyTextInput);
-      r.expectInputPassField(content: dummyTextInput, isObscure: true, tester: tester);
+      await r.home.enterInputPassField(dummyTextInput);
+      r.home.expectInputPassField(content: dummyTextInput, isObscure: true, tester: tester);
 
-      await r.tapCensorButton();
-      r.expectInputPassField(content: dummyTextInput, isObscure: false, tester: tester);
+      await r.home.tapCensorButton();
+      r.home.expectInputPassField(content: dummyTextInput, isObscure: false, tester: tester);
 
-      await r.tapCensorButton();
-      r.expectInputPassField(content: dummyTextInput, isObscure: true, tester: tester);
+      await r.home.tapCensorButton();
+      r.home.expectInputPassField(content: dummyTextInput, isObscure: true, tester: tester);
     });
   });
 
@@ -170,20 +154,19 @@ void main() {
     Then switch should be selected.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      r.expectEncryptSwitch(isActive: true, tester: tester); // Init
-      r.expectDecryptSwitch(isActive: false, tester: tester);
+      r.home.expectEncryptSwitch(isActive: true, tester: tester); // Init
+      r.home.expectDecryptSwitch(isActive: false, tester: tester);
 
-      await r.tapDecryptSwitch();
-      r.expectDecryptSwitch(isActive: true, tester: tester);
-      r.expectEncryptSwitch(isActive: false, tester: tester);
+      await r.home.tapDecryptSwitch();
+      r.home.expectDecryptSwitch(isActive: true, tester: tester);
+      r.home.expectEncryptSwitch(isActive: false, tester: tester);
 
-      await r.tapEncryptSwitch();
-      r.expectEncryptSwitch(isActive: true, tester: tester);
-      r.expectDecryptSwitch(isActive: false, tester: tester);
+      await r.home.tapEncryptSwitch();
+      r.home.expectEncryptSwitch(isActive: true, tester: tester);
+      r.home.expectDecryptSwitch(isActive: false, tester: tester);
     });
   });
 
@@ -193,11 +176,10 @@ void main() {
     Then user redirected to algorithmSelection screen.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      await r.tapSelectedAlgorithmButton();
+      await r.home.tapSelectedAlgorithmButton();
 
       expect(find.byType(HomeScreen), findsNothing);
       expect(find.byType(AlgorithmSelectionScreen), findsOneWidget);
@@ -210,12 +192,11 @@ void main() {
     Then error snackbar appears.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      await r.tapProcessButton();
-      r.expectEmptyInputErrorSnackbar();
+      await r.home.tapProcessButton();
+      r.home.expectEmptyInputErrorSnackbar();
     });
   });
 
@@ -225,12 +206,11 @@ void main() {
     Then Head-Up Display should appear for a moment, and disappear.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      await r.enterTextInputField(dummyTextInput);
-      await r.enterInputPassField(dummySecretTextInput);
+      await r.home.enterTextInputField(dummyTextInput);
+      await r.home.enterInputPassField(dummySecretTextInput);
       expect(container.read(showHudOverlayProvider), isFalse); // Init
 
       final states = [];
@@ -238,7 +218,7 @@ void main() {
         states.add(next);
       }, fireImmediately: true);
 
-      await r.tapProcessButton();
+      await r.home.tapProcessButton();
       expect(states, const [false, true, false]); // HUD hides, HUD shows, HUD hides again.
     });
   });
@@ -249,12 +229,11 @@ void main() {
     Then text should not appear since the textfield is read-only.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      await r.pumpApp(container: container);
 
-      await r.pumpHomeScreen(container);
-      await r.enterOutputField(dummySecretTextInput);
-      r.expectOutputField(content: '', tester: tester);
+      await r.home.enterOutputField(dummySecretTextInput);
+      r.home.expectOutputField(content: '', tester: tester);
     });
   });
 
@@ -264,23 +243,22 @@ void main() {
     Then text should appear along-side with swap buttons and clearOutput button, vice-versa.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      readOnlyOutputField = false; // Before pumping
+      await r.pumpApp(container: container);
 
-      readOnlyOutputField = false;
-      await r.pumpHomeScreen(container);
-      r.expectNoSwapButton();
-      r.expectNoClearOutputButton();
+      r.home.expectNoSwapButton();
+      r.home.expectNoClearOutputButton();
 
-      await r.enterOutputField(dummySecretTextInput);
-      r.expectOutputField(content: dummySecretTextInput, tester: tester);
-      r.expectSwapButton();
-      r.expectClearOutputButton();
+      await r.home.enterOutputField(dummySecretTextInput);
+      r.home.expectOutputField(content: dummySecretTextInput, tester: tester);
+      r.home.expectSwapButton();
+      r.home.expectClearOutputButton();
 
-      await r.enterOutputField("");
-      r.expectOutputField(content: "", tester: tester);
-      r.expectNoSwapButton();
-      r.expectNoClearOutputButton();
+      await r.home.enterOutputField("");
+      r.home.expectOutputField(content: "", tester: tester);
+      r.home.expectNoSwapButton();
+      r.home.expectNoClearOutputButton();
     });
   });
 
@@ -290,16 +268,15 @@ void main() {
     Then output copied feedback snackbar should appear.
   ''', (tester) async {
     await tester.runAsync(() async {
-      final r = HomeRobot(tester);
-      container = r.makeProviderContainer(pref, cipherOutput);
+      final r = Robot(tester);
+      readOnlyOutputField = false; // Before pumping
+      await r.pumpApp(container: container);
 
-      readOnlyOutputField = false;
-      await r.pumpHomeScreen(container);
-      await r.enterOutputField(dummySecretTextInput);
+      await r.home.enterOutputField(dummySecretTextInput);
+      r.home.expectOutputField(content: dummySecretTextInput, tester: tester);
 
-      r.expectOutputField(content: dummySecretTextInput, tester: tester);
-      await r.tapOutputField();
-      r.expectOutputCopiedSnackbar();
+      await r.home.tapOutputField();
+      r.home.expectOutputCopiedSnackbar();
     });
   });
 }

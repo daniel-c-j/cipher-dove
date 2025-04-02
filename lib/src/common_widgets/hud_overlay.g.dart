@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'hud_overlay.dart';
@@ -13,9 +15,7 @@ String _$showHudOverlayHash() => r'caf3c4ad2ce4a07a91208ac482ea6887daeb92ad';
 final showHudOverlayProvider = NotifierProvider<ShowHudOverlay, bool>.internal(
   ShowHudOverlay.new,
   name: r'showHudOverlayProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$showHudOverlayHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$showHudOverlayHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

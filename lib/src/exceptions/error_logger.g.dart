@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'error_logger.dart';
@@ -21,8 +22,7 @@ String _$errorLoggerHash() => r'7b218ca355d3a47fb1653e16bcbc688e6a5584b9';
 final errorLoggerProvider = AutoDisposeProvider<ErrorLogger>.internal(
   errorLogger,
   name: r'errorLoggerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$errorLoggerHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$errorLoggerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

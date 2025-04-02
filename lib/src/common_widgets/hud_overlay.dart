@@ -5,6 +5,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'hud_overlay.g.dart';
 
+/// For testing purpose only!
+@visibleForTesting
+bool forceShowHUD = false;
+
 @Riverpod(keepAlive: true)
 class ShowHudOverlay extends _$ShowHudOverlay {
   @override
@@ -63,8 +67,12 @@ class HudOverlay extends StatelessWidget {
                 final show = ref.watch(showHudOverlayProvider);
                 final duration = Duration(milliseconds: (withDelay) ? 800 : 0);
 
-                // Returns nothing when animation ends and show is false.
-                if (!show && !shouldRender) return const SizedBox.shrink();
+                // If not testing whatsoever, the condition below will apply.
+                if (!forceShowHUD) {
+                  // Returns nothing when animation ends and show is false.
+                  if (!show && !shouldRender) return const SizedBox.shrink();
+                }
+
                 return IgnorePointer(
                   child: AnimatedOpacity(
                     opacity: (show) ? 1 : 0,

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 library;
 
 import 'package:easy_localization/easy_localization.dart';

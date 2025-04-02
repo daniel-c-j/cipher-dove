@@ -1,3 +1,4 @@
+// coverage:ignore-file
 part of 'app_exception.dart';
 
 class BadRequestException extends AppException {

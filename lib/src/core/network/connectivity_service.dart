@@ -18,14 +18,14 @@ class ConnectivityNotifier extends _$ConnectivityNotifier {
   @override
   bool build() {
     ref.onDispose(() {
-      _subscription.cancel();
+      _subscription?.cancel();
     });
 
     return false;
   }
 
   final _internetConnectionChecker = InternetConnection();
-  late StreamSubscription<InternetStatus> _subscription;
+  StreamSubscription<InternetStatus>? _subscription;
 
   ConnectivityNotifier() {
     if (!canListenToNetworkStatusChange) return;

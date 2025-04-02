@@ -33,7 +33,7 @@ void main() {
           path: '/',
           builder: (context, state) => Scaffold(
             body: Builder(builder: (context) {
-              isInhome = true;
+              isInhome = true; // * assertion
               return const Text('Home');
             }),
           ),
