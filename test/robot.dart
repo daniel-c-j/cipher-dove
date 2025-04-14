@@ -1,12 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:cipher_dove/src/constants/_constants.dart';
 import 'package:cipher_dove/src/core/_core.dart';
 import 'package:cipher_dove/src/core/local_db/hive_registrar.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,7 +37,7 @@ class Robot {
 
       // Hive-specific
       if (Default.LOCAL_DB == LocalDB.hive) {
-        Hive.init((Directory('/mock/path')).path);
+        Hive.init((await getTemporaryDirectory()).path);
         Hive.registerAdapters();
         await Hive.initBoxes();
       }

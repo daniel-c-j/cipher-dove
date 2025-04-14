@@ -30,6 +30,7 @@ Checklist.pdf
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
+.vscode/settings.json
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -63,3 +64,15 @@ firebase-exports
 
 # Ignore test coverage data
 coverage/lcov.info
+
+# Firebase config
+.firebaserc
+firebase.json
+
+# Firebase config files
+lib/firebase_options.dart
+ios/Runner/GoogleService-Info.plist
+ios/firebase_app_id_file.json
+macos/Runner/GoogleService-Info.plist
+macos/firebase_app_id_file.json
+android/app/google-services.json

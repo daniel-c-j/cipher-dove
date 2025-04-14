@@ -23,7 +23,7 @@ Currently, this app only supports for Android. I am unable to test the app for i
 [Download latest version here.](https://github.com/Daniel-C-J/cipher_dove/releases)
 
 
-## About Cipher 
+## About Cipher Dove 
 <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)"></img>
 
 This project, **Cipher Dove**, is an application intended for the purpose of showcasing my flutter skills... and also for fun.
@@ -32,7 +32,30 @@ This project, **Cipher Dove**, is an application intended for the purpose of sho
 2) This app is quite small, around 30MB.
 3) This app android `min-sdk` is 21. 
 
-<br>
+### Architecture
+
+Yeah, after a brief inner-debating, feature-first might be good enough for this project. So this is what it looks like:
+```
+├─common_widgets
+├─constants
+├─core
+│  ├─app
+│  ├─local_db
+│  ├─network
+│  ├─theme
+├─exceptions
+├─features
+│  ├─cipher
+│  │  ├─data
+│  │  ├─domain
+│  │  └─presentation
+├─routing
+└─util
+```
+
+... more or less :v.
+
+### Features
 
 Currently this app supports:
 - Aes Encryption/Decryption
