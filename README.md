@@ -32,7 +32,7 @@ Currently, this app only supports for Android. I am unable to test the app for i
 
 This project, **Cipher Dove**, is an application intended for the purpose of showcasing my flutter skills... and also for fun.
 
-1) This app is just your another simple basic encryption-decryption application with known and common algorithms, but optimized with certain packages that is fast, and have low memory consumptions. 
+1) This app is just your another simple basic encryption-decryption application with known and common algorithms, but optimized with certain packages that are highly optimized, and primarily consume low memory. 
 2) This app is quite small, around 30MB.
 3) This app android `min-sdk` is 21. 
 
