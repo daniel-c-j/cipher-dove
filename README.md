@@ -18,7 +18,7 @@
 
 
 <br/>
-est. read time: <b>6 minutes</b>
+est. read time: <b>3 minutes</b>
 <br/>
 
 ## Quick Start
