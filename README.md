@@ -17,6 +17,10 @@
 </div>
 
 
+<br/>
+est. read time: **6 minutes**
+<br/>
+
 ## Quick Start
 Currently, this app only supports for Android. I am unable to test the app for iOS platform, since I don't have any apple device.
 [Download latest version here.](https://github.com/Daniel-C-J/cipher_dove/releases/latest)
