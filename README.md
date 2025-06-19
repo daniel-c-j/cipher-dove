@@ -19,8 +19,8 @@
 
 ## Quick Start
 Currently, this app only supports for Android. I am unable to test the app for iOS platform, since I don't have any apple device.
+[Download latest version here.](https://github.com/Daniel-C-J/cipher_dove/releases/latest)
 
-[Download latest version here.](https://github.com/Daniel-C-J/cipher_dove/releases)
 
 
 ## About Cipher Dove 
@@ -31,6 +31,7 @@ This project, **Cipher Dove**, is an application intended for the purpose of sho
 1) This app is just your another simple basic encryption-decryption application with known and common algorithms, but optimized with certain packages that is fast, and have low memory consumptions. 
 2) This app is quite small, around 30MB.
 3) This app android `min-sdk` is 21. 
+
 
 ### Architecture
 
@@ -45,15 +46,26 @@ Yeah, after a brief inner-debating, feature-first might be good enough for this 
 │  ├─theme
 ├─exceptions
 ├─features
-│  ├─cipher
-│  │  ├─data
-│  │  ├─domain
-│  │  └─presentation
 ├─routing
 └─util
 ```
 
-... more or less :v.
+
+#### Example Feature Structure
+```
+features/
+ ├─cipher
+ │  │  ├─data
+ │  │  ├─domain
+ │  │  └─presentation
+ ```
+
+The principles here are: 
+
+- **Feature-driven**: Each feature is independent and reusable
+- **Domain isolation**: utilities → features → widgets → app
+- **Consistency**: Between business logic, UI, and data layers
+
 
 ### Features
 
